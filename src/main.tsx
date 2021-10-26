@@ -34,6 +34,9 @@ class AppContainer extends Component<AppProps, AppState> {
     return (
       <StrictMode>
         <div className="test-block">
+          <h2>Home page</h2>
+        </div>
+        <div className="test-block">
           <h2 className={style.mainTitle}>{this.state.title}</h2>
         </div>
         <div className={["test-block", style.background].join(" ")}>
