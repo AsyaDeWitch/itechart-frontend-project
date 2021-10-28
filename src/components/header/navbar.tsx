@@ -1,6 +1,6 @@
 import RouteItem from "@/shared/routeItem";
 import { Component } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import RouteItems from "../../shared/routeItems";
 import "./header.scss";
 
@@ -17,9 +17,9 @@ export default class Navbar extends Component<Props> {
           <ul className="navbar__menu">
             {RouteItems.map((item: RouteItem) => (
               <li key={item.id}>
-                <a className={item.className} href={item.url}>
+                <Link className={item.className} to={item.url}>
                   {item.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
