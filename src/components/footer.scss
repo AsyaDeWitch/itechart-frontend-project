@@ -1,0 +1,50 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.footer {
+  display: block;
+  font-size: 1.4em;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+
+  &__slogan {
+    text-align: center;
+  }
+
+  &__menu {
+    margin-top: 0%;
+    display: inline-grid;
+    grid-template: 1fr / repeat(10, 10%);
+    list-style: none;
+    justify-content: center;
+    margin-right: 2rem;
+  }
+
+  &__links {
+    padding: 2vw;
+  }
+
+  &__links:hover {
+    background-color: $basicThemeColor;
+    border-radius: 4px;
+    height: 10vh;
+    transition: all 0.2s ease-out;
+  }
+
+  &__links:focus {
+    background-color: $basicThemeColor;
+    border-radius: 4px;
+    height: 10vh;
+    transition: all 0.2s ease-out;
+    outline: none;
+  }
+
+  &__icons {
+    height: 1.5em;
+    width: auto;
+  }
+}

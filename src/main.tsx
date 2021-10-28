@@ -1,28 +1,26 @@
-import "./styles/main.css";
 import "./styles/main.scss";
 // watch: native intellisense and file-peek for aliases from jsconfig.json and with none-js files doesn't work: https://github.com/microsoft/TypeScript/issues/29334
-import imgSmall from "images/testSmall.png"; // start-path is 'images' because we have an alias 'images' in webpack.common.js
-import imgCamera from "images/camera.svg";
 import { Component, StrictMode } from "react";
 import ReactDom from "react-dom";
-import style from "./styles/main.module.css";
-import someTypeScript from "./someTypeScript";
+import { Switch, Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import Home from "@/components/info/home";
+import About from "@/components/info/about";
+import Games from "@/components/products/games";
+import RouteItems from "./shared/routeItems";
+import Header from "./components/header/header";
+import Footer from "./components/footer";
 
-interface AppProps {
-  nothing: boolean;
-}
-interface AppState {
+const Title = "Best Games Market";
+
+interface Props {
   title: string;
 }
 
-class AppContainer extends Component<AppProps, AppState> {
+class AppContainer extends Component<Props> {
   ["constructor"]: typeof AppContainer;
 
-  constructor(props: AppProps) {
+  constructor(props: Props) {
     super(props);
-    this.state = {
-      title: someTypeScript("Test-block for css-modules"),
-    };
     // test class-dead-code
     const goExlcude = true;
     if (!goExlcude) {
@@ -33,26 +31,27 @@ class AppContainer extends Component<AppProps, AppState> {
   render() {
     return (
       <StrictMode>
-        <div className="test-block">
-          <h2>Home page</h2>
-        </div>
-        <div className="test-block">
-          <h2 className={style.mainTitle}>{this.state.title}</h2>
-        </div>
-        <div className={["test-block", style.background].join(" ")}>
-          <h2>Test-block for url-loader</h2>
-          <img src={imgSmall} alt="smallImage" />
-        </div>
-        {/*  or it can be
-          <img src='/src/images/testSmall.png' alt="smallImage"></img>
-        */}
-        <div className={["test-block", style.svgBackground].join(" ")}>
-          <h2>Test-block for svg-url-loader</h2>
-          <img src={imgCamera} alt="small_SVG_Image" />
-        </div>
+        <Router>
+          <Header title={this.props.title} />
+          <Switch>
+            <Route exact path={RouteItems[1].url}>
+              <Games />
+            </Route>
+            <Route exact path={RouteItems[2].url}>
+              <About />
+            </Route>
+            <Route exact path={RouteItems[0].url}>
+              <Home />
+            </Route>
+            <Route>
+              <Redirect to={RouteItems[0].url} />
+            </Route>
+          </Switch>
+          <Footer />
+        </Router>
       </StrictMode>
     );
   }
 }
 
-ReactDom.render(<AppContainer nothing={false} />, document.getElementById("app"));
+ReactDom.render(<AppContainer title={Title} />, document.getElementById("app"));
