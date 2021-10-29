@@ -1,13 +1,13 @@
 @font-face {
-  font-family: "OpenSans-Regular";
+  font-family: "Montserrat", sans-serif;
   /* IE9 Compat Modes */
-  src: url("~fonts/OpenSans-Regular.eot");
+  src: url("~fonts/Montserrat-Alternates-Extralight.eot");
   /* IE6-IE8 */
-  src: url("~fonts/OpenSans-Regular.eot?#iefix") format("embedded-opentype"),
-    /* Super Modern Browsers */ url("~fonts/OpenSans-Regular.woff2") format("woff2"),
-    /* Pretty Modern Browsers */ url("~fonts/OpenSans-Regular.woff") format("woff"),
-    /* Safari, Android, iOS */ url("~fonts/OpenSans-Regular.ttf") format("truetype"),
-    /* Legacy iOS */ url("~fonts/OpenSans-Regular.svg#OpenSans-Regular") format("svg");
+  src: url("~fonts/Montserrat-Alternates-Extralight.eot?#iefix") format("embedded-opentype"),
+    /* Super Modern Browsers */ url("~fonts/Montserrat-Alternates-Extralight.woff2") format("woff2"),
+    /* Pretty Modern Browsers */ url("~fonts/Montserrat-Alternates-Extralight.woff") format("woff"),
+    /* Safari, Android, iOS */ url("~fonts/Montserrat-Alternates-Extralight.ttf") format("truetype"),
+    /* Legacy iOS */ url("~fonts/Montserrat-Alternates-Extralight.svg#OpenSans-Regular") format("svg");
   font-weight: normal;
   font-style: normal;
 }

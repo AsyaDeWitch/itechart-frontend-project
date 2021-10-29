@@ -13,7 +13,7 @@
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
-
+  "files.eol": "\n",
   /*
     if you want fix by format set the following in keybindings.json:
      {
