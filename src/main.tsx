@@ -1,8 +1,8 @@
 import "./styles/main.scss";
 // watch: native intellisense and file-peek for aliases from jsconfig.json and with none-js files doesn't work: https://github.com/microsoft/TypeScript/issues/29334
-import { Component } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import { ErrorInfo, PureComponent } from "react";
 import Header from "./components/header/header";
 import Footer from "./components/footer";
 import RouteMapper from "./shared/routeMapper";
@@ -13,16 +13,25 @@ interface Props {
   title: string;
 }
 
-class AppContainer extends Component<Props> {
+interface State {
+  hasError: boolean;
+}
+
+class AppContainer extends PureComponent<Props, State> {
   ["constructor"]: typeof AppContainer;
 
   constructor(props: Props) {
     super(props);
-    // test class-dead-code
-    const goExlcude = true;
-    if (!goExlcude) {
-      console.warn("class-dead-code doesn't work");
-    }
+    this.state = { hasError: false };
+  }
+
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error("Uncaught error:", error, errorInfo);
+    alert("Something went wrong...");
+  }
+
+  public getDerivedStateFromError(): State {
+    return { hasError: true };
   }
 
   render() {
@@ -36,6 +45,11 @@ class AppContainer extends Component<Props> {
           <Route>
             <Redirect to={RouteMapper.Home.url} />
           </Route>
+          {this.state.hasError && (
+            <Route>
+              <Redirect to={RouteMapper.Home.url} />
+            </Route>
+          )}
         </Switch>
         <Footer />
       </Router>
