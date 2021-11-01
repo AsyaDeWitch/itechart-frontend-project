@@ -5,6 +5,7 @@ export default function Header(props: { title: string }): JSX.Element {
   useEffect(() => {
     document.title = props.title;
   }, []);
+
   return (
     <div>
       <header>

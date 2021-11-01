@@ -1,46 +1,41 @@
 import "./styles/main.scss";
 // watch: native intellisense and file-peek for aliases from jsconfig.json and with none-js files doesn't work: https://github.com/microsoft/TypeScript/issues/29334
-import { Component } from "react";
 import ReactDom from "react-dom";
+import { History, createBrowserHistory } from "history";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import { Component } from "react";
 import Header from "./components/header/header";
 import Footer from "./components/footer";
 import RouteMapper from "./shared/routeMapper";
+import ErrorBoundary from "./shared/errorBoundary";
 
-const Title = "Best Games Market";
+const title = "Best Games Market";
+const history = createBrowserHistory();
 
 interface Props {
   title: string;
+  history: History;
 }
 
 class AppContainer extends Component<Props> {
   ["constructor"]: typeof AppContainer;
 
-  constructor(props: Props) {
-    super(props);
-    // test class-dead-code
-    const goExlcude = true;
-    if (!goExlcude) {
-      console.warn("class-dead-code doesn't work");
-    }
-  }
-
   render() {
     return (
-      <Router>
-        <Header title={this.props.title} />
-        <Switch>
-          <Route exact path={RouteMapper.About.url} component={RouteMapper.About.component} />
-          <Route exact path={RouteMapper.Products.url} component={RouteMapper.Products.component} />
-          <Route exact path={RouteMapper.Home.url} component={RouteMapper.Home.component} />
-          <Route>
+      <ErrorBoundary history={this.props.history}>
+        <Router>
+          <Header title={this.props.title} />
+          <Switch>
+            <Route path={RouteMapper.About.url} component={RouteMapper.About.component} />
+            <Route path={RouteMapper.Products.url} component={RouteMapper.Products.component} />
+            <Route exact path={RouteMapper.Home.url} component={RouteMapper.Home.component} />
             <Redirect to={RouteMapper.Home.url} />
-          </Route>
-        </Switch>
-        <Footer />
-      </Router>
+          </Switch>
+          <Footer />
+        </Router>
+      </ErrorBoundary>
     );
   }
 }
 
-ReactDom.render(<AppContainer title={Title} />, document.getElementById("app"));
+ReactDom.render(<AppContainer title={title} history={history} />, document.getElementById("app"));
