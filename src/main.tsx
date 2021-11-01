@@ -13,25 +13,13 @@ interface Props {
   title: string;
 }
 
-interface State {
-  hasError: boolean;
-}
-
-class AppContainer extends PureComponent<Props, State> {
+class AppContainer extends PureComponent<Props> {
   ["constructor"]: typeof AppContainer;
-
-  constructor(props: Props) {
-    super(props);
-    this.state = { hasError: false };
-  }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("Uncaught error:", error, errorInfo);
     alert("Something went wrong...");
-  }
-
-  public getDerivedStateFromError(): State {
-    return { hasError: true };
+    window.location.href = RouteMapper.Home.url;
   }
 
   render() {
@@ -45,11 +33,6 @@ class AppContainer extends PureComponent<Props, State> {
           <Route>
             <Redirect to={RouteMapper.Home.url} />
           </Route>
-          {this.state.hasError && (
-            <Route>
-              <Redirect to={RouteMapper.Home.url} />
-            </Route>
-          )}
         </Switch>
         <Footer />
       </Router>

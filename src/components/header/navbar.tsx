@@ -1,5 +1,5 @@
 import RouteItem from "@/shared/routeItem";
-import { Component } from "react";
+import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import RouteItems from "../../shared/routeItems";
 import "./header.scss";
@@ -8,7 +8,7 @@ interface Props {
   title: string;
 }
 
-export default class Navbar extends Component<Props> {
+export default class Navbar extends PureComponent<Props> {
   render(): JSX.Element {
     return (
       <nav className="navbar">
