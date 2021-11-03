@@ -14,4 +14,9 @@ export default webpackMockServer.add((app, helper) => {
   app.post("/testPostMock", (req, res) => {
     res.json({ body: req.body || null, success: true });
   });
+  // app.get("/api/search", (req, res) => {
+  //  const response = {
+  //    id: req.query,
+  //  }
+  // })
 });

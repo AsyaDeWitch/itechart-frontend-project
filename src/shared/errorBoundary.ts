@@ -1,6 +1,6 @@
 import { ErrorInfo, Component, ReactNode } from "react";
 import { History } from "history";
-import RouteMapper from "./routeMapper";
+import RouteItems from "./routes/items/routeItems";
 
 interface Props {
   history: History;
@@ -27,7 +27,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   render(): ReactNode {
     if (this.state.hasError) {
-      this.props.history.push(RouteMapper.Home.url);
+      this.props.history.push(RouteItems.Home.url);
     }
 
     return this.props.children;
