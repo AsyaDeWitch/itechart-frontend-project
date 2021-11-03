@@ -1,7 +1,7 @@
-export default function GameCard(): JSX.Element {
+export default function GameCard(props: { productItem: string }): JSX.Element {
   return (
     <div onClick={() => alert("got product!")}>
-      <h2>Game</h2>
+      <h2>Game {props.productItem}</h2>
     </div>
   );
 }

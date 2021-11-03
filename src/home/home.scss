@@ -1,0 +1,8 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.home {
+  &__searchBar {
+    text-align: center;
+  }
+}
