@@ -10,7 +10,6 @@ export default class Home extends PureComponent {
   render(): JSX.Element {
     return (
       <>
-        <h2>Home page</h2>
         <div className="home__searchBar">
           <SearchBar />
         </div>
