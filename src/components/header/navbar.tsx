@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./header.scss";
-import RouteItems from "../../shared/routes/items/routeItems";
+import RouteItems from "@/shared/routes/items/routeItems";
 import Dropdown from "./dropdown";
 
 export default function Navbar(props: { title: string }): JSX.Element {

@@ -1,8 +1,9 @@
 import JsonCategories from "../../mockData/categories.json";
+import CategoryItem from "./categoryItem";
 
-const Categories: string[] = [];
+const Categories: CategoryItem[] = [];
 JsonCategories.forEach((item) => {
-  Categories.push(item.name);
+  Categories.push(item);
 });
 
 export default Categories;

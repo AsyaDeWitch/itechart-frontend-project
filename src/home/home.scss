@@ -5,4 +5,22 @@
   &__searchBar {
     text-align: center;
   }
+
+  .container {
+    //category card conteiner
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: #2c302d;
+  }
+  //+card__conteiner
+  &__container {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    //grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    color: white;
+  }
 }

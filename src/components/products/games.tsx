@@ -1,6 +1,6 @@
 import RouteItems from "@/shared/routes/items/routeItems";
 import { Redirect, useParams } from "react-router-dom";
-import Categories from "../../shared/categories/gameCategories";
+import Categories from "@/shared/categories/gameCategories";
 
 type Params = {
   category: string;
@@ -12,7 +12,7 @@ export default function Games(): JSX.Element {
   return (
     <div>
       <h2>Games page</h2>
-      {Categories.indexOf(category) !== -1 ? (
+      {Categories.findIndex((item) => item.name === category) !== -1 ? (
         <>Page with predefined category {category}</>
       ) : (
         <Redirect to={RouteItems.Products.url} />

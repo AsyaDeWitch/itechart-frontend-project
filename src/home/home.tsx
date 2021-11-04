@@ -1,12 +1,14 @@
 import { PureComponent } from "react";
 import Categories from "@/shared/categories/gameCategories";
-import GameCard from "../components/products/gameCard";
+import CategoryItem from "@/shared/categories/categoryItem";
+import ProductItem from "@/shared/types/productItem";
+import GameCard from "@/components/products/gameCard";
+import * as api from "@/api/apiProducts";
+import categoryImages from "@/shared/categories/categoryImages";
 import SearchBar from "./searchBar";
 import Spinner from "./spinner";
 import "./home.scss";
 import CategoryCard from "./categoryCard";
-import * as api from "../api/apiProducts";
-import ProductItem from "../shared/types/productItem";
 
 interface State {
   topProducts: [];
@@ -36,8 +38,8 @@ export default class Home extends PureComponent<Props, State> {
         <Spinner delay={300} />
         Categories
         <hr />
-        {Categories.map((name: string) => (
-          <CategoryCard key={name} categoryName={name} />
+        {Categories.map((item: CategoryItem, index) => (
+          <CategoryCard key={item.name} categoryItem={item} image={categoryImages[index]} />
         ))}
         New games
         <hr />

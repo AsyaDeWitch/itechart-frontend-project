@@ -1,4 +1,4 @@
-import ProductItem from "../../shared/types/productItem";
+import ProductItem from "@/shared/types/productItem";
 
 export default function GameCard(props: { productItem: ProductItem }): JSX.Element {
   return (

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import * as api from "../api/apiProducts";
+import * as api from "@/api/apiProducts";
 import "./searchBar.scss";
 
 export default function SearchBar(): JSX.Element {
