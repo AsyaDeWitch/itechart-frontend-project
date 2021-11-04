@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/",
@@ -11,9 +11,9 @@ export async function getData2(page: string): Promise<void> {
         page: { page },
       },
     })
-    .then((responce) => {
+    .then((response) => {
       // handle success
-      console.log(responce);
+      console.log(response);
     })
     .catch((error) => {
       // handle error
@@ -27,9 +27,9 @@ export async function getData2(page: string): Promise<void> {
 export async function getData(): Promise<void> {
   await api
     .get("/testMock")
-    .then((responce) => {
+    .then((response) => {
       // handle success
-      console.log(responce);
+      console.log(response);
     })
     .catch((error) => {
       // handle error
@@ -52,14 +52,7 @@ export async function searchGames(text: string): Promise<void> {
   }
 }
 
-export async function getTopProducts(): Promise<void> {
-  try {
-    await api.get("/api/getTopProducts", {
-      params: {
-        quantity: 3,
-      },
-    });
-  } catch (error) {
-    // handle error
-  }
+export async function getTopProducts(): Promise<AxiosResponse> {
+  const response = await api.get("/api/getTopProducts");
+  return response;
 }
