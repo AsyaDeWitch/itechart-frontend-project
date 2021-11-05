@@ -9,64 +9,10 @@
   &__chapter {
     margin: 1rem, 1rem, 1rem, 0;
   }
-}
 
-.category {
-  &__cards-container {
-    position: relative;
-    height: 14vh;
-    display: block;
-    justify-content: center;
-    align-items: center;
+  &_spinner {
     text-align: center;
-    list-style: none;
-    padding: 0;
-    grid-template: auto / repeat(3, 30vw);
-  }
-
-  &__card-container {
-    background: $basicDarkThemeColor;
     align-items: center;
-    justify-items: center;
-    display: inline-grid;
-    height: 14vh;
-    width: 20vw;
-    padding: 0.5rem 2rem 0.5rem 2rem;
-    margin: 0 1rem 0 1rem;
-    border-radius: 5px;
-
-    &:hover {
-      background-color: $basicThemeColor;
-    }
-  }
-}
-
-.game {
-  &__cards-container {
-    position: relative;
-    height: 50vh;
-    display: block;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    list-style: none;
-    padding: 0;
-    grid-template: auto / repeat(3, 30vw);
-  }
-
-  &__card-container {
-    background: $basicDarkThemeColor;
-    align-items: center;
-    justify-items: center;
-    display: inline-grid;
-    height: 50vh;
-    width: 20vw;
-    padding: 2rem 0.5rem 2rem 0.5rem;
-    margin: 0 1rem 0 1rem;
-    border-radius: 5px;
-
-    &:hover {
-      background-color: $basicThemeColor;
-    }
   }
 }

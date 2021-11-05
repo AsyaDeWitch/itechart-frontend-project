@@ -1,17 +1,12 @@
 import { PureComponent, ChangeEvent } from "react";
-import Categories from "@/shared/categories/gameCategories";
-import CategoryItem from "@/shared/categories/categoryItem";
-import ProductItem from "@/shared/types/productItem";
-import GameCard from "@/components/products/gameCard";
 import * as api from "@/api/apiProducts";
-import categoryImages from "@/shared/categories/categoryImages";
-import GameImages from "@/shared/games/gameImages";
 import debounce from "lodash/debounce";
 import { AxiosResponse } from "axios";
-import SearchBar from "./searchBar";
-import Spinner from "./spinner";
+import GameCardsContainer from "@/components/products/gameCardsContainer";
+import SearchBar from "./searchBar/searchBar";
+import Spinner from "./spinner/spinner";
 import "./home.scss";
-import CategoryCard from "./categoryCard";
+import CategoryCardsContainer from "./categoryCards/categoryCardsContainer";
 
 interface State {
   topProducts: [];
@@ -69,31 +64,19 @@ export default class Home extends PureComponent<Props, State> {
         <div className="home__searchBar">
           <SearchBar onKeyUp={this.handleSearchChange} />
         </div>
-        {this.state.isLoading ? <Spinner /> : null /* Search part with games */}
+        {this.state.isLoading ? (
+          <div className="home_spinner">
+            <Spinner />
+          </div>
+        ) : (
+          <GameCardsContainer productItems={this.state.foundGames} />
+        )}
         <h3 className="home__chapter">Categories</h3>
         <hr />
-        <ul className="category__cards-container">
-          {Categories.map((item: CategoryItem, index) => (
-            <li key={item.name.concat(index.toString())} className="category__card-container">
-              <CategoryCard key={item.name} categoryItem={item} image={categoryImages[index]} />
-            </li>
-          ))}
-        </ul>
+        <CategoryCardsContainer />
         <h3 className="home__chapter">New games</h3>
         <hr />
-        <ul className="game__cards-container">
-          {this.state.topProducts.map((item: ProductItem) => (
-            <li
-              key={item.id.toString().concat(item.name)}
-              className="game__card-container"
-              onClick={() => alert("got product!")}
-              onKeyPress={() => alert("got product!")}
-              role="menuitem"
-            >
-              <GameCard key={item.id} productItem={item} image={GameImages[item.id - 1]} />
-            </li>
-          ))}
-        </ul>
+        <GameCardsContainer productItems={this.state.topProducts} />
       </>
     );
   }
