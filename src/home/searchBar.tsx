@@ -1,17 +1,10 @@
-import _ from "lodash";
-import * as api from "@/api/apiProducts";
 import "./searchBar.scss";
 
-export default function SearchBar(): JSX.Element {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function SearchBar(props: { onKeyUp: any }): JSX.Element {
   return (
     <>
-      <input
-        onKeyPress={() => _.debounce(() => api.getData(), 300)}
-        type="text"
-        id="home-search"
-        placeholder="Search"
-        className="searchBar"
-      />
+      <input onKeyUp={props.onKeyUp} type="text" id="home-search" placeholder="Search" className="searchBar" />
     </>
   );
 }

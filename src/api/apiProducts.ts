@@ -40,16 +40,13 @@ export async function getData(): Promise<void> {
     });
 }
 
-export async function searchGames(text: string): Promise<void> {
-  try {
-    await api.get("/api/search", {
-      params: {
-        text: { text },
-      },
-    });
-  } catch (error) {
-    // handle error
-  }
+export async function searchGames(text: string): Promise<AxiosResponse> {
+  const responce = await api.get("/api/search", {
+    params: {
+      text,
+    },
+  });
+  return responce;
 }
 
 export async function getTopProducts(): Promise<AxiosResponse> {
