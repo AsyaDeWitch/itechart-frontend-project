@@ -6,21 +6,67 @@
     text-align: center;
   }
 
-  .container {
-    //category card conteiner
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    background: #2c302d;
+  &__chapter {
+    margin: 1rem, 0, 1rem, 0;
   }
-  //+card__conteiner
-  &__container {
-    display: grid;
-    width: 100%;
-    height: 100%;
-    //grid-template-columns: 1fr 1fr 1fr;
+}
+
+.category {
+  &__cards-container {
+    position: relative;
+    height: 14vh;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+    grid-template: auto / repeat(3, 30vw);
+  }
+
+  &__card-container {
+    background: $basicDarkThemeColor;
     align-items: center;
     justify-items: center;
-    color: white;
+    display: inline-grid;
+    height: 14vh;
+    width: 20vw;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    margin: 0 1rem 0 1rem;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: $basicThemeColor;
+    }
+  }
+}
+
+.game {
+  &__cards-container {
+    position: relative;
+    height: 50vh;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+    grid-template: auto / repeat(3, 30vw);
+  }
+
+  &__card-container {
+    background: $basicDarkThemeColor;
+    align-items: center;
+    justify-items: center;
+    display: inline-grid;
+    height: 50vh;
+    width: 20vw;
+    padding: 2rem 0.5rem 2rem 0.5rem;
+    margin: 0 1rem 0 1rem;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: $basicThemeColor;
+    }
   }
 }

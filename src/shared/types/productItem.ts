@@ -1,5 +1,5 @@
 type ProductItem = {
-  id: string;
+  id: number;
   name: string;
   platform: string;
   dateCreated: string;
@@ -7,7 +7,6 @@ type ProductItem = {
   genre: string;
   rating: string;
   logo: string;
-  background: string;
   price: number;
   count: number;
 };

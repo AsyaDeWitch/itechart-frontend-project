@@ -1,23 +1,34 @@
 @import "normalize.css";
 @import "sanitize.css";
 
-.category-card {
+.game-card {
   width: auto;
-  height: 10vh;
+  height: 44vh;
   padding: 0.5rem 1rem 0.5rem 1rem;
   text-align: center;
   border-radius: 10px;
   cursor: pointer;
   text-decoration: none;
+  align-items: center;
+  justify-content: center;
 
   &__name {
-    font-size: 0.9em;
+    font-size: 1em;
     color: white;
+    margin: 0;
+    padding-bottom: 0.9rem;
+  }
+
+  &__platform {
+    padding-top: 0.9rem;
+    font-size: 1rem;
+    color: white;
+    margin: 0;
   }
 
   &__image {
-    //height: 6vh;
-    width: 3vw;
+    height: 17vw;
+    width: auto;
   }
 
   &:focus {
