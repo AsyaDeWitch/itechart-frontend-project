@@ -2,5 +2,16 @@
 @import "sanitize.css";
 
 .button-submit {
+  font-size: 1em;
+  color: white;
   text-align: center;
+  text-decoration: none;
+  background-color: $basicDarkThemeColor;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+  //padding: 0 1rem 0 1rem;
+  &:hover {
+    background-color: $basicThemeColor;
+  }
 }

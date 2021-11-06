@@ -2,5 +2,27 @@
 @import "sanitize.css";
 
 .inputText {
-  text-align: center;
+  width: 50vw;
+  height: 5vh;
+  border-style: solid;
+  border-color: $basicDarkThemeColor;
+  border-radius: 10px;
+  font-size: 1.2em;
+  display: inline;
+  position: relative;
+  padding-left: 1rem;
+  margin: 1rem;
+  color: $basicFontColor;
+}
+
+.inputText:focus {
+  border-style: solid;
+  border-color: $basicDarkThemeColor;
+  border-radius: 10px;
+  outline: none;
+}
+
+.labelText {
+  color: white;
+  text-align: left;
 }
