@@ -62,7 +62,7 @@ export default class Home extends PureComponent<Props, State> {
     return (
       <>
         <div className="home__searchBar">
-          <SearchBar onKeyUp={this.handleSearchChange} />
+          <SearchBar onChange={this.handleSearchChange} />
         </div>
         {this.state.isLoading ? (
           <div className="home_spinner">
