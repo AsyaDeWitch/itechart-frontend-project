@@ -1,8 +1,5 @@
-import axios, { AxiosResponse } from "axios";
-
-const api = axios.create({
-  baseURL: "http://localhost:8080/",
-});
+import { AxiosResponse } from "axios";
+import api from "./apiAxios";
 
 export async function searchGames(text: string): Promise<AxiosResponse> {
   const responce = await api.get("/api/search", {

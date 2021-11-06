@@ -1,5 +1,5 @@
 import { PureComponent, ChangeEvent } from "react";
-import * as api from "@/api/apiProducts";
+import * as apiProducts from "@/api/apiProducts";
 import debounce from "lodash/debounce";
 import { AxiosResponse } from "axios";
 import GameCardsContainer from "@/components/products/gameCardsContainer";
@@ -26,14 +26,14 @@ export default class Home extends PureComponent<Props, State> {
   }
 
   async componentDidMount(): Promise<void> {
-    const response = await api.getTopProducts();
+    const response = await apiProducts.getTopProducts();
     this.setState({ topProducts: response.data });
   }
 
   async componentDidUpdate(_: Props, prevState: State): Promise<void> {
     if (this.state.searchText !== "" && this.state.searchText !== prevState.searchText) {
       console.log(this.state.searchText);
-      const response = await api.searchGames(this.state.searchText);
+      const response = await apiProducts.searchGames(this.state.searchText);
       this.handleFoundGamesChange(response.data);
       console.log(this.state.foundGames);
     }
