@@ -33,6 +33,16 @@ export default function Navbar(props: { title: string }): JSX.Element {
             {RouteItems.About.id}
           </Link>
         </li>
+        <li className="navbar__menu__li">
+          <button className="navbar__menu__button" type="button">
+            Sign In
+          </button>
+        </li>
+        <li className="navbar__menu__li">
+          <button className="navbar__menu__button" type="button">
+            Sign Up
+          </button>
+        </li>
       </ul>
     </nav>
   );
