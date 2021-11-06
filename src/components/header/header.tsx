@@ -9,7 +9,7 @@ export default function Header(props: { title: string }): JSX.Element {
   return (
     <div>
       <header>
-        <Navbar title={props.title} />
+        <Navbar title={props.title} isLoggedIn userName="User" />
       </header>
     </div>
   );

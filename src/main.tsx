@@ -11,6 +11,8 @@ import ErrorBoundary from "./shared/errorBoundary";
 import Games from "./components/products/games";
 import About from "./components/info/about";
 import Home from "./home/home";
+import Profile from "./components/users/profile";
+import Cart from "./components/cart/cart";
 
 const title = "Best Games Market";
 const history = createBrowserHistory();
@@ -37,6 +39,13 @@ class AppContainer extends Component<Props> {
             </Route>
             <Route path={RouteItems.About.url}>
               <About />
+            </Route>
+            {/* this 2 only for logged in user*/}
+            <Route path={RouteItems.Profile.url}>
+              <Profile />
+            </Route>
+            <Route path={RouteItems.Cart.url}>
+              <Cart />
             </Route>
             <Route exact path={RouteItems.Home.url}>
               <Home />
