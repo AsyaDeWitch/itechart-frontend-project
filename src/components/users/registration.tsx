@@ -4,10 +4,10 @@ import Modal from "@/elements/modal";
 import * as apiAuth from "@/api/apiAuth";
 import { ChangeEvent, useState, MouseEvent } from "react";
 import FormErrors from "@/elements/formErrors";
-import { History } from "history";
 import RouteItems from "@/shared/routes/items/routeItems";
+import { useHistory } from "react-router-dom";
 
-export default function Registration(props: { history: History; open: boolean }): JSX.Element {
+export default function Registration(props: { open: boolean }): JSX.Element {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -16,6 +16,7 @@ export default function Registration(props: { history: History; open: boolean })
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isRepeatPasswordValid, setIsRepeatPasswordValid] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const history = useHistory();
 
   const validateForm = (): void => {
     setIsFormValid(isUserNameValid && isPasswordValid && isRepeatPasswordValid);
@@ -83,7 +84,7 @@ export default function Registration(props: { history: History; open: boolean })
     if (responce.status === 201) {
       /* close modal, call function in MainApp*/
       /* return user model */
-      props.history.push(RouteItems.Profile.url);
+      history.push(RouteItems.Profile.url);
     } else if (responce.status === 400) {
       /* show mistakes */
     }

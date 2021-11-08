@@ -1,6 +1,5 @@
 import { useState, MouseEvent } from "react";
-import { Link } from "react-router-dom";
-import { History } from "history";
+import { Link, useHistory } from "react-router-dom";
 import "./header.scss";
 import RouteItems from "@/shared/routes/items/routeItems";
 import imgLogout from "@/assets/images/header/logout.png";
@@ -8,18 +7,23 @@ import imgCart from "@/assets/images/header/cart.png";
 import imgUser from "@/assets/images/header/user.png";
 import Dropdown from "./dropdown";
 
-export default function Navbar(props: {
-  title: string;
-  isLoggedIn: boolean;
-  userName: string;
-  history: History;
-}): JSX.Element {
+export default function Navbar(props: { title: string; isLoggedIn: boolean; userName: string }): JSX.Element {
   const [isShown, setIsShown] = useState(false);
-
+  const history = useHistory();
   const handleLogoutButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     /* logout function */
-    props.history.push(RouteItems.Home.url);
+    history.push(RouteItems.Home.url);
+  };
+
+  const handlesignInButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    /* logout function */
+  };
+
+  const handleSignUpButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    /* logout function */
   };
 
   return (
@@ -70,12 +74,12 @@ export default function Navbar(props: {
         ) : (
           <>
             <li className="navbar__menu__li">
-              <button className="navbar__menu__button" type="button">
+              <button className="navbar__menu__button" type="button" onClick={handlesignInButtonClick}>
                 Sign In
               </button>
             </li>
             <li className="navbar__menu__li">
-              <button className="navbar__menu__button" type="button">
+              <button className="navbar__menu__button" type="button" onClick={handleSignUpButtonClick}>
                 Sign Up
               </button>
             </li>

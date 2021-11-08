@@ -29,7 +29,7 @@ class AppContainer extends Component<Props> {
     return (
       <ErrorBoundary history={this.props.history}>
         <Router>
-          <Header title={this.props.title} history={this.props.history} />
+          <Header title={this.props.title} />
           <Switch>
             <Route path={`${RouteItems.Products.url}/:category`}>
               <Games />
