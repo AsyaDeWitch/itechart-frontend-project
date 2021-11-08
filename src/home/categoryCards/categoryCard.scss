@@ -1,0 +1,30 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.category-card {
+  width: auto;
+  height: 10vh;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+
+  &__name {
+    font-size: 0.9em;
+    color: white;
+  }
+
+  &__image {
+    //height: 6vh;
+    width: 3vw;
+  }
+
+  &:focus {
+    background-color: $basicThemeColor;
+    border-radius: 4px;
+    height: 12vh;
+    transition: all 0.2s ease-out;
+    outline: none;
+  }
+}

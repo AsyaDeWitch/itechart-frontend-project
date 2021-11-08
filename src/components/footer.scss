@@ -3,10 +3,10 @@
 
 .footer {
   display: block;
-  font-size: 1.4em;
+  font-size: 1em;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
   text-align: center;
@@ -18,14 +18,14 @@
   &__menu {
     margin-top: 0%;
     display: inline-grid;
-    grid-template: 1fr / repeat(10, 10%);
+    grid-template: 1fr / repeat(10, 9vw);
     list-style: none;
     justify-content: center;
     margin-right: 2rem;
   }
 
   &__links {
-    padding: 2vw;
+    padding: 1vw;
   }
 
   &__links:hover {

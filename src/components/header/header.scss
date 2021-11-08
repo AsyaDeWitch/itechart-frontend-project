@@ -1,43 +1,54 @@
+@import "normalize.css";
+@import "sanitize.css";
+
 .navbar {
   color: white;
   background: -webkit-linear-gradient(left, $basicLightThemeColor 0%, $basicDarkThemeColor 100%);
-
   height: 8vh;
   display: flex;
   font-size: 1.2em;
-  justify-content: center;
-  align-items: center;
 
   &__title {
     justify-self: start;
     font-size: 1.1em;
+    text-align: left;
     margin-left: 2vw;
+    width: 30vw;
     cursor: pointer;
   }
 
   &__menu {
-    display: grid;
-    grid-template: auto / repeat(3, auto);
-    grid-gap: 2vw;
+    display: inline-flex;
+    justify-content: flex-end;
     list-style: none;
     text-align: center;
     width: 70vw;
-    justify-content: end;
-    margin-right: 2rem;
+    position: absolute;
+    margin-left: 28vw;
 
-    &__links {
+    &__link {
       color: white;
+      text-align: center;
       text-decoration: none;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1rem 0.5rem 1rem;
+      margin: 0, 1.2rem, 0, 1.2rem;
     }
 
-    &__links:hover {
+    &__li {
+      color: white;
+      text-align: center;
+      text-decoration: none;
+
+      //padding: 0.5rem 1rem 0.5rem 1rem;
+    }
+
+    &__li:hover {
       background-color: $basicThemeColor;
       border-radius: 4px;
       transition: all 0.2s ease-out;
     }
 
-    &__links:focus {
+    &__li:focus {
       background-color: $basicThemeColor;
       border-radius: 4px;
       transition: all 0.2s ease-out;

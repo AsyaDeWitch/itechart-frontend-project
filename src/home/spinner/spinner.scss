@@ -1,0 +1,23 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.spinner {
+  border: 0.3rem solid lightgray;
+  border-top: 0.3rem solid $basicThemeColor;
+  border-radius: 50%;
+  width: 2.3rem;
+  height: 2.3rem;
+  animation: spin 1s linear infinite;
+  left: 50%;
+  position: absolute;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

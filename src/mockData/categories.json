@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Playstation",
+    "image": "playstation.png"
+  },
+  {
+    "name": "PC",
+    "image": "pc.png"
+  },
+  {
+    "name": "Xbox",
+    "image": "xbox.png"
+  }
+]

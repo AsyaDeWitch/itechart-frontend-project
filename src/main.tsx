@@ -6,8 +6,11 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-d
 import { Component } from "react";
 import Header from "./components/header/header";
 import Footer from "./components/footer";
-import RouteMapper from "./shared/routeMapper";
+import RouteItems from "./shared/routes/items/routeItems";
 import ErrorBoundary from "./shared/errorBoundary";
+import Games from "./components/products/games";
+import About from "./components/info/about";
+import Home from "./home/home";
 
 const title = "Best Games Market";
 const history = createBrowserHistory();
@@ -26,10 +29,19 @@ class AppContainer extends Component<Props> {
         <Router>
           <Header title={this.props.title} />
           <Switch>
-            <Route path={RouteMapper.About.url} component={RouteMapper.About.component} />
-            <Route path={RouteMapper.Products.url} component={RouteMapper.Products.component} />
-            <Route exact path={RouteMapper.Home.url} component={RouteMapper.Home.component} />
-            <Redirect to={RouteMapper.Home.url} />
+            <Route path={`${RouteItems.Products.url}/:category`}>
+              <Games />
+            </Route>
+            <Route path={RouteItems.Products.url}>
+              <Games />
+            </Route>
+            <Route path={RouteItems.About.url}>
+              <About />
+            </Route>
+            <Route exact path={RouteItems.Home.url}>
+              <Home />
+            </Route>
+            <Redirect to={RouteItems.Home.url} />
           </Switch>
           <Footer />
         </Router>
