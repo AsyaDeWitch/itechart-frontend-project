@@ -22,28 +22,49 @@ interface Props {
   history: History;
 }
 
-class AppContainer extends Component<Props> {
+interface State {
+  userName: string;
+}
+
+class AppContainer extends Component<Props, State> {
   ["constructor"]: typeof AppContainer;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = { userName: "User" };
+  }
+
+  handleSignIn = () => {
+    /* configuration */
+  };
+
+  handleSignOut = () => {
+    /* configuration */
+  };
 
   render() {
     return (
       <ErrorBoundary history={this.props.history}>
         <Router>
-          <Header title={this.props.title} />
+          <Header title={this.props.title} userName={this.state.userName} />
           <Switch>
+            {/* only for logged in user*/}
             <Route path={`${RouteItems.Products.url}/:category`}>
               <Games />
             </Route>
+            {/* only for logged in user*/}
             <Route path={RouteItems.Products.url}>
               <Games />
             </Route>
+            {/* only for logged in user*/}
             <Route path={RouteItems.About.url}>
               <About />
             </Route>
-            {/* this 2 only for logged in user*/}
+            {/* only for logged in user*/}
             <Route path={RouteItems.Profile.url}>
               <Profile />
             </Route>
+            {/* only for logged in user*/}
             <Route path={RouteItems.Cart.url}>
               <Cart />
             </Route>

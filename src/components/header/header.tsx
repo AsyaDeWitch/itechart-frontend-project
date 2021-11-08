@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Navbar from "./navbar";
 
-export default function Header(props: { title: string }): JSX.Element {
+export default function Header(props: { title: string; userName: string }): JSX.Element {
   useEffect(() => {
     document.title = props.title;
   }, []);
@@ -9,7 +9,7 @@ export default function Header(props: { title: string }): JSX.Element {
   return (
     <div>
       <header>
-        <Navbar title={props.title} isLoggedIn userName="User" />
+        <Navbar title={props.title} isLoggedIn userName={props.userName} />
       </header>
     </div>
   );

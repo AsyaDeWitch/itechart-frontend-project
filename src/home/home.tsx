@@ -34,13 +34,10 @@ export default class Home extends PureComponent<Props, State> {
     if (this.state.searchText !== "" && this.state.searchText !== prevState.searchText) {
       const response = await apiProducts.searchGames(this.state.searchText);
       this.handleFoundGamesChange(response.data);
-      console.log(this.state.foundGames);
     }
     if (this.state.searchText === "" && prevState.searchText !== "") {
       this.state.foundGames.length = 0;
     }
-    console.log(this.state.searchText, " vs ", prevState.searchText);
-    console.log(this.state.searchText === "" && prevState.searchText !== "");
   }
 
   handleFoundGamesChange = (data: AxiosResponse["data"]): void => {

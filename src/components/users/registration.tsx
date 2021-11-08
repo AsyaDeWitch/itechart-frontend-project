@@ -79,7 +79,6 @@ export default function Registration(props: { open: boolean }): JSX.Element {
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     /* send request*/
     event.preventDefault();
-    console.log(repeatPassword);
     const responce = await apiAuth.signUp(userName, password);
     if (responce.status === 201) {
       /* close modal, call function in MainApp*/
