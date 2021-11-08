@@ -9,7 +9,7 @@ export default function CategoryCardsContainer(): JSX.Element {
     <>
       <ul className="category__cards-container">
         {Categories.map((item: CategoryItem, index) => (
-          <li key={item.name.concat(index.toString())} className="category__card-container">
+          <li key={`${item.name}${index.toString()}`} className="category__card-container">
             <CategoryCard key={item.name} categoryItem={item} image={categoryImages[index]} />
           </li>
         ))}

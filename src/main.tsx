@@ -31,7 +31,7 @@ class AppContainer extends Component<Props> {
         <Router>
           <Header title={this.props.title} />
           <Switch>
-            <Route path={RouteItems.Products.url.concat("/:category")}>
+            <Route path={`${RouteItems.Products.url}/:category`}>
               <Games />
             </Route>
             <Route path={RouteItems.Products.url}>

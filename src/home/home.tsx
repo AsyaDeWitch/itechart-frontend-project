@@ -32,7 +32,6 @@ export default class Home extends PureComponent<Props, State> {
 
   async componentDidUpdate(_: Props, prevState: State): Promise<void> {
     if (this.state.searchText !== "" && this.state.searchText !== prevState.searchText) {
-      console.log(this.state.searchText);
       const response = await apiProducts.searchGames(this.state.searchText);
       this.handleFoundGamesChange(response.data);
       console.log(this.state.foundGames);
