@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import { Link } from "react-router-dom";
+import { History } from "history";
 import "./header.scss";
 import RouteItems from "@/shared/routes/items/routeItems";
 import imgLogout from "@/assets/images/header/logout.png";
@@ -7,8 +8,19 @@ import imgCart from "@/assets/images/header/cart.png";
 import imgUser from "@/assets/images/header/user.png";
 import Dropdown from "./dropdown";
 
-export default function Navbar(props: { title: string; isLoggedIn: boolean; userName: string }): JSX.Element {
+export default function Navbar(props: {
+  title: string;
+  isLoggedIn: boolean;
+  userName: string;
+  history: History;
+}): JSX.Element {
   const [isShown, setIsShown] = useState(false);
+
+  const handleLogoutButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    /* logout function */
+    props.history.push(RouteItems.Home.url);
+  };
 
   return (
     <nav className="navbar">
@@ -50,7 +62,7 @@ export default function Navbar(props: { title: string; isLoggedIn: boolean; user
               </Link>
             </li>
             <li className="navbar__menu__li">
-              <button className="navbar__menu__button" type="button">
+              <button className="navbar__menu__button" type="button" onClick={handleLogoutButtonClick}>
                 <img className="navbar__menu__icon" src={imgLogout} alt="Logout" />
               </button>
             </li>

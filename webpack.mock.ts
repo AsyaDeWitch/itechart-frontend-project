@@ -65,4 +65,23 @@ export default webpackMockServer.add((app, helper) => {
       res.json(newUser);
     }
   });
+
+  app.post("/api/auth/isUserExists", (req, res) => {
+    if (JsonUsers.filter((user) => user.name.trim() === req.body.userName).length > 0) {
+      res.statusCode = 400;
+    } else {
+      res.statusCode = 200;
+    }
+  });
+
+  app.post("/api/auth/isUserWithSuchPasswordExists", (req, res) => {
+    if (
+      JsonUsers.filter((user) => user.name.trim() === req.body.userName && user.password.trim() === req.body.password)
+        .length > 0
+    ) {
+      res.statusCode = 200;
+    } else {
+      res.statusCode = 400;
+    }
+  });
 });
