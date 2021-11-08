@@ -37,6 +37,9 @@ export default webpackMockServer.add((app, helper) => {
         .length > 0
     ) {
       res.statusCode = 201;
+      res.json(
+        JsonUsers.filter((user) => user.name.trim() === req.body.userName && user.password.trim() === req.body.password)
+      );
     } else {
       res.statusCode = 400;
     }
@@ -59,6 +62,7 @@ export default webpackMockServer.add((app, helper) => {
         console.log("New user added.");
       });
       res.statusCode = 200;
+      res.json(newUser);
     }
   });
 });

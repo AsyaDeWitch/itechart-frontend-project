@@ -8,12 +8,12 @@ export default function InputText(props: {
   label: string;
 }): JSX.Element {
   return (
-    <label htmlFor="input-text" className="labelText">
+    <label htmlFor={"input-text".concat(props.label)} className="labelText">
       {props.label}
       <input
         onChange={props.onChange}
         type={props.type}
-        id="input-text"
+        id={"input-text".concat(props.label)}
         placeholder={props.placeholder}
         className="inputText"
       />
