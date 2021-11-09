@@ -5,25 +5,49 @@ import RouteItems from "@/shared/routes/items/routeItems";
 import imgLogout from "@/assets/images/header/logout.png";
 import imgCart from "@/assets/images/header/cart.png";
 import imgUser from "@/assets/images/header/user.png";
+import User from "@/shared/types/user";
 import Dropdown from "./dropdown";
+import Login from "../users/login";
+import Registration from "../users/registration";
 
-export default function Navbar(props: { title: string; isLoggedIn: boolean; userName: string }): JSX.Element {
-  const [isShown, setIsShown] = useState(false);
+export default function Navbar(props: {
+  title: string;
+  userName: string;
+  onSignIn(user: User): void;
+  onSignOut: VoidFunction;
+  isLoggedIn: boolean;
+}): JSX.Element {
+  const [isShownDropdown, setIsShownDropdown] = useState(false);
+  const [isShownSingIn, setIsShownSingIn] = useState(false);
+  const [isShownSignUp, setIsShownSignUp] = useState(false);
   const history = useHistory();
+
   const handleLogoutButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    /* logout function */
+    props.onSignOut();
     history.push(RouteItems.Home.url);
   };
 
-  const handlesignInButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleSignInButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    /* logout function */
+    setIsShownSingIn(true);
   };
 
   const handleSignUpButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    /* logout function */
+    setIsShownSignUp(true);
+  };
+
+  const handleSignInButtonCloseClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    alert("signIn close");
+    setIsShownSingIn(false);
+  };
+
+  const handleSignUpButtonCloseClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    alert("signUp close");
+    setIsShownSignUp(false);
   };
 
   return (
@@ -35,18 +59,20 @@ export default function Navbar(props: { title: string; isLoggedIn: boolean; user
             {RouteItems.Home.id}
           </Link>
         </li>
+        {/* only for logged in user*/}
         <li
           className="dropdown"
-          onMouseEnter={() => setIsShown(true)}
-          onMouseLeave={() => setIsShown(false)}
-          onKeyDownCapture={() => setIsShown(true)}
-          onKeyUpCapture={() => setIsShown(false)}
+          onMouseEnter={() => setIsShownDropdown(true)}
+          onMouseLeave={() => setIsShownDropdown(false)}
+          onKeyDownCapture={() => setIsShownDropdown(true)}
+          onKeyUpCapture={() => setIsShownDropdown(false)}
         >
           <Link className="dropdown__link" to={RouteItems.Products.url}>
             {RouteItems.Products.id}
           </Link>
-          {isShown ? <Dropdown /> : null}
+          {isShownDropdown ? <Dropdown /> : null}
         </li>
+        {/* only for logged in user*/}
         <li className="navbar__menu__li">
           <Link className="navbar__menu__link" to={RouteItems.About.url}>
             {RouteItems.About.id}
@@ -57,7 +83,7 @@ export default function Navbar(props: { title: string; isLoggedIn: boolean; user
             <li className="navbar__menu__li">
               <Link className="navbar__menu__link" to={RouteItems.Profile.url}>
                 <img className="navbar__menu__icon" src={imgUser} alt="User" />
-                {" ".concat(props.userName)}
+                {` ${props.userName}`}
               </Link>
             </li>
             <li className="navbar__menu__li">
@@ -74,7 +100,7 @@ export default function Navbar(props: { title: string; isLoggedIn: boolean; user
         ) : (
           <>
             <li className="navbar__menu__li">
-              <button className="navbar__menu__button" type="button" onClick={handlesignInButtonClick}>
+              <button className="navbar__menu__button" type="button" onClick={handleSignInButtonClick}>
                 Sign In
               </button>
             </li>
@@ -86,6 +112,12 @@ export default function Navbar(props: { title: string; isLoggedIn: boolean; user
           </>
         )}
       </ul>
+      {isShownSingIn ? (
+        <Login onSignIn={props.onSignIn} onSignInButtonCloseClick={handleSignInButtonCloseClick} />
+      ) : null}
+      {isShownSignUp ? (
+        <Registration onSignIn={props.onSignIn} onSignUpButtonCloseClick={handleSignUpButtonCloseClick} />
+      ) : null}
     </nav>
   );
 }

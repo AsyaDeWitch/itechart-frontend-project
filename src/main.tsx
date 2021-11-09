@@ -13,8 +13,10 @@ import About from "./components/info/about";
 import Home from "./home/home";
 import Profile from "./components/users/profile";
 import Cart from "./components/cart/cart";
+import User from "./shared/types/user";
 
 const title = "Best Games Market";
+const nullUser: User = { id: 0, name: "User", email: "test@gmail.com", password: "password" };
 const history = createBrowserHistory();
 
 interface Props {
@@ -23,7 +25,8 @@ interface Props {
 }
 
 interface State {
-  userName: string;
+  user: User;
+  isLoggedIn: boolean;
 }
 
 class AppContainer extends Component<Props, State> {
@@ -31,22 +34,29 @@ class AppContainer extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.state = { userName: "User" };
+    this.state = { user: nullUser, isLoggedIn: false };
   }
 
-  handleSignIn = () => {
-    /* configuration */
+  handleSignIn = (signInUser: User) => {
+    alert("sign in main");
+    this.setState({ user: signInUser, isLoggedIn: true });
   };
 
   handleSignOut = () => {
-    /* configuration */
+    this.setState({ user: nullUser, isLoggedIn: false });
   };
 
   render() {
     return (
       <ErrorBoundary history={this.props.history}>
         <Router>
-          <Header title={this.props.title} userName={this.state.userName} />
+          <Header
+            title={this.props.title}
+            userName={this.state.user.name}
+            onSignIn={this.handleSignIn}
+            onSignOut={this.handleSignOut}
+            isLoggedIn={this.state.isLoggedIn}
+          />
           <Switch>
             {/* only for logged in user*/}
             <Route path={`${RouteItems.Products.url}/:category`}>

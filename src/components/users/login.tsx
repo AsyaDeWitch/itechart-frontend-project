@@ -2,9 +2,16 @@ import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
 import Modal from "@/elements/modal";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
+import User from "@/shared/types/user";
+import "../../elements/modal.scss";
+import FormErrors from "@/elements/formErrors";
+import ButtonClose from "@/elements/buttonClose";
 
-export default function Login(props: { open: boolean }): JSX.Element {
+export default function Login(props: {
+  onSignIn(user: User): void;
+  onSignInButtonCloseClick: MouseEventHandler;
+}): JSX.Element {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState({ userName: "", password: "" });
@@ -55,22 +62,25 @@ export default function Login(props: { open: boolean }): JSX.Element {
   };
 
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
-    /* send request*/
-    event.preventDefault();
-    /* validators */
-    const responce = await apiAuth.signIn(userName, password);
-    if (responce.status === 201) {
-      /* close modal, call function in MainApp*/
-    } else if (responce.status === 400) {
+    // event.preventDefault();
+    const response = await apiAuth.signIn(userName, password);
+    if (response.status === 201) {
+      props.onSignInButtonCloseClick(event);
+      props.onSignIn(response.data);
+    } else if (response.status === 400) {
       /* show mistakes */
     }
   };
 
   return (
     <Modal>
-      {props.open ? (
-        <form>
-          <h2>Sign In</h2>
+      <div className="modal">
+        <FormErrors formErrors={formErrors} />
+        <form className="modal__form">
+          <div>
+            <h2>Sign In</h2>
+            <ButtonClose onClick={props.onSignInButtonCloseClick} />
+          </div>
           <InputText
             onChange={handleUserNameChange}
             type="text"
@@ -89,9 +99,7 @@ export default function Login(props: { open: boolean }): JSX.Element {
           />
           <ButtonSubmit onClick={handleButtonClick} isFormValid={isFormValid} />
         </form>
-      ) : (
-        <></>
-      )}
+      </div>
     </Modal>
   );
 }
