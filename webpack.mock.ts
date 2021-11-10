@@ -42,12 +42,14 @@ export default webpackMockServer.add((app, helper) => {
       );
     } else {
       res.statusCode = 400;
+      res.json();
     }
   });
 
   app.put("/api/auth/signUp", (req, res) => {
     if (JsonUsers.filter((user) => user.name.trim() === req.body.userName).length > 0) {
       res.statusCode = 400;
+      res.json();
       console.log("User already exists.");
     } else {
       const newUser = {
@@ -66,11 +68,13 @@ export default webpackMockServer.add((app, helper) => {
     }
   });
 
-  app.post("/api/auth/isUserExists", (req, res) => {
+  /* app.post("/api/auth/isUserExists", (req, res) => {
     if (JsonUsers.filter((user) => user.name.trim() === req.body.userName).length > 0) {
-      res.statusCode = 400;
-    } else {
       res.statusCode = 200;
+      res.json();
+    } else {
+      res.statusCode = 400;
+      res.json();
     }
   });
 
@@ -80,8 +84,10 @@ export default webpackMockServer.add((app, helper) => {
         .length > 0
     ) {
       res.statusCode = 200;
+      res.json();
     } else {
       res.statusCode = 400;
+      res.json();
     }
-  });
+  });*/
 });

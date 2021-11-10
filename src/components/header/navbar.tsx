@@ -30,11 +30,13 @@ export default function Navbar(props: {
 
   const handleSignInButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    alert("signIn");
     setIsShownSingIn(true);
   };
 
   const handleSignUpButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    alert("signUp");
     setIsShownSignUp(true);
   };
 
@@ -83,7 +85,7 @@ export default function Navbar(props: {
             <li className="navbar__menu__li">
               <Link className="navbar__menu__link" to={RouteItems.Profile.url}>
                 <img className="navbar__menu__icon" src={imgUser} alt="User" />
-                {` ${props.userName}`}
+                {props.userName.length <= 10 ? ` ${props.userName}` : ` ${props.userName.slice(0, 6)}...`}
               </Link>
             </li>
             <li className="navbar__menu__li">

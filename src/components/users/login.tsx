@@ -5,8 +5,9 @@ import * as apiAuth from "@/api/apiAuth";
 import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
 import User from "@/shared/types/user";
 import "../../elements/modal.scss";
-import FormErrors from "@/elements/formErrors";
+// import FormErrors from "@/elements/formErrors";
 import ButtonClose from "@/elements/buttonClose";
+import FormJoiSchema from "@/helpers/formJoiSchema";
 
 export default function Login(props: {
   onSignIn(user: User): void;
@@ -14,16 +15,21 @@ export default function Login(props: {
 }): JSX.Element {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [formErrors, setFormErrors] = useState({ userName: "", password: "" });
-  const [isUserNameValid, setIsUserNameValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [formErrors, setFormErrors] = useState("");
+  // const [isUserNameValid, setIsUserNameValid] = useState(false);
+  // const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
   const validateForm = (): void => {
-    setIsFormValid(isUserNameValid && isPasswordValid);
+    const { error } = FormJoiSchema.validate({ userName, password });
+    if (typeof error === undefined) {
+      setIsFormValid(true);
+    } else {
+      setFormErrors(error?.message as string);
+    }
   };
 
-  const validateField = async (fieldName: string): Promise<void> => {
+  /* const validateField = async (fieldName: string): Promise<void> => {
     const fieldValidationErrors = formErrors;
     let userNameValid = isUserNameValid;
     let passwordValid = isPasswordValid;
@@ -49,34 +55,41 @@ export default function Login(props: {
     setIsUserNameValid(userNameValid);
     setIsPasswordValid(passwordValid);
     validateForm();
-  };
+  }; */
 
   const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setUserName(event.target.value.trim());
-    validateField("userName");
+    setUserName(event.target.value);
+    // validateForm();
+    // validateField("userName");
   };
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(event.target.value.trim());
-    validateField("password");
+    setPassword(event.target.value);
+    // validateForm();
+    // validateField("password");
   };
 
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
-    // event.preventDefault();
-    const response = await apiAuth.signIn(userName, password);
-    if (response.status === 201) {
-      props.onSignInButtonCloseClick(event);
-      props.onSignIn(response.data);
-    } else if (response.status === 400) {
-      /* show mistakes */
+    if (isFormValid) {
+      const response = await apiAuth.signIn(userName, password);
+      alert(isFormValid);
+      if (response.status === 201) {
+        alert("ok");
+        props.onSignIn(response.data);
+        props.onSignInButtonCloseClick(event);
+      } else if (response.status === 400) {
+        /* show mistakes */
+        alert("mistake");
+      }
+      console.log(response.status);
     }
   };
 
   return (
     <Modal>
       <div className="modal">
-        <FormErrors formErrors={formErrors} />
-        <form className="modal__form">
+        {/* <div>{formErrors}</div>*/}
+        <div className="modal__form">
           <div>
             <h2>Sign In</h2>
             <ButtonClose onClick={props.onSignInButtonCloseClick} />
@@ -97,8 +110,8 @@ export default function Login(props: {
             name="password"
             value={password}
           />
-          <ButtonSubmit onClick={handleButtonClick} isFormValid={isFormValid} />
-        </form>
+          <ButtonSubmit onClick={handleButtonClick} />
+        </div>
       </div>
     </Modal>
   );

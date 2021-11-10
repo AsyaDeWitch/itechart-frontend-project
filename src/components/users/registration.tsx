@@ -3,7 +3,7 @@ import InputText from "@/elements/inputText";
 import Modal from "@/elements/modal";
 import * as apiAuth from "@/api/apiAuth";
 import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
-import FormErrors from "@/elements/formErrors";
+// import FormErrors from "@/elements/formErrors";
 import RouteItems from "@/shared/routes/items/routeItems";
 import { useHistory } from "react-router-dom";
 import User from "@/shared/types/user";
@@ -17,18 +17,18 @@ export default function Registration(props: {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const [formErrors, setFormErrors] = useState({ userName: "", password: "" });
-  const [isUserNameValid, setIsUserNameValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [isRepeatPasswordValid, setIsRepeatPasswordValid] = useState(false);
+  // const [formErrors, setFormErrors] = useState({ userName: "", password: "" });
+  // const [isUserNameValid, setIsUserNameValid] = useState(false);
+  // const [isPasswordValid, setIsPasswordValid] = useState(false);
+  // const [isRepeatPasswordValid, setIsRepeatPasswordValid] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const history = useHistory();
 
   const validateForm = (): void => {
-    setIsFormValid(isUserNameValid && isPasswordValid && isRepeatPasswordValid);
+    // setIsFormValid(isUserNameValid && isPasswordValid && isRepeatPasswordValid);
   };
 
-  const validateField = async (fieldName: string): Promise<void> => {
+  /* const validateField = async (fieldName: string): Promise<void> => {
     const fieldValidationErrors = formErrors;
     let userNameValid = isUserNameValid;
     let passwordValid = isPasswordValid;
@@ -65,21 +65,21 @@ export default function Registration(props: {
     setIsPasswordValid(passwordValid);
     setIsRepeatPasswordValid(repeatPasswordValid);
     validateForm();
-  };
+  }; */
 
   const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setUserName(event.target.value.trim());
-    validateField("userName");
+    // validateField("userName");
   };
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value.trim());
-    validateField("password");
+    // validateField("password");
   };
 
   const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setRepeatPassword(event.target.value.trim());
-    validateField("repeatPassword");
+    // validateField("repeatPassword");
   };
 
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
@@ -97,9 +97,7 @@ export default function Registration(props: {
   return (
     <Modal>
       <div className="modal">
-        <FormErrors formErrors={formErrors} />
         <form className="modal__form">
-          <FormErrors formErrors={formErrors} />
           <div>
             <h2>Sign Up</h2>
             <ButtonClose onClick={props.onSignUpButtonCloseClick} />

@@ -17,17 +17,17 @@ export async function signUp(userName: string, password: string): Promise<AxiosR
   return response;
 }
 
-export async function isUserExists(userName: string): Promise<AxiosResponse> {
-  const response = await api.put("/api/auth/isUserExists", {
+/* export async function isUserExists(userName: string): Promise<AxiosResponse> {
+  const response = await api.post("/api/auth/isUserExists", {
     userName,
   });
   return response;
 }
 
 export async function isUserWithSuchPasswordExists(userName: string, password: string): Promise<AxiosResponse> {
-  const response = await api.put("/api/auth/isUserWithSuchPasswordExists", {
+  const response = await api.post("/api/auth/isUserWithSuchPasswordExists", {
     userName,
     password,
   });
   return response;
-}
+}*/
