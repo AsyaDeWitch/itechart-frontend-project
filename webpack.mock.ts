@@ -32,24 +32,19 @@ export default webpackMockServer.add((app, helper) => {
   });
 
   app.post("/api/auth/signIn", (req, res) => {
-    if (
-      JsonUsers.filter((user) => user.name.trim() === req.body.userName && user.password.trim() === req.body.password)
-        .length > 0
-    ) {
-      res.statusCode = 201;
-      res.json(
-        JsonUsers.filter((user) => user.name.trim() === req.body.userName && user.password.trim() === req.body.password)
-      );
+    const signInUser = JsonUsers.filter(
+      (user) => user.name === req.body.userName && user.password === req.body.password
+    );
+    if (signInUser.length === 1) {
+      res.status(201).json(signInUser[0]);
     } else {
-      res.statusCode = 400;
-      res.json();
+      res.status(400).json();
     }
   });
 
   app.put("/api/auth/signUp", (req, res) => {
-    if (JsonUsers.filter((user) => user.name.trim() === req.body.userName).length > 0) {
-      res.statusCode = 400;
-      res.json();
+    if (JsonUsers.filter((user) => user.name === req.body.userName).length === 1) {
+      res.status(400).json();
       console.log("User already exists.");
     } else {
       const newUser = {
@@ -63,31 +58,7 @@ export default webpackMockServer.add((app, helper) => {
         if (err) throw err;
         console.log("New user added.");
       });
-      res.statusCode = 200;
-      res.json(newUser);
+      res.status(200).json(newUser);
     }
   });
-
-  /* app.post("/api/auth/isUserExists", (req, res) => {
-    if (JsonUsers.filter((user) => user.name.trim() === req.body.userName).length > 0) {
-      res.statusCode = 200;
-      res.json();
-    } else {
-      res.statusCode = 400;
-      res.json();
-    }
-  });
-
-  app.post("/api/auth/isUserWithSuchPasswordExists", (req, res) => {
-    if (
-      JsonUsers.filter((user) => user.name.trim() === req.body.userName && user.password.trim() === req.body.password)
-        .length > 0
-    ) {
-      res.statusCode = 200;
-      res.json();
-    } else {
-      res.statusCode = 400;
-      res.json();
-    }
-  });*/
 });

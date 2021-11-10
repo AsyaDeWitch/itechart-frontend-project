@@ -2,11 +2,12 @@ import { AxiosResponse } from "axios";
 import api from "./apiAxios";
 
 export async function signIn(userName: string, password: string): Promise<AxiosResponse> {
-  const responce = await api.post("/api/auth/signIn", {
+  const response = await api.post("/api/auth/signIn", {
     userName,
     password,
   });
-  return responce;
+  console.log(response);
+  return response;
 }
 
 export async function signUp(userName: string, password: string): Promise<AxiosResponse> {
@@ -16,18 +17,3 @@ export async function signUp(userName: string, password: string): Promise<AxiosR
   });
   return response;
 }
-
-/* export async function isUserExists(userName: string): Promise<AxiosResponse> {
-  const response = await api.post("/api/auth/isUserExists", {
-    userName,
-  });
-  return response;
-}
-
-export async function isUserWithSuchPasswordExists(userName: string, password: string): Promise<AxiosResponse> {
-  const response = await api.post("/api/auth/isUserWithSuchPasswordExists", {
-    userName,
-    password,
-  });
-  return response;
-}*/

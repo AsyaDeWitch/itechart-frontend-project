@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import User from "@/shared/types/user";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
+import FormJoiSchema from "@/helpers/formJoiSchema";
 
 export default function Registration(props: {
   onSignIn(user: User): void;
@@ -17,80 +18,44 @@ export default function Registration(props: {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  // const [formErrors, setFormErrors] = useState({ userName: "", password: "" });
-  // const [isUserNameValid, setIsUserNameValid] = useState(false);
-  // const [isPasswordValid, setIsPasswordValid] = useState(false);
-  // const [isRepeatPasswordValid, setIsRepeatPasswordValid] = useState(false);
+  const [formErrors, setFormErrors] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const history = useHistory();
 
   const validateForm = (): void => {
-    // setIsFormValid(isUserNameValid && isPasswordValid && isRepeatPasswordValid);
-  };
-
-  /* const validateField = async (fieldName: string): Promise<void> => {
-    const fieldValidationErrors = formErrors;
-    let userNameValid = isUserNameValid;
-    let passwordValid = isPasswordValid;
-    let repeatPasswordValid = isRepeatPasswordValid;
-
-    switch (fieldName) {
-      case "userName":
-        if (userName.length === 0) {
-          userNameValid = false;
-          fieldValidationErrors.userName = "is too short";
-        } else if ((await apiAuth.isUserExists(userName)).status === 200) {
-          userNameValid = false;
-          fieldValidationErrors.userName = "user with such name already exists";
-        } else {
-          userNameValid = true;
-          fieldValidationErrors.userName = "";
-        }
-        break;
-      case "password":
-        passwordValid = password
-          .match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{6,}$/i)
-          ?.includes(password) as boolean;
-        fieldValidationErrors.password = passwordValid ? "" : "incorrect password";
-        break;
-      case "repeatPassword":
-        repeatPasswordValid = repeatPassword === repeatPassword.trim();
-        fieldValidationErrors.password = passwordValid ? "" : "passwords doesn't match";
-        break;
-      default:
-        break;
+    const { error } = FormJoiSchema.validate({ userName, password });
+    if (typeof error === undefined) {
+      setIsFormValid(true);
+    } else {
+      setFormErrors(error?.message as string);
     }
-    setFormErrors(fieldValidationErrors);
-    setIsUserNameValid(userNameValid);
-    setIsPasswordValid(passwordValid);
-    setIsRepeatPasswordValid(repeatPasswordValid);
-    validateForm();
-  }; */
+  };
 
   const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setUserName(event.target.value.trim());
-    // validateField("userName");
+    validateForm();
   };
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value.trim());
-    // validateField("password");
+    validateForm();
   };
 
   const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setRepeatPassword(event.target.value.trim());
-    // validateField("repeatPassword");
+    validateForm();
   };
 
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
-    // event.preventDefault();
-    const response = await apiAuth.signUp(userName, password);
-    if (response.status === 201) {
-      props.onSignUpButtonCloseClick(event);
-      props.onSignIn(response.data);
-      history.push(RouteItems.Profile.url);
-    } else if (response.status === 400) {
-      /* show mistakes */
+    if (isFormValid) {
+      const response = await apiAuth.signUp(userName, password);
+      if (response.status === 201) {
+        props.onSignUpButtonCloseClick(event);
+        props.onSignIn(response.data);
+        history.push(RouteItems.Profile.url);
+      } else if (response.status === 400) {
+        /* show mistakes */
+      }
     }
   };
 
@@ -126,7 +91,7 @@ export default function Registration(props: {
             name="repeatPassword"
             value={repeatPassword}
           />
-          <ButtonSubmit onClick={handleButtonClick} isFormValid={isFormValid} />
+          <ButtonSubmit onClick={handleButtonClick} />
         </form>
       </div>
     </Modal>

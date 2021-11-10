@@ -38,7 +38,9 @@ class AppContainer extends Component<Props, State> {
   }
 
   handleSignIn = (signInUser: User) => {
-    alert("sign in main");
+    console.log(signInUser);
+    const user: User = signInUser;
+    console.log(user.name);
     this.setState({ user: signInUser, isLoggedIn: true });
   };
 
@@ -57,7 +59,6 @@ class AppContainer extends Component<Props, State> {
             onSignOut={this.handleSignOut}
             isLoggedIn={this.state.isLoggedIn}
           />
-          <div id="modal-container" />
           <Switch>
             {/* only for logged in user*/}
             <Route path={`${RouteItems.Products.url}/:category`}>

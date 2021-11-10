@@ -6,6 +6,7 @@ import imgLogout from "@/assets/images/header/logout.png";
 import imgCart from "@/assets/images/header/cart.png";
 import imgUser from "@/assets/images/header/user.png";
 import User from "@/shared/types/user";
+import Modal from "@/elements/modal";
 import Dropdown from "./dropdown";
 import Login from "../users/login";
 import Registration from "../users/registration";
@@ -28,27 +29,19 @@ export default function Navbar(props: {
     history.push(RouteItems.Home.url);
   };
 
-  const handleSignInButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    alert("signIn");
+  const handleSignInButtonClick = (_: MouseEvent<HTMLButtonElement>) => {
     setIsShownSingIn(true);
   };
 
-  const handleSignUpButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    alert("signUp");
+  const handleSignUpButtonClick = (_: MouseEvent<HTMLButtonElement>) => {
     setIsShownSignUp(true);
   };
 
-  const handleSignInButtonCloseClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    alert("signIn close");
+  const handleSignInButtonCloseClick = (_: MouseEvent<HTMLButtonElement>) => {
     setIsShownSingIn(false);
   };
 
-  const handleSignUpButtonCloseClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    alert("signUp close");
+  const handleSignUpButtonCloseClick = (_: MouseEvent<HTMLButtonElement>) => {
     setIsShownSignUp(false);
   };
 
@@ -115,10 +108,14 @@ export default function Navbar(props: {
         )}
       </ul>
       {isShownSingIn ? (
-        <Login onSignIn={props.onSignIn} onSignInButtonCloseClick={handleSignInButtonCloseClick} />
+        <Modal>
+          <Login onSignIn={props.onSignIn} onSignInButtonCloseClick={handleSignInButtonCloseClick} />
+        </Modal>
       ) : null}
       {isShownSignUp ? (
-        <Registration onSignIn={props.onSignIn} onSignUpButtonCloseClick={handleSignUpButtonCloseClick} />
+        <Modal>
+          <Registration onSignIn={props.onSignIn} onSignUpButtonCloseClick={handleSignUpButtonCloseClick} />
+        </Modal>
       ) : null}
     </nav>
   );
