@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, FocusEventHandler } from "react";
 import "./inputText.scss";
 
 export default function InputText(props: {
@@ -8,6 +8,7 @@ export default function InputText(props: {
   label: string;
   name: string;
   value: string;
+  onBlur: FocusEventHandler;
 }): JSX.Element {
   return (
     <>
@@ -22,6 +23,7 @@ export default function InputText(props: {
         className="inputText"
         name={props.name}
         value={props.value}
+        onBlur={props.onBlur}
       />
     </>
   );

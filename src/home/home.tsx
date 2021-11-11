@@ -56,7 +56,7 @@ export default class Home extends PureComponent<Props, State> {
 
   render(): JSX.Element {
     return (
-      <>
+      <div className="home">
         <div className="home__searchBar">
           <SearchBar onChange={this.handleSearchChange} />
         </div>
@@ -73,7 +73,7 @@ export default class Home extends PureComponent<Props, State> {
         <h3 className="home__chapter">New games</h3>
         <hr />
         <GameCardsContainer productItems={this.state.topProducts} />
-      </>
+      </div>
     );
   }
 }

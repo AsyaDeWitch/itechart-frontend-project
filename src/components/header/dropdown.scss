@@ -40,17 +40,17 @@
     outline: none;
     display: block;
   }
-}
 
-.dropdown:hover {
-  background-color: $basicThemeColor;
-  transition: all 0.2s ease-out;
-  display: block;
-}
+  &:hover {
+    background-color: $basicThemeColor;
+    transition: all 0.2s ease-out;
+    display: block;
+  }
 
-.dropdown:focus {
-  background-color: $basicThemeColor;
-  transition: all 0.2s ease-out;
-  outline: none;
-  display: block;
+  &:focus {
+    background-color: $basicThemeColor;
+    transition: all 0.2s ease-out;
+    outline: none;
+    display: block;
+  }
 }

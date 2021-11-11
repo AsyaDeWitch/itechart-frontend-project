@@ -9,7 +9,7 @@ import Footer from "./components/footer";
 import RouteItems from "./shared/routes/items/routeItems";
 import ErrorBoundary from "./shared/errorBoundary";
 import Games from "./components/products/games";
-import About from "./components/info/about";
+import About from "./components/about/about";
 import Home from "./home/home";
 import Profile from "./components/users/profile";
 import Cart from "./components/cart/cart";

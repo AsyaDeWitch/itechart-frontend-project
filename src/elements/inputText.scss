@@ -8,10 +8,10 @@
   border-color: $basicDarkThemeColor;
   border-radius: 10px;
   font-size: 1.2em;
-  display: inline;
+  display: inline-grid;
   position: relative;
   padding-left: 1rem;
-  margin: 1rem;
+  margin: 0.4rem;
   color: $basicFontColor;
 }
 
@@ -26,4 +26,6 @@
   color: white;
   text-align: left;
   font-size: 1.2em;
+  display: inline-block;
+  width: 10rem;
 }

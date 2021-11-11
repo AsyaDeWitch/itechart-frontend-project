@@ -1,9 +1,7 @@
 import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
-import Modal from "@/elements/modal";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
-// import FormErrors from "@/elements/formErrors";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, FocusEvent } from "react";
 import RouteItems from "@/shared/routes/items/routeItems";
 import { useHistory } from "react-router-dom";
 import User from "@/shared/types/user";
@@ -23,50 +21,63 @@ export default function Registration(props: {
   const history = useHistory();
 
   const validateForm = (): void => {
-    const { error } = FormJoiSchema.validate({ userName, password });
-    if (typeof error === undefined) {
-      setIsFormValid(true);
+    const { error } = FormJoiSchema.validate({ userName, password, repeatPassword });
+    if (error !== undefined) {
+      if (error.message === undefined) {
+        setIsFormValid(true);
+        setFormErrors("");
+      } else {
+        setFormErrors(error.message as string);
+      }
     } else {
-      setFormErrors(error?.message as string);
+      setIsFormValid(true);
+      setFormErrors("");
     }
   };
 
-  const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setUserName(event.target.value.trim());
+  const handleInputFocusChange = (_: FocusEvent<HTMLInputElement>): void => {
     validateForm();
+  };
+
+  const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setUserName(event.target.value);
   };
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(event.target.value.trim());
-    validateForm();
+    setPassword(event.target.value);
   };
 
   const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setRepeatPassword(event.target.value.trim());
-    validateForm();
+    setRepeatPassword(event.target.value);
   };
 
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     if (isFormValid) {
-      const response = await apiAuth.signUp(userName, password);
-      if (response.status === 201) {
-        props.onSignUpButtonCloseClick(event);
-        props.onSignIn(response.data);
-        history.push(RouteItems.Profile.url);
-      } else if (response.status === 400) {
-        /* show mistakes */
+      try {
+        const response = await apiAuth.signUp(userName, password);
+        if (response.status === 200) {
+          props.onSignIn(response.data);
+          props.onSignUpButtonCloseClick(event);
+          history.push(RouteItems.Profile.url);
+        }
+      } catch (error) {
+        console.log(error);
+        setFormErrors("User with such name already exists");
       }
     }
   };
 
   return (
-    <Modal>
-      <div className="modal">
-        <form className="modal__form">
-          <div>
-            <h2>Sign Up</h2>
+    <div className="modal">
+      <div className="modal__form">
+        <nav className="modal__head">
+          <div className="modal__title">Sign Up</div>
+          <div className="modal__buttonClose">
             <ButtonClose onClick={props.onSignUpButtonCloseClick} />
           </div>
+        </nav>
+        <div className="modal__error">{formErrors}</div>
+        <div className="modal__input">
           <InputText
             onChange={handleUserNameChange}
             type="text"
@@ -74,7 +85,10 @@ export default function Registration(props: {
             label="Name"
             name="userName"
             value={userName}
+            onBlur={handleInputFocusChange}
           />
+        </div>
+        <div className="modal__input">
           <InputText
             onChange={handlePasswordChange}
             type="password"
@@ -82,7 +96,10 @@ export default function Registration(props: {
             label="Password"
             name="password"
             value={password}
+            onBlur={handleInputFocusChange}
           />
+        </div>
+        <div className="modal__input">
           <InputText
             onChange={handleRepeatPasswordChange}
             type="password"
@@ -90,10 +107,13 @@ export default function Registration(props: {
             label="Repeat password"
             name="repeatPassword"
             value={repeatPassword}
+            onBlur={handleInputFocusChange}
           />
+        </div>
+        <div className="modal__buttonSubmit">
           <ButtonSubmit onClick={handleButtonClick} />
-        </form>
+        </div>
       </div>
-    </Modal>
+    </div>
   );
 }

@@ -2,8 +2,13 @@
 @import "sanitize.css";
 
 .home {
+  padding-bottom: 8.5rem;
+
   &__searchBar {
     text-align: center;
+    padding-bottom: 6rem;
+    position: relative;
+    min-height: 100%;
   }
 
   &__chapter {

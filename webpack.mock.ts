@@ -44,8 +44,8 @@ export default webpackMockServer.add((app, helper) => {
 
   app.put("/api/auth/signUp", (req, res) => {
     if (JsonUsers.filter((user) => user.name === req.body.userName).length === 1) {
-      res.status(400).json();
       console.log("User already exists.");
+      res.status(400).json();
     } else {
       const newUser = {
         id: JsonUsers.length + 1,
@@ -59,6 +59,7 @@ export default webpackMockServer.add((app, helper) => {
         console.log("New user added.");
       });
       res.status(200).json(newUser);
+      console.log(newUser);
     }
   });
 });
