@@ -14,6 +14,7 @@ import Home from "./home/home";
 import Profile from "./components/users/profile";
 import Cart from "./components/cart/cart";
 import User from "./shared/types/user";
+import ProtectedRoute from "./shared/routes/protectedRoute";
 
 const title = "Best Games Market";
 const nullUser: User = { id: 0, name: "User", email: "test@gmail.com", password: "password" };
@@ -60,26 +61,57 @@ class AppContainer extends Component<Props, State> {
             isLoggedIn={this.state.isLoggedIn}
           />
           <Switch>
-            {/* only for logged in user*/}
+            <ProtectedRoute
+              path={`${RouteItems.Products.url}/:category`}
+              component={Games}
+              onSignIn={this.handleSignIn}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+            {/* only for logged in user
             <Route path={`${RouteItems.Products.url}/:category`}>
               <Games />
-            </Route>
-            {/* only for logged in user*/}
+            </Route> */}
+
+            <ProtectedRoute
+              path={RouteItems.Products.url}
+              component={Games}
+              onSignIn={this.handleSignIn}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+            {/* only for logged in user
             <Route path={RouteItems.Products.url}>
               <Games />
-            </Route>
-            {/* only for logged in user*/}
+            </Route>*/}
+            <ProtectedRoute
+              path={RouteItems.About.url}
+              component={About}
+              onSignIn={this.handleSignIn}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+            {/* only for logged in user
             <Route path={RouteItems.About.url}>
               <About />
-            </Route>
-            {/* only for logged in user*/}
+            </Route> */}
+            <ProtectedRoute
+              path={RouteItems.Profile.url}
+              component={Profile}
+              onSignIn={this.handleSignIn}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+            {/* only for logged in user
             <Route path={RouteItems.Profile.url}>
               <Profile />
-            </Route>
-            {/* only for logged in user*/}
+            </Route> */}
+            <ProtectedRoute
+              path={RouteItems.Cart.url}
+              component={Cart}
+              onSignIn={this.handleSignIn}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+            {/* only for logged in user
             <Route path={RouteItems.Cart.url}>
               <Cart />
-            </Route>
+            </Route>*/}
             <Route exact path={RouteItems.Home.url}>
               <Home />
             </Route>
