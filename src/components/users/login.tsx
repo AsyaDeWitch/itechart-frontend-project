@@ -47,7 +47,7 @@ export default function Login(props: {
     if (isFormValid) {
       try {
         const response = await apiAuth.signIn(userName, password);
-        if (response.status === 201) {
+        if (response.status === 200) {
           props.onSignIn(response.data);
           props.onSignInButtonCloseClick(event);
         }

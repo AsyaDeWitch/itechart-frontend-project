@@ -55,7 +55,7 @@ export default function Registration(props: {
     if (isFormValid) {
       try {
         const response = await apiAuth.signUp(userName, password);
-        if (response.status === 200) {
+        if (response.status === 201) {
           props.onSignIn(response.data);
           props.onSignUpButtonCloseClick(event);
           history.push(RouteItems.Profile.url);

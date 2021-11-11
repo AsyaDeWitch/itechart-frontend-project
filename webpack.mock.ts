@@ -36,7 +36,7 @@ export default webpackMockServer.add((app, helper) => {
       (user) => user.name === req.body.userName && user.password === req.body.password
     );
     if (signInUser.length === 1) {
-      res.status(201).json(signInUser[0]);
+      res.status(200).json(signInUser[0]);
     } else {
       res.status(400).json();
     }
@@ -58,7 +58,7 @@ export default webpackMockServer.add((app, helper) => {
         if (err) throw err;
         console.log("New user added.");
       });
-      res.status(200).json(newUser);
+      res.status(201).json(newUser);
       console.log(newUser);
     }
   });
