@@ -8,6 +8,7 @@ import User from "@/shared/types/user";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import FormJoiSchema from "@/helpers/formJoiSchema";
+import { StatusCodes } from "http-status-codes";
 
 export default function Registration(props: {
   onSignIn(user: User): void;
@@ -55,7 +56,7 @@ export default function Registration(props: {
     if (isFormValid) {
       try {
         const response = await apiAuth.signUp(userName, password);
-        if (response.status === 201) {
+        if (response.status === StatusCodes.CREATED) {
           props.onSignIn(response.data);
           props.onSignUpButtonCloseClick(event);
           history.push(RouteItems.Profile.url);

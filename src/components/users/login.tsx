@@ -6,6 +6,7 @@ import User from "@/shared/types/user";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import FormJoiSchema from "@/helpers/formJoiSchema";
+import { StatusCodes } from "http-status-codes";
 
 export default function Login(props: {
   onSignIn(user: User): void;
@@ -47,7 +48,7 @@ export default function Login(props: {
     if (isFormValid) {
       try {
         const response = await apiAuth.signIn(userName, password);
-        if (response.status === 200) {
+        if (response.status === StatusCodes.OK) {
           props.onSignIn(response.data);
           props.onSignInButtonCloseClick(event);
         }

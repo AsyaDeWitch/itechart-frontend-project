@@ -17,7 +17,7 @@ import User from "./shared/types/user";
 import ProtectedRoute from "./shared/routes/protectedRoute";
 
 const title = "Best Games Market";
-const nullUser: User = { id: 0, name: "User", email: "test@gmail.com", password: "password" };
+const nullUser: User = { id: 0, name: "", email: "", password: "" };
 const history = createBrowserHistory();
 
 interface Props {
@@ -39,9 +39,6 @@ class AppContainer extends Component<Props, State> {
   }
 
   handleSignIn = (signInUser: User) => {
-    console.log(signInUser);
-    const user: User = signInUser;
-    console.log(user.name);
     this.setState({ user: signInUser, isLoggedIn: true });
   };
 

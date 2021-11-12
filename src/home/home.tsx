@@ -36,9 +36,13 @@ export default class Home extends PureComponent<Props, State> {
       this.handleFoundGamesChange(response.data);
     }
     if (this.state.searchText === "" && prevState.searchText !== "") {
-      this.state.foundGames.length = 0;
+      this.handleFoundGamesClear();
     }
   }
+
+  handleFoundGamesClear = (): void => {
+    this.setState({ foundGames: [] });
+  };
 
   handleFoundGamesChange = (data: AxiosResponse["data"]): void => {
     this.setState({ foundGames: data });

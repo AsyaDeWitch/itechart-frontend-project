@@ -1,4 +1,5 @@
 import fs from "fs";
+import { StatusCodes } from "http-status-codes";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
 import JsonGames from "./src/mockData/games.json";
@@ -36,16 +37,16 @@ export default webpackMockServer.add((app, helper) => {
       (user) => user.name === req.body.userName && user.password === req.body.password
     );
     if (signInUser.length === 1) {
-      res.status(200).json(signInUser[0]);
+      res.status(StatusCodes.OK).json(signInUser[0]);
     } else {
-      res.status(400).json();
+      res.status(StatusCodes.BAD_REQUEST).json();
     }
   });
 
   app.put("/api/auth/signUp", (req, res) => {
     if (JsonUsers.filter((user) => user.name === req.body.userName).length === 1) {
       console.log("User already exists.");
-      res.status(400).json();
+      res.status(StatusCodes.BAD_REQUEST).json();
     } else {
       const newUser = {
         id: JsonUsers.length + 1,
@@ -58,7 +59,7 @@ export default webpackMockServer.add((app, helper) => {
         if (err) throw err;
         console.log("New user added.");
       });
-      res.status(201).json(newUser);
+      res.status(StatusCodes.CREATED).json(newUser);
       console.log(newUser);
     }
   });
