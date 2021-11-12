@@ -32,23 +32,17 @@
       text-decoration: none;
       padding: 0.5rem 1rem 0.5rem 1rem;
       margin: 0 0.1rem 0 0.1rem;
-      display: inline;
     }
 
     &__userName {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      width: 10vw;
-      display: inline-block;
-      //justify-self: center;
-      //align-items: center;
-      //text-align: center;
+      width: 8vw;
+      display: inline-flex;
     }
 
     &__li {
-      color: white;
-      text-align: center;
       text-decoration: none;
     }
 
@@ -67,8 +61,8 @@
 
     &__icon {
       height: 1.2em;
-      align-items: center;
-      text-align: center;
+      display: inline-block;
+      vertical-align: text-top;
     }
 
     &__button {
