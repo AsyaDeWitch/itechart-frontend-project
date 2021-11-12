@@ -38,8 +38,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      width: 8vw;
-      display: inline-flex;
+      width: 6vw;
+      display: inline-block;
+      vertical-align: bottom;
+      text-align: start;
     }
 
     &__li {
@@ -61,7 +63,7 @@
 
     &__icon {
       height: 1.2em;
-      display: inline-block;
+      margin: 0 0.1rem 0 0.1rem;
       vertical-align: text-top;
     }
 

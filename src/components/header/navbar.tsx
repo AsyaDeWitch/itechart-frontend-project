@@ -54,7 +54,6 @@ export default function Navbar(props: {
             {RouteItems.Home.id}
           </Link>
         </li>
-        {/* only for logged in user*/}
         <li
           className="dropdown"
           onMouseEnter={() => setIsShownDropdown(true)}
@@ -67,7 +66,6 @@ export default function Navbar(props: {
           </Link>
           {isShownDropdown ? <Dropdown /> : null}
         </li>
-        {/* only for logged in user*/}
         <li className="navbar__menu__li">
           <Link className="navbar__menu__link" to={RouteItems.About.url}>
             {RouteItems.About.id}
