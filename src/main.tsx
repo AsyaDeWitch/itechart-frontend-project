@@ -67,51 +67,30 @@ class AppContainer extends Component<Props, State> {
               onSignIn={this.handleSignIn}
               isLoggedIn={this.state.isLoggedIn}
             />
-            {/* only for logged in user
-            <Route path={`${RouteItems.Products.url}/:category`}>
-              <Games />
-            </Route> */}
-
             <ProtectedRoute
               path={RouteItems.Products.url}
               component={Games}
               onSignIn={this.handleSignIn}
               isLoggedIn={this.state.isLoggedIn}
             />
-            {/* only for logged in user
-            <Route path={RouteItems.Products.url}>
-              <Games />
-            </Route>*/}
             <ProtectedRoute
               path={RouteItems.About.url}
               component={About}
               onSignIn={this.handleSignIn}
               isLoggedIn={this.state.isLoggedIn}
             />
-            {/* only for logged in user
-            <Route path={RouteItems.About.url}>
-              <About />
-            </Route> */}
             <ProtectedRoute
               path={RouteItems.Profile.url}
               component={Profile}
               onSignIn={this.handleSignIn}
               isLoggedIn={this.state.isLoggedIn}
             />
-            {/* only for logged in user
-            <Route path={RouteItems.Profile.url}>
-              <Profile />
-            </Route> */}
             <ProtectedRoute
               path={RouteItems.Cart.url}
               component={Cart}
               onSignIn={this.handleSignIn}
               isLoggedIn={this.state.isLoggedIn}
             />
-            {/* only for logged in user
-            <Route path={RouteItems.Cart.url}>
-              <Cart />
-            </Route>*/}
             <Route exact path={RouteItems.Home.url}>
               <Home />
             </Route>
