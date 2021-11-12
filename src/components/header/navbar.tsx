@@ -5,7 +5,6 @@ import RouteItems from "@/shared/routes/items/routeItems";
 import imgLogout from "@/assets/images/header/logout.png";
 import imgCart from "@/assets/images/header/cart.png";
 import imgUser from "@/assets/images/header/user.png";
-import User from "@/shared/types/user";
 import Modal from "@/elements/modal";
 import Dropdown from "./dropdown";
 import Login from "../users/login";
@@ -14,9 +13,9 @@ import Registration from "../users/registration";
 export default function Navbar(props: {
   title: string;
   userName: string;
-  onSignIn(user: User): void;
-  onSignOut: VoidFunction;
-  isLoggedIn: boolean;
+  // onSignIn(user: User): void;
+  // onSignOut: VoidFunction;
+  // isLoggedIn: boolean;
 }): JSX.Element {
   const [isShownDropdown, setIsShownDropdown] = useState(false);
   const [isShownSingIn, setIsShownSingIn] = useState(false);
@@ -54,7 +53,6 @@ export default function Navbar(props: {
             {RouteItems.Home.id}
           </Link>
         </li>
-        {/* only for logged in user*/}
         <li
           className="dropdown"
           onMouseEnter={() => setIsShownDropdown(true)}
@@ -67,7 +65,6 @@ export default function Navbar(props: {
           </Link>
           {isShownDropdown ? <Dropdown /> : null}
         </li>
-        {/* only for logged in user*/}
         <li className="navbar__menu__li">
           <Link className="navbar__menu__link" to={RouteItems.About.url}>
             {RouteItems.About.id}

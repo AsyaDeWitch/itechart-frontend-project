@@ -1,13 +1,12 @@
-import User from "@/shared/types/user";
 import { useEffect } from "react";
 import Navbar from "./navbar";
 
 export default function Header(props: {
   title: string;
   userName: string;
-  onSignIn(user: User): void;
-  onSignOut(): void;
-  isLoggedIn: boolean;
+  // onSignIn(user: User): void;
+  // onSignOut(): void;
+  // isLoggedIn: boolean;
 }): JSX.Element {
   useEffect(() => {
     document.title = props.title;

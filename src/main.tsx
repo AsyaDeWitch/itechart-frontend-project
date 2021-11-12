@@ -50,13 +50,15 @@ class AppContainer extends Component<Props, State> {
     return (
       <ErrorBoundary history={this.props.history}>
         <Router>
-          <Header
-            title={this.props.title}
-            userName={this.state.user.name}
-            onSignIn={this.handleSignIn}
-            onSignOut={this.handleSignOut}
-            isLoggedIn={this.state.isLoggedIn}
-          />
+          <IsLoggedInContext.Provider value={this.state.isLoggedIn}>
+            <Header
+              title={this.props.title}
+              userName={this.state.user.name}
+              // onSignIn={this.handleSignIn}
+              // onSignOut={this.handleSignOut}
+              // isLoggedIn={this.state.isLoggedIn}
+            />
+          </IsLoggedInContext.Provider>
           <Switch>
             <ProtectedRoute
               path={`${RouteItems.Products.url}/:category`}
