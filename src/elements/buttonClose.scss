@@ -1,0 +1,19 @@
+.buttonClose {
+  height: 1.7rem;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  position: relative;
+
+  &__icon {
+    height: 1.5rem;
+  }
+
+  &:hover {
+    background-color: $basicThemeColor;
+    border-radius: 4px;
+    transition: all 0.2s ease-out;
+    outline: none;
+  }
+}

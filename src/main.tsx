@@ -9,10 +9,15 @@ import Footer from "./components/footer";
 import RouteItems from "./shared/routes/items/routeItems";
 import ErrorBoundary from "./shared/errorBoundary";
 import Games from "./components/products/games";
-import About from "./components/info/about";
+import About from "./components/about/about";
 import Home from "./home/home";
+import Profile from "./components/users/profile";
+import Cart from "./components/cart/cart";
+import User from "./shared/types/user";
+import ProtectedRoute from "./shared/routes/protectedRoute";
 
 const title = "Best Games Market";
+const nullUser: User = { id: 0, name: "", email: "", password: "" };
 const history = createBrowserHistory();
 
 interface Props {
@@ -20,24 +25,69 @@ interface Props {
   history: History;
 }
 
-class AppContainer extends Component<Props> {
+interface State {
+  user: User;
+  isLoggedIn: boolean;
+}
+
+class AppContainer extends Component<Props, State> {
   ["constructor"]: typeof AppContainer;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = { user: nullUser, isLoggedIn: false };
+  }
+
+  handleSignIn = (signInUser: User) => {
+    this.setState({ user: signInUser, isLoggedIn: true });
+  };
+
+  handleSignOut = () => {
+    this.setState({ user: nullUser, isLoggedIn: false });
+  };
 
   render() {
     return (
       <ErrorBoundary history={this.props.history}>
         <Router>
-          <Header title={this.props.title} />
+          <Header
+            title={this.props.title}
+            userName={this.state.user.name}
+            onSignIn={this.handleSignIn}
+            onSignOut={this.handleSignOut}
+            isLoggedIn={this.state.isLoggedIn}
+          />
           <Switch>
-            <Route path={`${RouteItems.Products.url}/:category`}>
-              <Games />
-            </Route>
-            <Route path={RouteItems.Products.url}>
-              <Games />
-            </Route>
-            <Route path={RouteItems.About.url}>
-              <About />
-            </Route>
+            <ProtectedRoute
+              path={`${RouteItems.Products.url}/:category`}
+              component={Games}
+              onSignIn={this.handleSignIn}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+            <ProtectedRoute
+              path={RouteItems.Products.url}
+              component={Games}
+              onSignIn={this.handleSignIn}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+            <ProtectedRoute
+              path={RouteItems.About.url}
+              component={About}
+              onSignIn={this.handleSignIn}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+            <ProtectedRoute
+              path={RouteItems.Profile.url}
+              component={Profile}
+              onSignIn={this.handleSignIn}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+            <ProtectedRoute
+              path={RouteItems.Cart.url}
+              component={Cart}
+              onSignIn={this.handleSignIn}
+              isLoggedIn={this.state.isLoggedIn}
+            />
             <Route exact path={RouteItems.Home.url}>
               <Home />
             </Route>

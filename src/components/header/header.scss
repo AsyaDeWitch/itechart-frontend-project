@@ -31,15 +31,22 @@
       text-align: center;
       text-decoration: none;
       padding: 0.5rem 1rem 0.5rem 1rem;
-      margin: 0, 1.2rem, 0, 1.2rem;
+      margin: 0 0.1rem 0 0.1rem;
+    }
+
+    &__userName {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 6vw;
+      display: inline-block;
+      vertical-align: bottom;
+      text-align: start;
     }
 
     &__li {
-      color: white;
-      text-align: center;
       text-decoration: none;
-
-      //padding: 0.5rem 1rem 0.5rem 1rem;
+      text-align: center;
     }
 
     &__li:hover {
@@ -53,6 +60,24 @@
       border-radius: 4px;
       transition: all 0.2s ease-out;
       outline: none;
+    }
+
+    &__icon {
+      height: 1.2em;
+      margin: 0 0.1rem 0 0.1rem;
+      vertical-align: text-top;
+    }
+
+    &__button {
+      font-size: 1em;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      background-color: transparent;
+      background-repeat: no-repeat;
+      border: none;
+      outline: none;
+      padding: 0 1rem 0 1rem;
     }
   }
 }

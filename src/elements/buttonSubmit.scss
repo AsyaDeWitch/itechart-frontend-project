@@ -1,0 +1,21 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.buttonSubmit {
+  font-size: 1.2em;
+  color: white;
+  text-align: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: $basicDarkThemeColor;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  width: 10vw;
+  height: 4vh;
+
+  &:hover {
+    background-color: $basicThemeColor;
+  }
+}

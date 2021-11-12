@@ -3,7 +3,6 @@
 
 .dropdown {
   color: white;
-  //padding: 0.5rem 1rem 0.5rem 1rem;
   border-radius: 4px;
   overflow: hidden;
   border: none;
@@ -14,7 +13,7 @@
     text-decoration: none;
     border-radius: 4px;
     padding: 0.5rem 1.2rem 0.5rem 1.2rem;
-    margin: 0, 1.2rem, 0, 1.2rem;
+    margin: 0 0.1rem 0 0.1rem;
   }
 
   &__content {
@@ -40,17 +39,17 @@
     outline: none;
     display: block;
   }
-}
 
-.dropdown:hover {
-  background-color: $basicThemeColor;
-  transition: all 0.2s ease-out;
-  display: block;
-}
+  &:hover {
+    background-color: $basicThemeColor;
+    transition: all 0.2s ease-out;
+    display: block;
+  }
 
-.dropdown:focus {
-  background-color: $basicThemeColor;
-  transition: all 0.2s ease-out;
-  outline: none;
-  display: block;
+  &:focus {
+    background-color: $basicThemeColor;
+    transition: all 0.2s ease-out;
+    outline: none;
+    display: block;
+  }
 }
