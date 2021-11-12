@@ -78,7 +78,7 @@ export default function Navbar(props: {
             <li className="navbar__menu__li">
               <Link className="navbar__menu__link" to={RouteItems.Profile.url}>
                 <img className="navbar__menu__icon" src={imgUser} alt="User" />
-                {props.userName.length <= 10 ? ` ${props.userName}` : ` ${props.userName.slice(0, 6)}...`}
+                <span className="navbar__menu__userName">{` ${props.userName}`}</span>
               </Link>
             </li>
             <li className="navbar__menu__li">

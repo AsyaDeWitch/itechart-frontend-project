@@ -19,13 +19,8 @@ export default function Login(props: {
 
   const validateForm = (): void => {
     const { error } = FormJoiSchema.validate({ userName, password });
-    if (error !== undefined) {
-      if (error.message === undefined) {
-        setIsFormValid(true);
-        setFormErrors("");
-      } else {
-        setFormErrors(error.message as string);
-      }
+    if (error !== undefined && error.message !== undefined) {
+      setFormErrors(error.message as string);
     } else {
       setIsFormValid(true);
       setFormErrors("");
