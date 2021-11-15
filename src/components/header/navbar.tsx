@@ -48,17 +48,11 @@ export default function Navbar(props: { title: string }): JSX.Element {
             {RouteItems.Home.id}
           </Link>
         </li>
-        <li
-          className="dropdown"
-          onMouseEnter={() => setIsShownDropdown(true)}
-          onMouseLeave={() => setIsShownDropdown(false)}
-          onKeyDownCapture={() => setIsShownDropdown(true)}
-          onKeyUpCapture={() => setIsShownDropdown(false)}
-        >
+        <li className="dropdown">
           <Link className="dropdown__link" to={RouteItems.Products.url}>
             {RouteItems.Products.id}
           </Link>
-          {isShownDropdown ? <Dropdown /> : null}
+          <Dropdown />
         </li>
         <li className="navbar__menu__li">
           <Link className="navbar__menu__link" to={RouteItems.About.url}>

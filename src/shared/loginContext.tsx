@@ -6,10 +6,10 @@ const nullUser: User = { id: 0, name: "", email: "", password: "" };
 export const LoginContext = createContext({
   signInUser: nullUser,
   isLoggedIn: false,
-  signIn: (newSignInUser: User) => {
+  setSignInData: (newSignInUser: User) => {
     console.log(`Sign in failed ${newSignInUser}`);
   },
-  signOut: () => {
+  setSignOutData: () => {
     console.log("Sign out failed");
   },
 });
@@ -18,17 +18,19 @@ export default function LoginContextProvider(props: { children: JSX.Element }): 
   const [signInUser, setSignInUser] = useState(nullUser);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const signIn = (newSignInUser: User): void => {
+  const setSignInData = (newSignInUser: User): void => {
     setIsLoggedIn(true);
     setSignInUser(newSignInUser);
   };
 
-  const signOut = (): void => {
+  const setSignOutData = (): void => {
     setIsLoggedIn(false);
     setSignInUser(nullUser);
   };
 
   return (
-    <LoginContext.Provider value={{ signInUser, isLoggedIn, signIn, signOut }}>{props.children}</LoginContext.Provider>
+    <LoginContext.Provider value={{ signInUser, isLoggedIn, setSignInData, setSignOutData }}>
+      {props.children}
+    </LoginContext.Provider>
   );
 }

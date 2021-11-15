@@ -6,6 +6,8 @@
   border-radius: 4px;
   overflow: hidden;
   border: none;
+  position: relative;
+  display: inline-block;
 
   &__link {
     border: none;
@@ -17,39 +19,55 @@
   }
 
   &__content {
-    background: $basicDarkThemeColor 100%;
-    font-size: 0.8em;
-    color: white;
-    display: block;
-    justify-self: center;
-    text-decoration: none;
-    border-radius: 4px;
-    padding: 0.4rem 1rem;
+    display: none;
+    z-index: 1;
+    position: absolute;
+
+    &__link {
+      display: block;
+      text-decoration: none;
+      background: $basicDarkThemeColor 100%;
+      font-size: 0.7em;
+      color: white;
+      padding: 0.4rem 1rem;
+      justify-self: center;
+      border-radius: 4px;
+    }
   }
 
-  &__content:hover {
+  &__content__link:hover &__content {
     background-color: $basicThemeColor;
     transition: all 0.2s ease-out;
-    display: block;
+    // display: block;
   }
 
-  &__content:focus {
-    background-color: $basicThemeColor;
-    transition: all 0.2s ease-out;
-    outline: none;
-    display: block;
-  }
-
-  &:hover {
-    background-color: $basicThemeColor;
-    transition: all 0.2s ease-out;
-    display: block;
-  }
-
-  &:focus {
+  &__content__link:focus &__content {
     background-color: $basicThemeColor;
     transition: all 0.2s ease-out;
     outline: none;
+    //display: block;
+  }
+
+  &:hover &__content {
+    background-color: $basicThemeColor;
+    transition: all 0.2s ease-out;
     display: block;
+  }
+
+  &:focus &__content {
+    //background-color: $basicThemeColor;
+    //transition: all 0.2s ease-out;
+    //outline: none;
+    display: block;
+  }
+
+  &:hover &__link {
+    background-color: $basicThemeColor;
+    transition: all 0.2s ease-out;
+  }
+  &:focus &__link {
+    background-color: $basicThemeColor;
+    transition: all 0.2s ease-out;
+    outline: none;
   }
 }
