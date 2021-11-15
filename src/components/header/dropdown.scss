@@ -4,7 +4,6 @@
 .dropdown {
   color: white;
   border-radius: 6px;
-  overflow: hidden;
   border: none;
   position: relative;
   display: inline-block;
@@ -22,45 +21,43 @@
     display: none;
     z-index: 1;
     position: absolute;
+    margin: 0 0.1rem 0 0.1rem;
 
     &__link {
       display: block;
       text-decoration: none;
       background: $basicDarkThemeColor 100%;
-      font-size: 0.7em;
+      font-size: 0.7rem;
       color: white;
-      padding: 0.4rem 1rem;
+      padding: 0.4rem 1.4rem;
       justify-self: center;
       border-radius: 4px;
     }
-  }
 
-  &__content__link:hover &__content {
-    background-color: $basicThemeColor;
-    transition: all 0.2s ease-out;
-    border-radius: 4px;
-    // display: block;
-  }
+    &__link:hover {
+      background-color: $basicThemeColor;
+      transition: all 0.2s ease-out;
+      border-radius: 4px;
+      visibility: visible;
+      display: block;
+    }
 
-  &__content__link:focus &__content {
-    background-color: $basicThemeColor;
-    transition: all 0.2s ease-out;
-    outline: none;
-    border-radius: 4px;
-    //display: block;
+    &__link:focus {
+      background-color: $basicThemeColor;
+      transition: all 0.2s ease-out;
+      outline: none;
+      border-radius: 4px;
+      visibility: visible;
+      display: block;
+    }
   }
 
   &:hover &__content {
-    background-color: $basicThemeColor;
-    transition: all 0.2s ease-out;
     display: block;
     border-radius: 4px;
   }
 
   &:focus &__content {
-    //background-color: $basicThemeColor;
-    //transition: all 0.2s ease-out;
-    //outline: none;
     display: block;
   }
 
@@ -68,11 +65,13 @@
     background-color: $basicThemeColor;
     transition: all 0.2s ease-out;
     border-radius: 4px;
+    visibility: visible;
   }
   &:focus &__link {
     background-color: $basicThemeColor;
     transition: all 0.2s ease-out;
     outline: none;
     border-radius: 4px;
+    visibility: visible;
   }
 }

@@ -1,7 +1,8 @@
 import { createContext, useState } from "react";
 import User from "./types/user";
 
-const nullUser: User = { id: 0, name: "", email: "", password: "" };
+const nullUserId = 0;
+const nullUser: User = { id: nullUserId, name: "", email: "", password: "" };
 
 export const LoginContext = createContext({
   signInUser: nullUser,
@@ -16,20 +17,19 @@ export const LoginContext = createContext({
 
 export default function LoginContextProvider(props: { children: JSX.Element }): JSX.Element {
   const [signInUser, setSignInUser] = useState(nullUser);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const setSignInData = (newSignInUser: User): void => {
-    setIsLoggedIn(true);
     setSignInUser(newSignInUser);
   };
 
   const setSignOutData = (): void => {
-    setIsLoggedIn(false);
     setSignInUser(nullUser);
   };
 
   return (
-    <LoginContext.Provider value={{ signInUser, isLoggedIn, setSignInData, setSignOutData }}>
+    <LoginContext.Provider
+      value={{ signInUser, isLoggedIn: signInUser.id !== nullUserId, setSignInData, setSignOutData }}
+    >
       {props.children}
     </LoginContext.Provider>
   );

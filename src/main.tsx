@@ -39,9 +39,7 @@ class AppContainer extends Component<Props> {
               <ProtectedRoute path={RouteItems.About.url} component={About} />
               <ProtectedRoute path={RouteItems.Profile.url} component={Profile} />
               <ProtectedRoute path={RouteItems.Cart.url} component={Cart} />
-              <Route exact path={RouteItems.Home.url}>
-                <Home />
-              </Route>
+              <Route exact path={RouteItems.Home.url} component={Home} />
               <Redirect to={RouteItems.Home.url} />
             </Switch>
             <Footer />
