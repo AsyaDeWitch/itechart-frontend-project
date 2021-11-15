@@ -1,7 +1,7 @@
 import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler, FocusEvent, useContext } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useContext } from "react";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import FormJoiSchema from "@/helpers/formJoiSchema";
@@ -13,7 +13,7 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
-  const loginContext = useContext(LoginContext);
+  const { setSignInData } = useContext(LoginContext);
 
   const validateForm = (): void => {
     const { error } = FormJoiSchema.validate({ userName, password });
@@ -25,7 +25,7 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
     }
   };
 
-  const handleInputFocusChange = (_: FocusEvent<HTMLInputElement>): void => {
+  const handleInputFocusChange = (): void => {
     validateForm();
   };
 
@@ -42,7 +42,7 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
       try {
         const response = await apiAuth.signIn(userName, password);
         if (response.status === StatusCodes.OK) {
-          loginContext.signIn(response.data);
+          setSignInData(response.data);
           props.onSignInButtonCloseClick(event);
         }
       } catch (error) {

@@ -1,4 +1,4 @@
-import { useState, MouseEvent, useContext } from "react";
+import { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./header.scss";
 import RouteItems from "@/shared/routes/items/routeItems";
@@ -12,30 +12,29 @@ import Login from "../users/login";
 import Registration from "../users/registration";
 
 export default function Navbar(props: { title: string }): JSX.Element {
-  const [isShownDropdown, setIsShownDropdown] = useState(false);
   const [isShownSingIn, setIsShownSingIn] = useState(false);
   const [isShownSignUp, setIsShownSignUp] = useState(false);
   const history = useHistory();
-  const loginContext = useContext(LoginContext);
+  const { signInUser, isLoggedIn, setSignOutData } = useContext(LoginContext);
 
-  const handleLogoutButtonClick = (_: MouseEvent<HTMLButtonElement>) => {
-    loginContext.signOut();
+  const handleLogoutButtonClick = () => {
+    setSignOutData();
     history.push(RouteItems.Home.url);
   };
 
-  const handleSignInButtonClick = (_: MouseEvent<HTMLButtonElement>) => {
+  const handleSignInButtonClick = () => {
     setIsShownSingIn(true);
   };
 
-  const handleSignUpButtonClick = (_: MouseEvent<HTMLButtonElement>) => {
+  const handleSignUpButtonClick = () => {
     setIsShownSignUp(true);
   };
 
-  const handleSignInButtonCloseClick = (_: MouseEvent<HTMLButtonElement>) => {
+  const handleSignInButtonCloseClick = () => {
     setIsShownSingIn(false);
   };
 
-  const handleSignUpButtonCloseClick = (_: MouseEvent<HTMLButtonElement>) => {
+  const handleSignUpButtonCloseClick = () => {
     setIsShownSignUp(false);
   };
 
@@ -59,12 +58,12 @@ export default function Navbar(props: { title: string }): JSX.Element {
             {RouteItems.About.id}
           </Link>
         </li>
-        {loginContext.isLoggedIn ? (
+        {isLoggedIn ? (
           <>
             <li className="navbar__menu__li">
               <Link className="navbar__menu__link" to={RouteItems.Profile.url}>
                 <img className="navbar__menu__icon" src={imgUser} alt="User" />
-                <span className="navbar__menu__userName">{` ${loginContext.signInUser.name}`}</span>
+                <span className="navbar__menu__userName">{` ${signInUser.name}`}</span>
               </Link>
             </li>
             <li className="navbar__menu__li">

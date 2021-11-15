@@ -1,7 +1,7 @@
 import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler, FocusEvent, useContext } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useContext } from "react";
 import RouteItems from "@/shared/routes/items/routeItems";
 import { useHistory } from "react-router-dom";
 import "../../elements/modal.scss";
@@ -17,7 +17,7 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
   const [formErrors, setFormErrors] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const history = useHistory();
-  const loginContext = useContext(LoginContext);
+  const { setSignInData } = useContext(LoginContext);
 
   const validateForm = (): void => {
     const { error } = FormJoiSchema.validate({ userName, password, repeatPassword });
@@ -29,7 +29,7 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
     }
   };
 
-  const handleInputFocusChange = (_: FocusEvent<HTMLInputElement>): void => {
+  const handleInputFocusChange = (): void => {
     validateForm();
   };
 
@@ -50,7 +50,7 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
       try {
         const response = await apiAuth.signUp(userName, password);
         if (response.status === StatusCodes.CREATED) {
-          loginContext.signIn(response.data);
+          setSignInData(response.data);
           props.onSignUpButtonCloseClick(event);
           history.push(RouteItems.Profile.url);
         }
