@@ -70,9 +70,7 @@ export default function Navbar(props: { title: string }): JSX.Element {
             <li className="navbar__menu__li">
               <Link className="navbar__menu__link" to={RouteItems.Profile.url}>
                 <img className="navbar__menu__icon" src={imgUser} alt="User" />
-                {loginContext.signInUser.name.length <= 10
-                  ? ` ${loginContext.signInUser.name}`
-                  : ` ${loginContext.signInUser.name.slice(0, 6)}...`}
+                <span className="navbar__menu__userName">{` ${loginContext.signInUser.name}`}</span>
               </Link>
             </li>
             <li className="navbar__menu__li">

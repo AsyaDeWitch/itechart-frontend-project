@@ -21,13 +21,8 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
 
   const validateForm = (): void => {
     const { error } = FormJoiSchema.validate({ userName, password, repeatPassword });
-    if (error !== undefined) {
-      if (error.message === undefined) {
-        setIsFormValid(true);
-        setFormErrors("");
-      } else {
-        setFormErrors(error.message as string);
-      }
+    if (error !== undefined && error.message !== undefined) {
+      setFormErrors(error.message as string);
     } else {
       setIsFormValid(true);
       setFormErrors("");
