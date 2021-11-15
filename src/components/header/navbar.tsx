@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./header.scss";
 import RouteItems from "@/shared/routes/items/routeItems";
@@ -6,25 +6,20 @@ import imgLogout from "@/assets/images/header/logout.png";
 import imgCart from "@/assets/images/header/cart.png";
 import imgUser from "@/assets/images/header/user.png";
 import Modal from "@/elements/modal";
+import { LoginContext } from "@/shared/loginContext";
 import Dropdown from "./dropdown";
 import Login from "../users/login";
 import Registration from "../users/registration";
 
-export default function Navbar(props: {
-  title: string;
-  userName: string;
-  // onSignIn(user: User): void;
-  // onSignOut: VoidFunction;
-  // isLoggedIn: boolean;
-}): JSX.Element {
+export default function Navbar(props: { title: string }): JSX.Element {
   const [isShownDropdown, setIsShownDropdown] = useState(false);
   const [isShownSingIn, setIsShownSingIn] = useState(false);
   const [isShownSignUp, setIsShownSignUp] = useState(false);
   const history = useHistory();
+  const loginContext = useContext(LoginContext);
 
-  const handleLogoutButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    props.onSignOut();
+  const handleLogoutButtonClick = (_: MouseEvent<HTMLButtonElement>) => {
+    loginContext.signOut();
     history.push(RouteItems.Home.url);
   };
 
@@ -70,12 +65,14 @@ export default function Navbar(props: {
             {RouteItems.About.id}
           </Link>
         </li>
-        {props.isLoggedIn ? (
+        {loginContext.isLoggedIn ? (
           <>
             <li className="navbar__menu__li">
               <Link className="navbar__menu__link" to={RouteItems.Profile.url}>
                 <img className="navbar__menu__icon" src={imgUser} alt="User" />
-                {props.userName.length <= 10 ? ` ${props.userName}` : ` ${props.userName.slice(0, 6)}...`}
+                {loginContext.signInUser.name.length <= 10
+                  ? ` ${loginContext.signInUser.name}`
+                  : ` ${loginContext.signInUser.name.slice(0, 6)}...`}
               </Link>
             </li>
             <li className="navbar__menu__li">
@@ -106,12 +103,12 @@ export default function Navbar(props: {
       </ul>
       {isShownSingIn ? (
         <Modal>
-          <Login onSignIn={props.onSignIn} onSignInButtonCloseClick={handleSignInButtonCloseClick} />
+          <Login onSignInButtonCloseClick={handleSignInButtonCloseClick} />
         </Modal>
       ) : null}
       {isShownSignUp ? (
         <Modal>
-          <Registration onSignIn={props.onSignIn} onSignUpButtonCloseClick={handleSignUpButtonCloseClick} />
+          <Registration onSignUpButtonCloseClick={handleSignUpButtonCloseClick} />
         </Modal>
       ) : null}
     </nav>
