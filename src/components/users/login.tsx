@@ -1,21 +1,19 @@
 import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler, FocusEvent } from "react";
-import User from "@/shared/types/user";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useContext } from "react";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import FormJoiSchema from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
+import { LoginContext } from "@/shared/loginContext";
 
-export default function Login(props: {
-  onSignIn(user: User): void;
-  onSignInButtonCloseClick: MouseEventHandler;
-}): JSX.Element {
+export default function Login(props: { onSignInButtonCloseClick: MouseEventHandler }): JSX.Element {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const { setSignInData } = useContext(LoginContext);
 
   const validateForm = (): void => {
     const { error } = FormJoiSchema.validate({ userName, password });
@@ -27,7 +25,7 @@ export default function Login(props: {
     }
   };
 
-  const handleInputFocusChange = (_: FocusEvent<HTMLInputElement>): void => {
+  const handleInputFocusChange = (): void => {
     validateForm();
   };
 
@@ -44,7 +42,7 @@ export default function Login(props: {
       try {
         const response = await apiAuth.signIn(userName, password);
         if (response.status === StatusCodes.OK) {
-          props.onSignIn(response.data);
+          setSignInData(response.data);
           props.onSignInButtonCloseClick(event);
         }
       } catch (error) {

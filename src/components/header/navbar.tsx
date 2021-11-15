@@ -1,47 +1,40 @@
-import { useState, MouseEvent } from "react";
+import { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./header.scss";
 import RouteItems from "@/shared/routes/items/routeItems";
 import imgLogout from "@/assets/images/header/logout.png";
 import imgCart from "@/assets/images/header/cart.png";
 import imgUser from "@/assets/images/header/user.png";
-import User from "@/shared/types/user";
 import Modal from "@/elements/modal";
+import { LoginContext } from "@/shared/loginContext";
 import Dropdown from "./dropdown";
 import Login from "../users/login";
 import Registration from "../users/registration";
 
-export default function Navbar(props: {
-  title: string;
-  userName: string;
-  onSignIn(user: User): void;
-  onSignOut: VoidFunction;
-  isLoggedIn: boolean;
-}): JSX.Element {
-  const [isShownDropdown, setIsShownDropdown] = useState(false);
+export default function Navbar(props: { title: string }): JSX.Element {
   const [isShownSingIn, setIsShownSingIn] = useState(false);
   const [isShownSignUp, setIsShownSignUp] = useState(false);
   const history = useHistory();
+  const { signInUser, isLoggedIn, setSignOutData } = useContext(LoginContext);
 
-  const handleLogoutButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    props.onSignOut();
+  const handleLogoutButtonClick = () => {
+    setSignOutData();
     history.push(RouteItems.Home.url);
   };
 
-  const handleSignInButtonClick = (_: MouseEvent<HTMLButtonElement>) => {
+  const handleSignInButtonClick = () => {
     setIsShownSingIn(true);
   };
 
-  const handleSignUpButtonClick = (_: MouseEvent<HTMLButtonElement>) => {
+  const handleSignUpButtonClick = () => {
     setIsShownSignUp(true);
   };
 
-  const handleSignInButtonCloseClick = (_: MouseEvent<HTMLButtonElement>) => {
+  const handleSignInButtonCloseClick = () => {
     setIsShownSingIn(false);
   };
 
-  const handleSignUpButtonCloseClick = (_: MouseEvent<HTMLButtonElement>) => {
+  const handleSignUpButtonCloseClick = () => {
     setIsShownSignUp(false);
   };
 
@@ -54,29 +47,23 @@ export default function Navbar(props: {
             {RouteItems.Home.id}
           </Link>
         </li>
-        <li
-          className="dropdown"
-          onMouseEnter={() => setIsShownDropdown(true)}
-          onMouseLeave={() => setIsShownDropdown(false)}
-          onKeyDownCapture={() => setIsShownDropdown(true)}
-          onKeyUpCapture={() => setIsShownDropdown(false)}
-        >
+        <li className="dropdown">
           <Link className="dropdown__link" to={RouteItems.Products.url}>
             {RouteItems.Products.id}
           </Link>
-          {isShownDropdown ? <Dropdown /> : null}
+          <Dropdown />
         </li>
         <li className="navbar__menu__li">
           <Link className="navbar__menu__link" to={RouteItems.About.url}>
             {RouteItems.About.id}
           </Link>
         </li>
-        {props.isLoggedIn ? (
+        {isLoggedIn ? (
           <>
             <li className="navbar__menu__li">
               <Link className="navbar__menu__link" to={RouteItems.Profile.url}>
                 <img className="navbar__menu__icon" src={imgUser} alt="User" />
-                <span className="navbar__menu__userName">{` ${props.userName}`}</span>
+                <span className="navbar__menu__userName">{` ${signInUser.name}`}</span>
               </Link>
             </li>
             <li className="navbar__menu__li">
@@ -107,12 +94,12 @@ export default function Navbar(props: {
       </ul>
       {isShownSingIn ? (
         <Modal>
-          <Login onSignIn={props.onSignIn} onSignInButtonCloseClick={handleSignInButtonCloseClick} />
+          <Login onSignInButtonCloseClick={handleSignInButtonCloseClick} />
         </Modal>
       ) : null}
       {isShownSignUp ? (
         <Modal>
-          <Registration onSignIn={props.onSignIn} onSignUpButtonCloseClick={handleSignUpButtonCloseClick} />
+          <Registration onSignUpButtonCloseClick={handleSignUpButtonCloseClick} />
         </Modal>
       ) : null}
     </nav>

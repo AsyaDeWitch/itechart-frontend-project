@@ -1,25 +1,23 @@
 import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler, FocusEvent } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useContext } from "react";
 import RouteItems from "@/shared/routes/items/routeItems";
 import { useHistory } from "react-router-dom";
-import User from "@/shared/types/user";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import FormJoiSchema from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
+import { LoginContext } from "@/shared/loginContext";
 
-export default function Registration(props: {
-  onSignIn(user: User): void;
-  onSignUpButtonCloseClick: MouseEventHandler;
-}): JSX.Element {
+export default function Registration(props: { onSignUpButtonCloseClick: MouseEventHandler }): JSX.Element {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const history = useHistory();
+  const { setSignInData } = useContext(LoginContext);
 
   const validateForm = (): void => {
     const { error } = FormJoiSchema.validate({ userName, password, repeatPassword });
@@ -31,7 +29,7 @@ export default function Registration(props: {
     }
   };
 
-  const handleInputFocusChange = (_: FocusEvent<HTMLInputElement>): void => {
+  const handleInputFocusChange = (): void => {
     validateForm();
   };
 
@@ -52,12 +50,11 @@ export default function Registration(props: {
       try {
         const response = await apiAuth.signUp(userName, password);
         if (response.status === StatusCodes.CREATED) {
-          props.onSignIn(response.data);
+          setSignInData(response.data);
           props.onSignUpButtonCloseClick(event);
           history.push(RouteItems.Profile.url);
         }
       } catch (error) {
-        console.log(error);
         setFormErrors("User with such name already exists");
       }
     }

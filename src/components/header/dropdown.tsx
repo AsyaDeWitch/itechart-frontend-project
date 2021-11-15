@@ -6,12 +6,12 @@ import CategoryItem from "@/shared/categories/categoryItem";
 
 export default function Dropdown(): JSX.Element {
   return (
-    <>
+    <div className="dropdown__content">
       {Categories.map((item: CategoryItem) => (
-        <Link key={item.name} className="dropdown__content" to={RouteItems.Products.url.concat("/".concat(item.name))}>
+        <Link key={item.name} className="dropdown__content__link" to={`${RouteItems.Products.url}/${item.name}`}>
           {item.name}
         </Link>
       ))}
-    </>
+    </div>
   );
 }
