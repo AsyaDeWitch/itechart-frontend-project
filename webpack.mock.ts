@@ -60,7 +60,6 @@ export default webpackMockServer.add((app, helper) => {
         console.log("New user added.");
       });
       res.status(StatusCodes.CREATED).json(newUser);
-      console.log(newUser);
     }
   });
 });

@@ -55,7 +55,6 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
           history.push(RouteItems.Profile.url);
         }
       } catch (error) {
-        console.log(error);
         setFormErrors("User with such name already exists");
       }
     }
