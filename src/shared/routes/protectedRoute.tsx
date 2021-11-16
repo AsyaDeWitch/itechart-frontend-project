@@ -13,7 +13,9 @@ export default function ProtectedRoute({ ...routeProps }: RouteProps): JSX.Eleme
 
   const handleSignInButtonCloseClick = () => {
     setIsShownSingIn(false);
-    if (!isLoggedIn) history.push(RouteItems.Home.url);
+    if (!isLoggedIn) {
+      history.push(RouteItems.Home.url);
+    }
   };
 
   if (isLoggedIn) {
