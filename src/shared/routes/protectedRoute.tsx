@@ -1,21 +1,17 @@
 import Login from "@/components/users/login";
 import Modal from "@/elements/modal";
 import Home from "@/home/home";
-import { useState, useContext } from "react";
-import { Route, RouteProps, useHistory } from "react-router-dom";
-import { LoginContext } from "@/shared/loginContext";
-import RouteItems from "./items/routeItems";
+import { TStore } from "@/redux/store";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Route, RouteProps } from "react-router-dom";
 
 export default function ProtectedRoute({ ...routeProps }: RouteProps): JSX.Element {
   const [isShownSingIn, setIsShownSingIn] = useState(true);
-  const history = useHistory();
-  const { isLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
   const handleSignInButtonCloseClick = () => {
     setIsShownSingIn(false);
-    if (!isLoggedIn) {
-      history.push(RouteItems.Home.url);
-    }
   };
 
   if (isLoggedIn) {
