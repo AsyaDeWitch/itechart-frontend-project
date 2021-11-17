@@ -1,5 +1,5 @@
 import Address from "@/shared/types/address";
-import User from "@/shared/types/user";
+import Profile from "@/shared/types/profile";
 import { AxiosResponse } from "axios";
 import api from "./apiAxios";
 
@@ -12,9 +12,10 @@ export async function getProfile(id: number): Promise<AxiosResponse> {
   return response;
 }
 
-export async function saveProfile(updatedUser: User): Promise<AxiosResponse> {
+export async function saveProfile(id: number, updatedUser: Profile): Promise<AxiosResponse> {
   const response = await api.post("/api/saveProfile", {
     params: {
+      id,
       updatedUser,
     },
   });
@@ -31,8 +32,8 @@ export async function changePassword(id: number, newPassword: string): Promise<A
   return response;
 }
 
-// image type????????????????????????
-export async function changeProfileImage(id: number, image: string): Promise<AxiosResponse> {
+export async function changeProfileImage(id: number, image: File): Promise<AxiosResponse> {
+  // convert to base64
   const response = await api.post("/api/changeProfileImage", {
     params: {
       id,
