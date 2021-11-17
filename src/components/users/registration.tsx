@@ -1,14 +1,15 @@
 import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useContext } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
 import RouteItems from "@/shared/routes/items/routeItems";
 import { useHistory } from "react-router-dom";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import FormJoiSchema from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
-import { LoginContext } from "@/shared/loginContext";
+import { useDispatch } from "react-redux";
+import { setSignInData } from "@/redux/slices/loggingSlice";
 
 export default function Registration(props: { onSignUpButtonCloseClick: MouseEventHandler }): JSX.Element {
   const [userName, setUserName] = useState("");
@@ -17,7 +18,7 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
   const [formErrors, setFormErrors] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const history = useHistory();
-  const { setSignInData } = useContext(LoginContext);
+  const dispatch = useDispatch();
 
   const validateForm = (): void => {
     const { error } = FormJoiSchema.validate({ userName, password, repeatPassword });
@@ -50,7 +51,7 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
       try {
         const response = await apiAuth.signUp(userName, password);
         if (response.status === StatusCodes.CREATED) {
-          setSignInData(response.data);
+          dispatch(setSignInData(response.data));
           props.onSignUpButtonCloseClick(event);
           history.push(RouteItems.Profile.url);
         }

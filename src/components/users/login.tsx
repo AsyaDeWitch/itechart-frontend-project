@@ -1,19 +1,20 @@
 import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useContext } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import FormJoiSchema from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
-import { LoginContext } from "@/shared/loginContext";
+import { useDispatch } from "react-redux";
+import { setSignInData } from "@/redux/slices/loggingSlice";
 
 export default function Login(props: { onSignInButtonCloseClick: MouseEventHandler }): JSX.Element {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
-  const { setSignInData } = useContext(LoginContext);
+  const dispatch = useDispatch();
 
   const validateForm = (): void => {
     const { error } = FormJoiSchema.validate({ userName, password });
@@ -42,7 +43,7 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
       try {
         const response = await apiAuth.signIn(userName, password);
         if (response.status === StatusCodes.OK) {
-          setSignInData(response.data);
+          dispatch(setSignInData(response.data));
           props.onSignInButtonCloseClick(event);
         }
       } catch (error) {

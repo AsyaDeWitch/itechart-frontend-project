@@ -4,7 +4,8 @@ import ReactDom from "react-dom";
 import { History, createBrowserHistory } from "history";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { Component } from "react";
-import LoginContextProvider from "@/shared/loginContext";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import Header from "./components/header/header";
 import Footer from "./components/footer";
 import RouteItems from "./shared/routes/items/routeItems";
@@ -30,24 +31,27 @@ class AppContainer extends Component<Props> {
   render() {
     return (
       <ErrorBoundary history={this.props.history}>
-        <LoginContextProvider>
-          <Router>
-            <Header title={this.props.title} />
-            <Switch>
-              <ProtectedRoute path={`${RouteItems.Products.url}/:category`} component={Games} />
-              <ProtectedRoute path={RouteItems.Products.url} component={Games} />
-              <ProtectedRoute path={RouteItems.About.url} component={About} />
-              <ProtectedRoute path={RouteItems.Profile.url} component={Profile} />
-              <ProtectedRoute path={RouteItems.Cart.url} component={Cart} />
-              <Route exact path={RouteItems.Home.url} component={Home} />
-              <Redirect to={RouteItems.Home.url} />
-            </Switch>
-            <Footer />
-          </Router>
-        </LoginContextProvider>
+        <Router>
+          <Header title={this.props.title} />
+          <Switch>
+            <ProtectedRoute path={`${RouteItems.Products.url}/:category`} component={Games} />
+            <ProtectedRoute path={RouteItems.Products.url} component={Games} />
+            <ProtectedRoute path={RouteItems.About.url} component={About} />
+            <ProtectedRoute path={RouteItems.Profile.url} component={Profile} />
+            <ProtectedRoute path={RouteItems.Cart.url} component={Cart} />
+            <Route exact path={RouteItems.Home.url} component={Home} />
+            <Redirect to={RouteItems.Home.url} />
+          </Switch>
+          <Footer />
+        </Router>
       </ErrorBoundary>
     );
   }
 }
 
-ReactDom.render(<AppContainer title={title} history={history} />, document.getElementById("app"));
+ReactDom.render(
+  <Provider store={store}>
+    <AppContainer title={title} history={history} />
+  </Provider>,
+  document.getElementById("app")
+);

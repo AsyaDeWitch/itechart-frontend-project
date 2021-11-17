@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./header.scss";
 import RouteItems from "@/shared/routes/items/routeItems";
@@ -6,7 +6,9 @@ import imgLogout from "@/assets/images/header/logout.png";
 import imgCart from "@/assets/images/header/cart.png";
 import imgUser from "@/assets/images/header/user.png";
 import Modal from "@/elements/modal";
-import { LoginContext } from "@/shared/loginContext";
+import { useDispatch, useSelector } from "react-redux";
+import { setSignOutData } from "@/redux/slices/loggingSlice";
+import { TStore } from "@/redux/store";
 import Dropdown from "./dropdown";
 import Login from "../users/login";
 import Registration from "../users/registration";
@@ -15,10 +17,11 @@ export default function Navbar(props: { title: string }): JSX.Element {
   const [isShownSingIn, setIsShownSingIn] = useState(false);
   const [isShownSignUp, setIsShownSignUp] = useState(false);
   const history = useHistory();
-  const { signInUser, isLoggedIn, setSignOutData } = useContext(LoginContext);
+  const dispatch = useDispatch();
+  const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
   const handleLogoutButtonClick = () => {
-    setSignOutData();
+    dispatch(setSignOutData());
     history.push(RouteItems.Home.url);
   };
 
