@@ -1,0 +1,21 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.buttonUniversal {
+  font-size: 0.8rem;
+  color: white;
+  text-align: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: $basicDarkThemeColor;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  width: 16vw;
+  height: 4vh;
+
+  &:hover {
+    background-color: $basicThemeColor;
+  }
+}

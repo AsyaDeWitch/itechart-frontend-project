@@ -4,7 +4,7 @@ import * as apiAuth from "@/api/apiAuth";
 import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
-import FormJoiSchema from "@/helpers/formJoiSchema";
+import { joiLoggingSchema } from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
 import { useDispatch } from "react-redux";
 import { setSignInData } from "@/redux/slices/loggingSlice";
@@ -17,7 +17,7 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
   const dispatch = useDispatch();
 
   const validateForm = (): void => {
-    const { error } = FormJoiSchema.validate({ userName, password });
+    const { error } = joiLoggingSchema.validate({ userName, password });
     if (error !== undefined && error.message !== undefined) {
       setFormErrors(error.message as string);
     } else {

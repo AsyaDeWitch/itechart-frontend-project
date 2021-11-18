@@ -1,0 +1,41 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.image-profile {
+  //width: 10vh;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  display: block;
+
+  &__image {
+    height: 16vw;
+    width: auto;
+  }
+
+  &__container {
+    background: $basicDarkThemeColor;
+    align-items: center;
+    justify-items: center;
+    display: inline-grid;
+    //height: 30vh;
+    //width: 10vw;
+    padding: 2rem 0.5rem 2rem 0.5rem;
+    margin: 0.2rem 2rem 0.2rem 2rem;
+    border-radius: 5px;
+    &:hover {
+      background-color: $basicThemeColor;
+    }
+  }
+
+  &:focus {
+    background-color: $basicThemeColor;
+    border-radius: 4px;
+    height: 12vh;
+    transition: all 0.2s ease-out;
+    outline: none;
+  }
+}

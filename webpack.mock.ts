@@ -70,7 +70,7 @@ export default webpackMockServer.add((app) => {
 
   // Profile part
   app.get("/api/getProfile", (req, res) => {
-    const findedUser = JsonUsers.filter((user) => user.id === req.body.id)[0];
+    const findedUser = JsonUsers.filter((user) => user.id === Number(req.query.id))[0];
     if (findedUser !== undefined) {
       const profile: Profile = {
         id: findedUser.id,

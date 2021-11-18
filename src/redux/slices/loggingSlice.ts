@@ -2,7 +2,7 @@ import User from "@/shared/types/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const nullUserId = 0;
-const nullUser: User = { id: nullUserId, name: "", email: "", password: "" };
+const nullUser: User = { id: nullUserId, name: "" };
 
 interface LoggingState {
   signInUser: User;

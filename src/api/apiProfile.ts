@@ -1,6 +1,7 @@
 import Address from "@/shared/types/address";
 import Profile from "@/shared/types/profile";
 import { AxiosResponse } from "axios";
+import fromFileToBase64 from "@/helpers/base64FileConverter";
 import api from "./apiAxios";
 
 export async function getProfile(id: number): Promise<AxiosResponse> {
@@ -34,10 +35,11 @@ export async function changePassword(id: number, newPassword: string): Promise<A
 
 export async function changeProfileImage(id: number, image: File): Promise<AxiosResponse> {
   // convert to base64
+  const base64Image = await fromFileToBase64(image);
   const response = await api.post("/api/changeProfileImage", {
     params: {
       id,
-      image,
+      base64Image,
     },
   });
   return response;

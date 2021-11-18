@@ -4,7 +4,7 @@ import * as apiProfile from "@/api/apiProfile";
 import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
-import FormJoiSchema from "@/helpers/formJoiSchema";
+import { joiPasswordSchema } from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
 import { useSelector } from "react-redux";
 import { TStore } from "@/redux/store";
@@ -17,7 +17,7 @@ export default function PasswordChanger(props: { onChangePasswordButtonCloseClic
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
   const validateForm = (): void => {
-    const { error } = FormJoiSchema.validate({ password, repeatPassword });
+    const { error } = joiPasswordSchema.validate({ password, repeatPassword });
     if (error !== undefined && error.message !== undefined) {
       setFormErrors(error.message as string);
     } else {
@@ -55,7 +55,7 @@ export default function PasswordChanger(props: { onChangePasswordButtonCloseClic
     <div className="modal">
       <div className="modal__form">
         <nav className="modal__head">
-          <div className="modal__title">Sign Up</div>
+          <div className="modal__title">Change password</div>
           <div className="modal__buttonClose">
             <ButtonClose onClick={props.onChangePasswordButtonCloseClick} />
           </div>

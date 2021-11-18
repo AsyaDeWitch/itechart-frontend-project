@@ -6,7 +6,7 @@ import RouteItems from "@/shared/routes/items/routeItems";
 import { useHistory } from "react-router-dom";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
-import FormJoiSchema from "@/helpers/formJoiSchema";
+import { joiLoggingSchema } from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
 import { useDispatch } from "react-redux";
 import { setSignInData } from "@/redux/slices/loggingSlice";
@@ -21,7 +21,7 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
   const dispatch = useDispatch();
 
   const validateForm = (): void => {
-    const { error } = FormJoiSchema.validate({ userName, password, repeatPassword });
+    const { error } = joiLoggingSchema.validate({ userName, password, repeatPassword });
     if (error !== undefined && error.message !== undefined) {
       setFormErrors(error.message as string);
     } else {

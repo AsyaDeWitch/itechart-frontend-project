@@ -4,7 +4,7 @@ import * as apiProfile from "@/api/apiProfile";
 import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
-import FormJoiSchema from "@/helpers/formJoiSchema";
+import { joiAddressSchema } from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
 import { useSelector } from "react-redux";
 import { TStore } from "@/redux/store";
@@ -26,7 +26,7 @@ export default function DeliveryAddressChanger(props: {
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
   const validateForm = (): void => {
-    const { error } = FormJoiSchema.validate({
+    const { error } = joiAddressSchema.validate({
       country,
       city,
       street,
@@ -102,7 +102,7 @@ export default function DeliveryAddressChanger(props: {
     <div className="modal">
       <div className="modal__form">
         <nav className="modal__head">
-          <div className="modal__title">Sign Up</div>
+          <div className="modal__title">Change default delivery address</div>
           <div className="modal__buttonClose">
             <ButtonClose onClick={props.onChangeAddressButtonCloseClick} />
           </div>
