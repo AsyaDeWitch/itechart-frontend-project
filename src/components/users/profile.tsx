@@ -17,6 +17,7 @@ import PasswordChanger from "./passwordChanger";
 import DeliveryAddressChanger from "./deliveryAddressChanger";
 import ImageProfile from "./imageProfile";
 import InputProfileText from "./inputProfileText";
+import InputProfileDescription from "./inputProfileDescription";
 
 const nullAddress: Address = {
   country: "",
@@ -230,7 +231,7 @@ export default function Profile(): JSX.Element {
             value={phoneNumber}
             onBlur={handleInputFocusChange}
           />
-          <InputProfileText
+          <InputProfileDescription
             type="text"
             placeholder="Description"
             label="Profile description"
