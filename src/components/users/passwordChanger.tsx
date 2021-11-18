@@ -46,7 +46,7 @@ export default function PasswordChanger(props: { onChangePasswordButtonCloseClic
           props.onChangePasswordButtonCloseClick(event);
         }
       } catch (error) {
-        setFormErrors("Something went wrong while changing password");
+        setFormErrors("Something went wrong while changing password...");
       }
     }
   };

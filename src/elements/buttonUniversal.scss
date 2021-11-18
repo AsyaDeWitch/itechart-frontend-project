@@ -2,7 +2,7 @@
 @import "sanitize.css";
 
 .buttonUniversal {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   color: white;
   text-align: center;
   align-items: center;
@@ -11,9 +11,9 @@
   background-repeat: no-repeat;
   border: none;
   outline: none;
-  border-radius: 5px;
-  width: 16vw;
-  height: 4vh;
+  border-radius: 8px;
+  width: 18vw;
+  height: 6.5vh;
 
   &:hover {
     background-color: $basicThemeColor;

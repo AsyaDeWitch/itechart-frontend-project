@@ -5,24 +5,24 @@
 		"email": "test@gmail.com",
 		"password": "!Bischi1",
 		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
+			"country": "Belarus",
+			"city": "Minsk",
+			"street": "st. Platonova",
+			"houseNumber": 49,
+			"houseBuilding": "B",
+			"entranceNumber": 2,
+			"floorNumber": 9,
+			"flatNumber": 919
 		},
 		"image": "",
-		"description": "",
-		"phoneNumber": ""
+		"description": "something interesting",
+		"phoneNumber": "1234567890"
 	},
 	{
-		"id": 2,
-		"name": "Asya2",
+		"id": 1,
+		"name": "Asya1",
 		"email": "test@gmail.com",
-		"password": "!Bischi2",
+		"password": "!Bischi1",
 		"defaultDeliveryAddress": {
 			"country": "",
 			"city": "",

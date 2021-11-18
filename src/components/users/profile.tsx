@@ -16,6 +16,7 @@ import nullImgFile from "@/assets/images/profile/no-profile-photo.png";
 import PasswordChanger from "./passwordChanger";
 import DeliveryAddressChanger from "./deliveryAddressChanger";
 import ImageProfile from "./imageProfile";
+import InputProfileText from "./inputProfileText";
 
 const nullAddress: Address = {
   country: "",
@@ -53,6 +54,7 @@ export default function Profile(): JSX.Element {
   const [isFormValid, setIsFormValid] = useState(false);
   const dispatch = useDispatch();
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
+  let fileInputRef: HTMLInputElement | null;
 
   async function getUserProfile() {
     try {
@@ -106,6 +108,7 @@ export default function Profile(): JSX.Element {
   const handleChangePasswordButtonClick = () => {
     setIsShownPasswordChange(true);
   };
+
   const handlePasswordCloseButtonClick = () => {
     setIsShownPasswordChange(false);
     getUserProfile();
@@ -138,6 +141,7 @@ export default function Profile(): JSX.Element {
   const handleChangeAddressButtonClick = () => {
     setIsShownAddressChange(true);
   };
+
   const handleAddressCloseButtonClick = () => {
     setIsShownAddressChange(false);
     getUserProfile();
@@ -147,25 +151,25 @@ export default function Profile(): JSX.Element {
     setIsShownImageFileInput(true);
   };
 
-  async function kek(): Promise<string> {
-    const kek1 = await fromFileToBase64(selectedImage);
-    return kek1;
-  }
   const handleImageSubmitButtonClick = async () => {
     // change image
-    const newimage64 = await kek();
-    console.log(newimage64);
+    const newImage64 = await fromFileToBase64(selectedImage);
+
     getUserProfile();
-    setImage64(newimage64);
+    if (image64 === newImage64) {
+      setImage64(nullImgFile);
+    } else {
+      setImage64(newImage64);
+    }
     setIsShownImageFileInput(false);
   };
+
   const handleImageCloseButtonClick = () => {
     setIsShownImageFileInput(false);
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFileSelect = (event: any) => {
-    console.log(event);
     setSelectedImage(event.target.files[0]);
   };
 
@@ -173,27 +177,75 @@ export default function Profile(): JSX.Element {
     <div className="profile">
       <h2>{userProfile.name} profile page</h2>
       <hr />
-      <ImageProfile image64={image64} />
-      <ButtonUniversal buttonText="Save profile" onClick={handleSaveProfileButtonClick} />
-      {isShownImageFileInput ? (
-        <>
-          <input type="file" onChange={handleFileSelect} accept="image/*" />
-          <ButtonUniversal buttonText="Save changes" onClick={handleImageSubmitButtonClick} />
-          <ButtonUniversal buttonText="Skip changes" onClick={handleImageCloseButtonClick} />
-        </>
-      ) : (
-        <ButtonUniversal buttonText="Change profile image" onClick={handleChangeImageButtonClick} />
-      )}
+      <div>
+        <div>
+          <ImageProfile image64={image64} />
+          <ButtonUniversal buttonText="Save profile" onClick={handleSaveProfileButtonClick} />
+          {isShownImageFileInput ? (
+            <>
+              <input
+                style={{ display: "none" }}
+                type="file"
+                onChange={handleFileSelect}
+                accept="image/*"
+                ref={(fileInput) => {
+                  fileInputRef = fileInput;
+                }}
+              />
+              <ButtonUniversal buttonText="Choose image file" onClick={() => fileInputRef?.click()} />
+              <ButtonUniversal buttonText="Save changes" onClick={handleImageSubmitButtonClick} />
+              <ButtonUniversal buttonText="Skip changes" onClick={handleImageCloseButtonClick} />
+            </>
+          ) : (
+            <ButtonUniversal buttonText="Change profile image" onClick={handleChangeImageButtonClick} />
+          )}
+        </div>
 
-      <div className="modal__error">{formErrors}</div>
-      <input type="text" onChange={handleUserNameChange} value={userName} onBlur={handleInputFocusChange} />
-      <input type="text" onChange={handleEmailChange} value={email} onBlur={handleInputFocusChange} />
-      <input type="text" onChange={handlePhoneNumberChange} value={phoneNumber} onBlur={handleInputFocusChange} />
-      <input type="text" onChange={handleDescriptionChange} value={description} onBlur={handleInputFocusChange} />
+        <div>
+          <div className="modal__error">{formErrors}</div>
+          <InputProfileText
+            type="text"
+            placeholder="Name"
+            label="Name"
+            name="userName"
+            onChange={handleUserNameChange}
+            value={userName}
+            onBlur={handleInputFocusChange}
+          />
+          <InputProfileText
+            type="text"
+            placeholder="Email"
+            label="Email"
+            name="email"
+            onChange={handleEmailChange}
+            value={email}
+            onBlur={handleInputFocusChange}
+          />
+          <InputProfileText
+            type="text"
+            placeholder="Phone number"
+            label="Phone number"
+            name="phoneNumber"
+            onChange={handlePhoneNumberChange}
+            value={phoneNumber}
+            onBlur={handleInputFocusChange}
+          />
+          <InputProfileText
+            type="text"
+            placeholder="Description"
+            label="Profile description"
+            name="description"
+            onChange={handleDescriptionChange}
+            value={description}
+            onBlur={handleInputFocusChange}
+          />
+        </div>
 
-      <ButtonUniversal buttonText="Change password" onClick={handleChangePasswordButtonClick} />
-      <ButtonUniversal buttonText="Change delivery address" onClick={handleChangeAddressButtonClick} />
-
+        <div>
+          <ButtonUniversal buttonText="Change password" onClick={handleChangePasswordButtonClick} />
+          <ButtonUniversal buttonText="Change address" onClick={handleChangeAddressButtonClick} />
+        </div>
+      </div>
       {isShownPasswordChange ? (
         <Modal>
           <PasswordChanger onChangePasswordButtonCloseClick={handlePasswordCloseButtonClick} />
@@ -201,7 +253,10 @@ export default function Profile(): JSX.Element {
       ) : null}
       {isShownAddressChange ? (
         <Modal>
-          <DeliveryAddressChanger onChangeAddressButtonCloseClick={handleAddressCloseButtonClick} />
+          <DeliveryAddressChanger
+            onChangeAddressButtonCloseClick={handleAddressCloseButtonClick}
+            oldAddress={userProfile.defaultDeliveryAddress}
+          />
         </Modal>
       ) : null}
     </div>

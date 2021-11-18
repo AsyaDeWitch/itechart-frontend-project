@@ -1,7 +1,7 @@
 import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
 import * as apiProfile from "@/api/apiProfile";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useEffect } from "react";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import { joiAddressSchema } from "@/helpers/formJoiSchema";
@@ -12,6 +12,7 @@ import Address from "@/shared/types/address";
 
 export default function DeliveryAddressChanger(props: {
   onChangeAddressButtonCloseClick: MouseEventHandler;
+  oldAddress: Address;
 }): JSX.Element {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
@@ -43,6 +44,17 @@ export default function DeliveryAddressChanger(props: {
       setFormErrors("");
     }
   };
+
+  useEffect(() => {
+    setCountry(props.oldAddress.country);
+    setCity(props.oldAddress.city);
+    setStreet(props.oldAddress.street);
+    setHouseNumber(props.oldAddress.houseNumber.toString());
+    setHouseBuilding(props.oldAddress.houseBuilding);
+    setEntranceNumber(props.oldAddress.entranceNumber.toString());
+    setFloorNumber(props.oldAddress.floorNumber.toString());
+    setFlatNumber(props.oldAddress.flatNumber.toString());
+  }, []);
 
   const handleInputFocusChange = (): void => {
     validateForm();
@@ -93,7 +105,7 @@ export default function DeliveryAddressChanger(props: {
           props.onChangeAddressButtonCloseClick(event);
         }
       } catch (error) {
-        setFormErrors("Something went wrong while changing password");
+        setFormErrors("Something went wrong while changing delivery address...");
       }
     }
   };

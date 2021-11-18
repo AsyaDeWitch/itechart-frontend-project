@@ -1,7 +1,6 @@
 import Address from "@/shared/types/address";
 import Profile from "@/shared/types/profile";
 import { AxiosResponse } from "axios";
-import fromFileToBase64 from "@/helpers/base64FileConverter";
 import api from "./apiAxios";
 
 export async function getProfile(id: number): Promise<AxiosResponse> {
@@ -15,42 +14,32 @@ export async function getProfile(id: number): Promise<AxiosResponse> {
 
 export async function saveProfile(id: number, updatedUser: Profile): Promise<AxiosResponse> {
   const response = await api.post("/api/saveProfile", {
-    params: {
-      id,
-      updatedUser,
-    },
+    id,
+    updatedUser,
   });
   return response;
 }
 
 export async function changePassword(id: number, newPassword: string): Promise<AxiosResponse> {
   const response = await api.post("/api/changePassword", {
-    params: {
-      id,
-      newPassword,
-    },
+    id,
+    newPassword,
   });
   return response;
 }
 
-export async function changeProfileImage(id: number, image: File): Promise<AxiosResponse> {
-  // convert to base64
-  const base64Image = await fromFileToBase64(image);
+export async function changeProfileImage(id: number, image: string): Promise<AxiosResponse> {
   const response = await api.post("/api/changeProfileImage", {
-    params: {
-      id,
-      base64Image,
-    },
+    id,
+    image,
   });
   return response;
 }
 
 export async function changeDefaultDeliveryAddress(id: number, address: Address): Promise<AxiosResponse> {
   const response = await api.post("/api/changeDefaultDeliveryAddress", {
-    params: {
-      id,
-      address,
-    },
+    id,
+    address,
   });
   return response;
 }

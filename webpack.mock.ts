@@ -100,7 +100,7 @@ export default webpackMockServer.add((app) => {
         description: req.body.updatedUser.description,
         phoneNumber: req.body.updatedUser.phoneNumber,
       };
-      JsonUsers[req.body.id] = profile;
+      JsonUsers[req.body.id - 1] = profile;
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
         if (err) throw err;
         console.log("User information updated.");
@@ -115,7 +115,7 @@ export default webpackMockServer.add((app) => {
     const findedUser = JsonUsers.filter((user) => user.id === req.body.id)[0];
     if (findedUser !== undefined) {
       findedUser.id = req.body.newPassword;
-      JsonUsers[req.body.id] = findedUser;
+      JsonUsers[req.body.id - 1] = findedUser;
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
         if (err) throw err;
         console.log("User password changed.");
@@ -130,7 +130,7 @@ export default webpackMockServer.add((app) => {
     const findedUser = JsonUsers.filter((user) => user.id === req.body.id)[0];
     if (findedUser !== undefined) {
       (findedUser as unknown as Profile).image = req.body.image;
-      JsonUsers[req.body.id] = findedUser;
+      JsonUsers[req.body.id - 1] = findedUser;
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
         if (err) throw err;
         console.log("User profile image changed.");
@@ -145,7 +145,7 @@ export default webpackMockServer.add((app) => {
     const findedUser = JsonUsers.filter((user) => user.id === req.body.id)[0];
     if (findedUser !== undefined) {
       (findedUser as unknown as Profile).defaultDeliveryAddress = req.body.address;
-      JsonUsers[req.body.id] = findedUser;
+      JsonUsers[req.body.id - 1] = findedUser;
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
         if (err) throw err;
         console.log("User default delivery address changed.");
