@@ -12,13 +12,13 @@ export default function InputProfileText(props: {
 }): JSX.Element {
   return (
     <>
-      <label htmlFor={"input-text".concat(props.label)} className="labelProfileText">
+      <label htmlFor={`"input-text"${props.label}`} className="labelProfileText">
         {props.label}
       </label>
       <input
         onChange={props.onChange}
         type={props.type}
-        id={"input-text".concat(props.label)}
+        id={`"input-text"${props.label}`}
         placeholder={props.placeholder}
         className="inputProfileText"
         name={props.name}
