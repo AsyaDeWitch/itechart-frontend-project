@@ -1,9 +1,8 @@
 import { ChangeEventHandler, FocusEventHandler } from "react";
-import "./inputProfileDescription.scss";
+import "./textareaProfileDescription.scss";
 
-export default function InputProfileDescription(props: {
+export default function TextareaProfileDescription(props: {
   onChange: ChangeEventHandler;
-  type: string;
   placeholder: string;
   label: string;
   name: string;
@@ -15,12 +14,11 @@ export default function InputProfileDescription(props: {
       <label htmlFor={"input-text".concat(props.label)} className="labelProfileDescription">
         {props.label}
       </label>
-      <input
+      <textarea
         onChange={props.onChange}
-        type={props.type}
         id={"input-text".concat(props.label)}
         placeholder={props.placeholder}
-        className="inputProfileDescription"
+        className="textareaProfileDescription"
         name={props.name}
         value={props.value}
         onBlur={props.onBlur}

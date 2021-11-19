@@ -114,7 +114,7 @@ export default webpackMockServer.add((app) => {
   app.post("/api/changePassword", (req, res) => {
     const findedUser = JsonUsers.filter((user) => user.id === req.body.id)[0];
     if (findedUser !== undefined) {
-      findedUser.id = req.body.newPassword;
+      findedUser.password = req.body.newPassword;
       JsonUsers[req.body.id - 1] = findedUser;
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
         if (err) throw err;

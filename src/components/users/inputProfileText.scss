@@ -2,7 +2,7 @@
 @import "sanitize.css";
 
 .inputProfileText {
-  width: 20vw;
+  width: 30vw;
   height: 5vh;
   border-style: solid;
   border-color: $basicDarkThemeColor;
@@ -13,13 +13,13 @@
   padding-left: 1rem;
   margin: 0.4rem;
   color: $basicFontColor;
-}
 
-.inputProfileText:focus {
-  border-style: solid;
-  border-color: $basicDarkThemeColor;
-  border-radius: 10px;
-  outline: none;
+  &:focus {
+    border-style: solid;
+    border-color: $basicDarkThemeColor;
+    border-radius: 10px;
+    outline: none;
+  }
 }
 
 .labelProfileText {
@@ -28,4 +28,5 @@
   font-size: 1.2em;
   display: inline-block;
   width: 10rem;
+  margin-top: 0.8rem;
 }

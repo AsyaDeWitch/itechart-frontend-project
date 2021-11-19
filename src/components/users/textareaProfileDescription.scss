@@ -1,10 +1,11 @@
 @import "normalize.css";
 @import "sanitize.css";
 
-.inputProfileDescription {
-  width: 20vw;
+.textareaProfileDescription {
+  width: 30vw;
   height: 15vh;
   border-style: solid;
+  border-width: 0.1rem;
   border-color: $basicDarkThemeColor;
   border-radius: 10px;
   font-size: 1.2em;
@@ -13,13 +14,14 @@
   padding-left: 1rem;
   margin: 0.4rem;
   color: $basicFontColor;
-}
+  font-family: inherit;
 
-.inputProfileDescription:focus {
-  border-style: solid;
-  border-color: $basicDarkThemeColor;
-  border-radius: 10px;
-  outline: none;
+  &:focus {
+    border-style: solid;
+    border-color: $basicDarkThemeColor;
+    border-radius: 10px;
+    outline: none;
+  }
 }
 
 .labelProfileDescription {
@@ -28,4 +30,5 @@
   font-size: 1.2em;
   display: inline-block;
   width: 10rem;
+  margin-top: 0.8rem;
 }

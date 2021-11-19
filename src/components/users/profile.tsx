@@ -17,7 +17,7 @@ import PasswordChanger from "./passwordChanger";
 import DeliveryAddressChanger from "./deliveryAddressChanger";
 import ImageProfile from "./imageProfile";
 import InputProfileText from "./inputProfileText";
-import InputProfileDescription from "./inputProfileDescription";
+import TextareaProfileDescription from "./textareaProfileDescription";
 
 const nullAddress: Address = {
   country: "",
@@ -66,9 +66,14 @@ export default function Profile(): JSX.Element {
         setEmail(response.data.email);
         setPhoneNumber(response.data.phoneNumber);
         setDescription(response.data.description);
+        if (response.data.image !== "") {
+          setImage64(response.data.image);
+        } else {
+          setImage64(nullImgFile);
+        }
       }
     } catch (error) {
-      console.log(error);
+      setFormErrors("Something went wrong...");
     }
   }
 
@@ -133,7 +138,7 @@ export default function Profile(): JSX.Element {
           dispatch(setSignInData(updatedSignInUser));
         }
       } catch {
-        setFormErrors("Something went wrong...");
+        setFormErrors("Something went wrong while changing profile information...");
       }
       getUserProfile();
     }
@@ -153,35 +158,50 @@ export default function Profile(): JSX.Element {
   };
 
   const handleImageSubmitButtonClick = async () => {
-    // change image
     const newImage64 = await fromFileToBase64(selectedImage);
-
-    getUserProfile();
-    if (image64 === newImage64) {
-      setImage64(nullImgFile);
+    if (userProfile.image === newImage64) {
+      try {
+        const response = await apiProfile.changeProfileImage(signInUser.id, "");
+        if (response.status === StatusCodes.OK) {
+          setImage64(nullImgFile);
+          setIsShownImageFileInput(false);
+        }
+      } catch {
+        setFormErrors("Something went wrong while changing profile image...");
+      }
     } else {
-      setImage64(newImage64);
+      try {
+        const response = await apiProfile.changeProfileImage(signInUser.id, newImage64);
+        if (response.status === StatusCodes.OK) {
+          setImage64(newImage64);
+          setIsShownImageFileInput(false);
+        }
+      } catch {
+        setFormErrors("Something went wrong while changing profile image...");
+      }
     }
-    setIsShownImageFileInput(false);
+    getUserProfile();
   };
 
   const handleImageCloseButtonClick = () => {
     setIsShownImageFileInput(false);
+    getUserProfile();
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleFileSelect = (event: any) => {
+  const handleFileSelect = async (event: any) => {
     setSelectedImage(event.target.files[0]);
+    const newImage64 = await fromFileToBase64(event.target.files[0]);
+    setImage64(newImage64);
   };
 
   return (
     <div className="profile">
-      <h2>{userProfile.name} profile page</h2>
+      <h2 className="profile__title">{userProfile.name} profile page</h2>
       <hr />
-      <div>
-        <div>
+      <div className="profile__area">
+        <div className="profile__area__image">
           <ImageProfile image64={image64} />
-          <ButtonUniversal buttonText="Save profile" onClick={handleSaveProfileButtonClick} />
           {isShownImageFileInput ? (
             <>
               <input
@@ -194,6 +214,7 @@ export default function Profile(): JSX.Element {
                 }}
               />
               <ButtonUniversal buttonText="Choose image file" onClick={() => fileInputRef?.click()} />
+              <hr className="profile__area__image__line" />
               <ButtonUniversal buttonText="Save changes" onClick={handleImageSubmitButtonClick} />
               <ButtonUniversal buttonText="Skip changes" onClick={handleImageCloseButtonClick} />
             </>
@@ -202,7 +223,7 @@ export default function Profile(): JSX.Element {
           )}
         </div>
 
-        <div>
+        <div className="profile__area__inputs">
           <div className="modal__error">{formErrors}</div>
           <InputProfileText
             type="text"
@@ -231,8 +252,7 @@ export default function Profile(): JSX.Element {
             value={phoneNumber}
             onBlur={handleInputFocusChange}
           />
-          <InputProfileDescription
-            type="text"
+          <TextareaProfileDescription
             placeholder="Description"
             label="Profile description"
             name="description"
@@ -242,7 +262,8 @@ export default function Profile(): JSX.Element {
           />
         </div>
 
-        <div>
+        <div className="profile__area__buttons">
+          <ButtonUniversal buttonText="Save profile" onClick={handleSaveProfileButtonClick} />
           <ButtonUniversal buttonText="Change password" onClick={handleChangePasswordButtonClick} />
           <ButtonUniversal buttonText="Change address" onClick={handleChangeAddressButtonClick} />
         </div>

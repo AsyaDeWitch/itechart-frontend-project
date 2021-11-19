@@ -3,4 +3,30 @@
 
 .profile {
   padding-bottom: 8.5rem;
+
+  &__title {
+    margin: 1rem 1rem 1rem 0;
+    padding-left: 1rem;
+  }
+  &__area {
+    display: flex;
+
+    &__image {
+      flex: 1;
+      text-align: center;
+
+      &__line {
+        width: 18vw;
+      }
+    }
+
+    &__inputs {
+      flex: 1;
+    }
+
+    &__buttons {
+      flex: 1;
+      text-align: center;
+    }
+  }
 }

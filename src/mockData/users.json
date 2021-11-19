@@ -19,10 +19,10 @@
 		"phoneNumber": "1234567890"
 	},
 	{
-		"id": 1,
-		"name": "Asya1",
+		"id": 2,
+		"name": "Asya2",
 		"email": "test@gmail.com",
-		"password": "!Bischi1",
+		"password": "!Bischi2",
 		"defaultDeliveryAddress": {
 			"country": "",
 			"city": "",
