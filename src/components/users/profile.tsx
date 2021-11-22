@@ -34,23 +34,22 @@ const nullUserProfile: TProfile = {
   name: "",
   email: "",
   defaultDeliveryAddress: nullAddress,
-  image: "",
+  image: nullImgFile,
   description: "",
   phoneNumber: "",
 };
-const nullImageFile: File = new File([""], "");
 
 export default function Profile(): JSX.Element {
   const [isShownPasswordChange, setIsShownPasswordChange] = useState(false);
   const [isShownAddressChange, setIsShownAddressChange] = useState(false);
-  const [isShownImageFileInput, setIsShownImageFileInput] = useState(false);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [description, setDescription] = useState("");
   const [image64, setImage64] = useState(nullImgFile);
+  const [selectedImage, setSelectedImage] = useState("");
+  const [isClearedImage, setIsClearedImage] = useState(false);
   const [userProfile, setUserProfile] = useState(nullUserProfile);
-  const [selectedImage, setSelectedImage] = useState(nullImageFile);
   const [formErrors, setFormErrors] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const dispatch = useDispatch();
@@ -68,8 +67,6 @@ export default function Profile(): JSX.Element {
         setDescription(response.data.description);
         if (response.data.image !== "") {
           setImage64(response.data.image);
-        } else {
-          setImage64(nullImgFile);
         }
       }
     } catch (error) {
@@ -121,27 +118,37 @@ export default function Profile(): JSX.Element {
   };
 
   const handleSaveProfileButtonClick = async () => {
+    validateForm();
     if (isFormValid) {
       try {
         const updatedUser: TProfile = {
-          id: 0,
+          id: signInUser.id,
           name: userName,
           email,
           defaultDeliveryAddress: nullAddress,
-          image: "",
+          image: isClearedImage ? "" : image64,
           description,
           phoneNumber,
         };
-        const response = await apiProfile.saveProfile(signInUser.id, updatedUser);
+        const response = await apiProfile.saveProfile(updatedUser);
         if (response.status === StatusCodes.OK) {
           const updatedSignInUser: User = { id: signInUser.id, name: response.data.name };
           dispatch(setSignInData(updatedSignInUser));
         }
-      } catch {
-        setFormErrors("Something went wrong while changing profile information...");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        if (error.message.includes("413")) {
+          setFormErrors("Image is too large. Try to choose another");
+        } else {
+          setFormErrors("Something went wrong while changing profile information...");
+        }
       }
       getUserProfile();
     }
+  };
+
+  const handleSkipChangesButtonClick = () => {
+    getUserProfile();
   };
 
   const handleChangeAddressButtonClick = () => {
@@ -153,46 +160,19 @@ export default function Profile(): JSX.Element {
     getUserProfile();
   };
 
-  const handleChangeImageButtonClick = () => {
-    setIsShownImageFileInput(true);
-  };
-
-  const handleImageSubmitButtonClick = async () => {
-    const newImage64 = await fromFileToBase64(selectedImage);
-    if (userProfile.image === newImage64) {
-      try {
-        const response = await apiProfile.changeProfileImage(signInUser.id, "");
-        if (response.status === StatusCodes.OK) {
-          setImage64(nullImgFile);
-          setIsShownImageFileInput(false);
-        }
-      } catch {
-        setFormErrors("Something went wrong while changing profile image...");
-      }
-    } else {
-      try {
-        const response = await apiProfile.changeProfileImage(signInUser.id, newImage64);
-        if (response.status === StatusCodes.OK) {
-          setImage64(newImage64);
-          setIsShownImageFileInput(false);
-        }
-      } catch {
-        setFormErrors("Something went wrong while changing profile image...");
-      }
-    }
-    getUserProfile();
-  };
-
-  const handleImageCloseButtonClick = () => {
-    setIsShownImageFileInput(false);
-    getUserProfile();
-  };
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFileSelect = async (event: any) => {
-    setSelectedImage(event.target.files[0]);
-    const newImage64 = await fromFileToBase64(event.target.files[0]);
-    setImage64(newImage64);
+    validateForm();
+    setSelectedImage(event.target.value);
+    setImage64(await fromFileToBase64(event.target.files[0]));
+    setIsClearedImage(false);
+  };
+
+  const handleDeleteProfileImageButtonClick = () => {
+    validateForm();
+    setImage64(nullImgFile);
+    setSelectedImage("");
+    setIsClearedImage(true);
   };
 
   return (
@@ -202,25 +182,18 @@ export default function Profile(): JSX.Element {
       <div className="profile__area">
         <div className="profile__area__image">
           <ImageProfile image64={image64} />
-          {isShownImageFileInput ? (
-            <>
-              <input
-                style={{ display: "none" }}
-                type="file"
-                onChange={handleFileSelect}
-                accept="image/*"
-                ref={(fileInput) => {
-                  fileInputRef = fileInput;
-                }}
-              />
-              <ButtonUniversal buttonText="Choose image file" onClick={() => fileInputRef?.click()} />
-              <hr className="profile__area__image__line" />
-              <ButtonUniversal buttonText="Save changes" onClick={handleImageSubmitButtonClick} />
-              <ButtonUniversal buttonText="Skip changes" onClick={handleImageCloseButtonClick} />
-            </>
-          ) : (
-            <ButtonUniversal buttonText="Change profile image" onClick={handleChangeImageButtonClick} />
-          )}
+          <input
+            style={{ display: "none" }}
+            type="file"
+            onChange={handleFileSelect}
+            value={selectedImage}
+            accept="image/*"
+            ref={(fileInput) => {
+              fileInputRef = fileInput;
+            }}
+          />
+          <ButtonUniversal buttonText="Change profile image" onClick={() => fileInputRef?.click()} />
+          <ButtonUniversal buttonText="Delete profile image" onClick={handleDeleteProfileImageButtonClick} />
         </div>
 
         <div className="profile__area__inputs">
@@ -264,6 +237,8 @@ export default function Profile(): JSX.Element {
 
         <div className="profile__area__buttons">
           <ButtonUniversal buttonText="Save profile" onClick={handleSaveProfileButtonClick} />
+          <ButtonUniversal buttonText="Skip changes" onClick={handleSkipChangesButtonClick} />
+          <hr className="profile__area__image__line" />
           <ButtonUniversal buttonText="Change password" onClick={handleChangePasswordButtonClick} />
           <ButtonUniversal buttonText="Change address" onClick={handleChangeAddressButtonClick} />
         </div>

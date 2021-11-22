@@ -88,7 +88,7 @@ export default webpackMockServer.add((app) => {
   });
 
   app.post("/api/saveProfile", (req, res) => {
-    const findedUser = JsonUsers.filter((user) => user.id === req.body.id)[0];
+    const findedUser = JsonUsers.filter((user) => user.id === req.body.updatedUser.id)[0];
     if (findedUser !== undefined) {
       const profile = {
         id: findedUser.id,
@@ -96,11 +96,12 @@ export default webpackMockServer.add((app) => {
         email: req.body.updatedUser.email,
         password: findedUser.password,
         defaultDeliveryAddress: (findedUser as unknown as Profile).defaultDeliveryAddress,
-        image: (findedUser as unknown as Profile).image,
+        image: req.body.updatedUser.image,
         description: req.body.updatedUser.description,
         phoneNumber: req.body.updatedUser.phoneNumber,
       };
-      JsonUsers[req.body.id - 1] = profile;
+      console.log(profile.image);
+      JsonUsers[req.body.updatedUser.id - 1] = profile;
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
         if (err) throw err;
         console.log("User information updated.");
@@ -119,21 +120,6 @@ export default webpackMockServer.add((app) => {
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
         if (err) throw err;
         console.log("User password changed.");
-      });
-      res.status(StatusCodes.OK).json();
-    } else {
-      res.status(StatusCodes.BAD_REQUEST).json();
-    }
-  });
-
-  app.post("/api/changeProfileImage", (req, res) => {
-    const findedUser = JsonUsers.filter((user) => user.id === req.body.id)[0];
-    if (findedUser !== undefined) {
-      (findedUser as unknown as Profile).image = req.body.image;
-      JsonUsers[req.body.id - 1] = findedUser;
-      fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
-        if (err) throw err;
-        console.log("User profile image changed.");
       });
       res.status(StatusCodes.OK).json();
     } else {
