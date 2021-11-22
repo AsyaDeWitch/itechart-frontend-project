@@ -11,12 +11,12 @@ export default function TextareaProfileDescription(props: {
 }): JSX.Element {
   return (
     <>
-      <label htmlFor={"input-text".concat(props.label)} className="labelProfileDescription">
+      <label htmlFor={`"input-text"${props.label}`} className="labelProfileDescription">
         {props.label}
       </label>
       <textarea
         onChange={props.onChange}
-        id={"input-text".concat(props.label)}
+        id={`"input-text"${props.label}`}
         placeholder={props.placeholder}
         className="textareaProfileDescription"
         name={props.name}
