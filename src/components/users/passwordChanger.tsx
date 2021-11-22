@@ -1,23 +1,23 @@
 import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
-import * as apiAuth from "@/api/apiAuth";
+import * as apiProfile from "@/api/apiProfile";
 import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
 import "../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
-import { joiLoggingSchema } from "@/helpers/formJoiSchema";
+import { joiPasswordSchema } from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
-import { useDispatch } from "react-redux";
-import { setSignInData } from "@/redux/slices/loggingSlice";
+import { useSelector } from "react-redux";
+import { TStore } from "@/redux/store";
 
-export default function Login(props: { onSignInButtonCloseClick: MouseEventHandler }): JSX.Element {
-  const [userName, setUserName] = useState("");
+export default function PasswordChanger(props: { onChangePasswordButtonCloseClick: MouseEventHandler }): JSX.Element {
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
-  const dispatch = useDispatch();
+  const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
   const validateForm = (): void => {
-    const { error } = joiLoggingSchema.validate({ userName, password });
+    const { error } = joiPasswordSchema.validate({ password, repeatPassword });
     if (error !== undefined && error.message !== undefined) {
       setFormErrors(error.message as string);
     } else {
@@ -30,24 +30,23 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
     validateForm();
   };
 
-  const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setUserName(event.target.value);
-  };
-
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
+  };
+
+  const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setRepeatPassword(event.target.value);
   };
 
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     if (isFormValid) {
       try {
-        const response = await apiAuth.signIn(userName, password);
+        const response = await apiProfile.changePassword(signInUser.id, password);
         if (response.status === StatusCodes.OK) {
-          dispatch(setSignInData(response.data));
-          props.onSignInButtonCloseClick(event);
+          props.onChangePasswordButtonCloseClick(event);
         }
       } catch (error) {
-        setFormErrors("Invalid user name or password");
+        setFormErrors("Something went wrong while changing password...");
       }
     }
   };
@@ -56,23 +55,12 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
     <div className="modal">
       <div className="modal__form">
         <nav className="modal__head">
-          <div className="modal__title">Sign In</div>
+          <div className="modal__title">Change password</div>
           <div className="modal__buttonClose">
-            <ButtonClose onClick={props.onSignInButtonCloseClick} />
+            <ButtonClose onClick={props.onChangePasswordButtonCloseClick} />
           </div>
         </nav>
         <div className="modal__error">{formErrors}</div>
-        <div className="modal__input">
-          <InputText
-            onChange={handleUserNameChange}
-            type="text"
-            placeholder="Name"
-            label="Name"
-            name="userName"
-            value={userName}
-            onBlur={handleInputFocusChange}
-          />
-        </div>
         <div className="modal__input">
           <InputText
             onChange={handlePasswordChange}
@@ -81,6 +69,17 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
             label="Password"
             name="password"
             value={password}
+            onBlur={handleInputFocusChange}
+          />
+        </div>
+        <div className="modal__input">
+          <InputText
+            onChange={handleRepeatPasswordChange}
+            type="password"
+            placeholder="Password"
+            label="Repeat password"
+            name="repeatPassword"
+            value={repeatPassword}
             onBlur={handleInputFocusChange}
           />
         </div>

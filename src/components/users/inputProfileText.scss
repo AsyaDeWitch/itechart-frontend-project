@@ -1,0 +1,32 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.inputProfileText {
+  width: 30vw;
+  height: 5vh;
+  border-style: solid;
+  border-color: $basicDarkThemeColor;
+  border-radius: 10px;
+  font-size: 1.2em;
+  display: inline-grid;
+  position: relative;
+  padding-left: 1rem;
+  margin: 0.4rem;
+  color: $basicFontColor;
+
+  &:focus {
+    border-style: solid;
+    border-color: $basicDarkThemeColor;
+    border-radius: 10px;
+    outline: none;
+  }
+}
+
+.labelProfileText {
+  color: $basicFontColor;
+  text-align: left;
+  font-size: 1.2em;
+  display: inline-block;
+  width: 10rem;
+  margin-top: 0.8rem;
+}

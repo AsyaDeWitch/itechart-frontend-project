@@ -1,7 +1,7 @@
 import { ChangeEventHandler, FocusEventHandler } from "react";
-import "./inputText.scss";
+import "./inputProfileText.scss";
 
-export default function InputText(props: {
+export default function InputProfileText(props: {
   onChange: ChangeEventHandler;
   type: string;
   placeholder: string;
@@ -12,7 +12,7 @@ export default function InputText(props: {
 }): JSX.Element {
   return (
     <>
-      <label htmlFor={`"input-text"${props.label}`} className="labelText">
+      <label htmlFor={`"input-text"${props.label}`} className="labelProfileText">
         {props.label}
       </label>
       <input
@@ -20,7 +20,7 @@ export default function InputText(props: {
         type={props.type}
         id={`"input-text"${props.label}`}
         placeholder={props.placeholder}
-        className="inputText"
+        className="inputProfileText"
         name={props.name}
         value={props.value}
         onBlur={props.onBlur}
