@@ -1,0 +1,22 @@
+[
+  {
+    "name": "G",
+    "description": "G (3+)"
+  },
+  {
+    "name": "PG",
+    "description": "PG (6+)"
+  },
+  {
+    "name": "PG-13",
+    "description": "PG-13 (12+)"
+  },
+  {
+    "name": "R",
+    "description": "R (17+)"
+  },
+  {
+    "name": "NC-17",
+    "description": "NC-17 (18+)"
+  }
+]

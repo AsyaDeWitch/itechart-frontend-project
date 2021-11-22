@@ -1,0 +1,11 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.sortPanel {
+  &__select {
+  }
+
+  &__option {
+    color: $basicFontColor;
+  }
+}

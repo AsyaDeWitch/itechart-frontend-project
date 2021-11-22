@@ -100,7 +100,6 @@ export default webpackMockServer.add((app) => {
         description: req.body.updatedUser.description,
         phoneNumber: req.body.updatedUser.phoneNumber,
       };
-      console.log(profile.image);
       JsonUsers[req.body.updatedUser.id - 1] = profile;
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
         if (err) throw err;

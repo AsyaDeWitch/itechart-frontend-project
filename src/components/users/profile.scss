@@ -22,6 +22,24 @@
 
     &__inputs {
       flex: 1;
+
+      &__error {
+        margin: 0 0 5px 0;
+        align-items: center;
+        font-size: 0.8rem;
+        text-align: center;
+        color: red;
+        justify-self: center;
+      }
+
+      &__success {
+        margin: 0 0 5px 0;
+        align-items: center;
+        font-size: 0.8rem;
+        text-align: center;
+        color: green;
+        justify-self: center;
+      }
     }
 
     &__buttons {

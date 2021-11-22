@@ -3,4 +3,31 @@
 
 .games {
   padding-bottom: 8.5rem;
+  display: flex;
+
+  &__panel {
+    background-color: $basicTransparentThemeColor;
+    border-radius: 30px;
+    flex: 0.35;
+    margin: 1rem 1rem 0 0;
+
+    padding: 1rem 1rem 1rem 1rem;
+  }
+
+  &__table {
+    flex: 1.2;
+    margin-left: 1rem;
+    text-align: center;
+
+    &__searchBar {
+    }
+
+    &__products {
+      background-color: $basicTransparentThemeColor;
+      border-radius: 30px;
+      text-align: left;
+      min-height: 90%;
+      padding: 1rem 1rem 1rem 1rem;
+    }
+  }
 }
