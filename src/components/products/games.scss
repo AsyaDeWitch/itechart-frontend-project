@@ -10,8 +10,28 @@
     border-radius: 30px;
     flex: 0.35;
     margin: 1rem 1rem 0 0;
-
     padding: 1rem 1rem 1rem 1rem;
+  }
+
+  &__category {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  &__sortPanel {
+    margin: 1rem 0 1rem 0;
+    font-weight: bold;
+  }
+
+  &__agePanel {
+    margin: 1rem 0 0 0;
+    font-weight: bold;
+  }
+
+  &__genresPanel {
+    margin: 1rem 0 1rem 0;
+    font-weight: bold;
   }
 
   &__table {
@@ -22,11 +42,18 @@
     &__searchBar {
     }
 
+    &__spinner {
+      margin-bottom: 3rem;
+      display: inline-block;
+      position: relative;
+      text-align: center;
+    }
+
     &__products {
       background-color: $basicTransparentThemeColor;
       border-radius: 30px;
       text-align: left;
-      min-height: 90%;
+      min-height: 82%;
       padding: 1rem 1rem 1rem 1rem;
     }
   }

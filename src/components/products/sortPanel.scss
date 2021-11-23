@@ -1,11 +1,34 @@
 @import "normalize.css";
 @import "sanitize.css";
 
-.sortPanel {
-  &__select {
+.sortItems {
+  font-size: 0.8rem;
+  font-weight: normal;
+
+  &__type {
+    margin-top: 0.5rem;
   }
 
-  &__option {
+  &__criteria {
+    margin-top: 0.5rem;
+  }
+
+  &__select {
+    margin-left: 2rem;
     color: $basicFontColor;
+    background-color: transparent;
+    border-radius: 5px;
+    border-color: $basicFontColor;
+    width: 10vw;
+    align-self: end;
+
+    &__option {
+      color: $basicFontColor;
+
+      &:hover {
+        //background-color: $basicDarkThemeColor;
+        color: $basicFontColor;
+      }
+    }
   }
 }

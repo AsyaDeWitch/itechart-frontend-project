@@ -1,49 +1,61 @@
 [
   {
+    "id": 1,
     "name": "Sandbox",
     "description": "Sandbox"
   },
   {
+    "id": 2,
     "name": "RTS",
     "description": "Real-time strategy"
   },
   {
+    "id": 3,
     "name": "Shooter",
     "description": "Shooter"
   },
   {
+    "id": 4,
     "name": "MOBA",
     "description": "Multiplayer"
   },
   {
+    "id": 5,
     "name": "RPG",
     "description": "Role-playing"
   },
   {
+    "id": 6,
     "name": "Simulation",
     "description": "Simulation"
   },
   {
+    "id": 7,
     "name": "Sports",
     "description": "Sports"
   },
   {
+    "id": 8,
     "name": "Puzzler",
     "description": "Puzzler"
   },
   {
+    "id": 9,
     "name": "AA",
     "description": "Action-adventure"
   },
   {
+    "id": 10,
     "name": "Survival",
     "description": "Survival"
   },
   {
+    "id": 11,
     "name": "Horror",
     "description": "Horror"
   },
   {
+    "id": 12,
     "name": "TBS",
     "description": "Turn-based strategy"
   }
