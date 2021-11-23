@@ -21,6 +21,14 @@ export default webpackMockServer.add((app) => {
     res.json(JsonGames.slice(0, 3));
   });
 
+  app.get("/api/products", (req, res) => {
+    // add another params to search req
+    const responce = JsonGames.filter((game) =>
+      game.name.toLowerCase().includes((req.query.searchName as string).toLowerCase())
+    );
+    res.json(responce);
+  });
+
   // Auth part
   app.post("/api/auth/signIn", (req, res) => {
     const signInUser = JsonUsers.filter(
