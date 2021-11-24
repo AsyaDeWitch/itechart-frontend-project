@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
 import Profile from "@/shared/types/profile";
+import ProductItem from "@/shared/types/productItem";
 import JsonUsers from "./src/mockData/users.json";
 import JsonGames from "./src/mockData/games.json";
 
@@ -23,9 +24,44 @@ export default webpackMockServer.add((app) => {
 
   app.get("/api/products", (req, res) => {
     // add another params to search req
-    const responce = JsonGames.filter((game) =>
-      game.name.toLowerCase().includes((req.query.searchName as string).toLowerCase())
-    );
+    function sortFunction(a: ProductItem, b: ProductItem) {
+      let result = 0;
+      switch (Number(req.query.sortType)) {
+        case 1: {
+          if (a.totalRating > b.totalRating) {
+            result = 1;
+          }
+          if (a.totalRating < b.totalRating) {
+            result = -1;
+          }
+          result = 0;
+          break;
+        }
+        case 2: {
+          if (a.price > b.price) {
+            result = 1;
+          }
+          if (a.price < b.price) {
+            result = -1;
+          }
+          result = 0;
+          break;
+        }
+        default: {
+          result = 0;
+          break;
+        }
+      }
+      return Number(req.query.sortDir) === 1 ? result : -result;
+    }
+
+    const responce = JsonGames.filter(
+      (game) =>
+        game.name.toLowerCase().includes((req.query.searchName as string).toLowerCase()) &&
+        game.genre === Number(req.query.genre) &&
+        game.age === Number(req.query.age) &&
+        game.platform.includes(Number(req.query.category))
+    ).sort(sortFunction);
     res.json(responce);
   });
 

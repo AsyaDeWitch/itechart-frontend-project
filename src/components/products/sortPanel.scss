@@ -5,6 +5,9 @@
   font-size: 0.8rem;
   font-weight: normal;
 
+  &__label {
+  }
+
   &__type {
     margin-top: 0.5rem;
   }
@@ -14,21 +17,20 @@
   }
 
   &__select {
+    float: right;
     margin-left: 2rem;
     color: $basicFontColor;
     background-color: transparent;
     border-radius: 5px;
     border-color: $basicFontColor;
-    width: 10vw;
+    width: 10.7vw;
     align-self: end;
 
     &__option {
       color: $basicFontColor;
-
-      &:hover {
-        //background-color: $basicDarkThemeColor;
-        color: $basicFontColor;
-      }
+      background: $basicTransparentThemeColor;
+      border-radius: 5px;
+      border-color: $basicFontColor;
     }
   }
 }

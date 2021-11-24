@@ -16,12 +16,12 @@ export async function getTopProducts(): Promise<AxiosResponse> {
 }
 
 export async function products(
-  sortType: string,
-  sortDir: string,
-  genre: string,
-  age: string,
+  sortType: number,
+  sortDir: number,
+  genre: number,
+  age: number,
   searchName: string,
-  category: string
+  category: number
 ): Promise<AxiosResponse> {
   const response = await api.get("/api/products", {
     params: {

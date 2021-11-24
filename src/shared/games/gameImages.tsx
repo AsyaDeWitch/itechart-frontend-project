@@ -7,33 +7,6 @@ import imgRdr2 from "images/gamesCards/red-dead-redemption-2.png";
 import imgSkyrim from "images/gamesCards/the-elder-scrolls-v-skyrim.jpg";
 import imgMafia2 from "images/gamesCards/mafia-ii.jpg";
 
-const gameImages: string[] = [
-  imgWitcher,
-  imgWitcher,
-  imgWitcher,
-  imgWitcher,
-  imgSims,
-  imgSims,
-  imgHeroes,
-  imgHeroes,
-  imgHeroes,
-  imgGta,
-  imgGta,
-  imgGta,
-  imgGta,
-  imgGta,
-  imgWow,
-  imgWow,
-  imgRdr2,
-  imgRdr2,
-  imgRdr2,
-  imgSkyrim,
-  imgSkyrim,
-  imgSkyrim,
-  imgSkyrim,
-  imgSkyrim,
-  imgSkyrim,
-  imgMafia2,
-];
+const gameImages: string[] = [imgWitcher, imgSims, imgHeroes, imgGta, imgWow, imgRdr2, imgSkyrim, imgMafia2];
 
 export default gameImages;

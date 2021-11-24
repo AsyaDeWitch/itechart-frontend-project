@@ -1,0 +1,11 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.productsPanel {
+  background-color: $basicTransparentThemeColor;
+  border-radius: 30px;
+  text-align: left;
+  min-height: 89.5%;
+  padding: 1rem 1rem 1rem 1rem;
+  font-weight: bold;
+}

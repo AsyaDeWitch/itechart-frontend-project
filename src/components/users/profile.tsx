@@ -12,7 +12,7 @@ import fromFileToBase64 from "@/helpers/base64FileConverter";
 import { joiProfileSchema } from "@/helpers/formJoiSchema";
 import { setSignInData } from "@/redux/slices/loggingSlice";
 import User from "@/shared/types/user";
-import nullImgFile from "@/assets/images/profile/no-profile-photo.png";
+import nullImgFile from "images/profile/no-profile-photo.png";
 import PasswordChanger from "./passwordChanger";
 import DeliveryAddressChanger from "./deliveryAddressChanger";
 import ImageProfile from "./imageProfile";
@@ -173,6 +173,7 @@ export default function Profile(): JSX.Element {
     validateForm();
     setSelectedImage(event.target.value);
     setImage64(await fromFileToBase64(event.target.files[0]));
+    console.log(await fromFileToBase64(event.target.files[0]));
     setIsClearedImage(false);
   };
 

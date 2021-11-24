@@ -17,7 +17,7 @@ export default function SortPanel(props: {
       <hr />
       <div className="sortItems">
         <div className="sortItems__criteria">
-          <label htmlFor="criteria-select">
+          <label className="sortItems__label" htmlFor="criteria-select">
             Criteria:{" "}
             <select
               id="criteria-select"
@@ -34,7 +34,7 @@ export default function SortPanel(props: {
           </label>
         </div>
         <div className="sortItems__type">
-          <label htmlFor="type-select">
+          <label className="sortItems__label" htmlFor="type-select">
             Type:{" "}
             <select
               id="type-select"
@@ -43,7 +43,7 @@ export default function SortPanel(props: {
               value={props.typeValue}
             >
               {SortTypes.map((item: TypeItem) => (
-                <option className="sortPanel__select__option" key={`${item.name}`}>
+                <option className="sortItems__select__option" key={`${item.name}`}>
                   {item.name}
                 </option>
               ))}
