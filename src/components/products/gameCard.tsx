@@ -7,6 +7,7 @@ export default function GameCard(props: { productItem: ProductItem; image: strin
       <h4 className="game-card__name">{props.productItem.name}</h4>
       <img className="game-card__image" src={props.image} alt={props.productItem.name} />
       <p className="game-card__platform">{`$${props.productItem.price}`}</p>
+      <p className="game-card__platform">{props.productItem.totalRating}</p>
     </div>
   );
 }

@@ -5,6 +5,11 @@ import { StatusCodes } from "http-status-codes";
 import webpackMockServer from "webpack-mock-server";
 import Profile from "@/shared/types/profile";
 import ProductItem from "@/shared/types/productItem";
+import Genres from "@/mockData/genres.json";
+import Ages from "@/mockData/ages.json";
+import Categories from "@/mockData/categories.json";
+import Criterias from "@/mockData/criterias.json";
+import SortTypes from "@/mockData/sortTypes.json";
 import JsonUsers from "./src/mockData/users.json";
 import JsonGames from "./src/mockData/games.json";
 
@@ -23,28 +28,15 @@ export default webpackMockServer.add((app) => {
   });
 
   app.get("/api/products", (req, res) => {
-    // add another params to search req
     function sortFunction(a: ProductItem, b: ProductItem) {
       let result = 0;
-      switch (Number(req.query.sortType)) {
+      switch (Criterias.filter((c) => c.name === req.query.sortType)[0].id) {
         case 1: {
-          if (a.totalRating > b.totalRating) {
-            result = 1;
-          }
-          if (a.totalRating < b.totalRating) {
-            result = -1;
-          }
-          result = 0;
+          result = a.price - b.price;
           break;
         }
         case 2: {
-          if (a.price > b.price) {
-            result = 1;
-          }
-          if (a.price < b.price) {
-            result = -1;
-          }
-          result = 0;
+          result = a.price - b.price;
           break;
         }
         default: {
@@ -52,17 +44,61 @@ export default webpackMockServer.add((app) => {
           break;
         }
       }
-      return Number(req.query.sortDir) === 1 ? result : -result;
+      return SortTypes.filter((t) => t.name === req.query.sortDir)[0].id === 1 ? result : -result;
     }
 
-    const responce = JsonGames.filter(
-      (game) =>
-        game.name.toLowerCase().includes((req.query.searchName as string).toLowerCase()) &&
-        game.genre === Number(req.query.genre) &&
-        game.age === Number(req.query.age) &&
-        game.platform.includes(Number(req.query.category))
-    ).sort(sortFunction);
-    res.json(responce);
+    function isInFilterGenre(element: ProductItem): boolean {
+      if (req.query.genre === "") {
+        return true;
+      }
+
+      if (element.genre === Genres.filter((g) => g.name === req.query.genre)[0].id) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function isInFilterAge(element: ProductItem): boolean {
+      if (req.query.age === "") {
+        return true;
+      }
+
+      if (element.age === Ages.filter((a) => a.name === req.query.age)[0].id) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function isInFilterCategory(element: ProductItem): boolean {
+      if (req.query.category === "") {
+        return true;
+      }
+
+      if (element.platform.includes(Categories.filter((c) => c.name === req.query.category)[0].id)) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function isFitsSearchName(element: ProductItem): boolean {
+      if (req.query.searchName === "") {
+        return true;
+      }
+
+      if (element.name.toLowerCase().includes((req.query.searchName as string).toLowerCase())) {
+        return true;
+      }
+
+      return false;
+    }
+
+    const response = JsonGames.filter(
+      (game) => isFitsSearchName(game) && isInFilterGenre(game) && isInFilterAge(game) && isInFilterCategory(game)
+    ).sort((a, b) => sortFunction(a, b));
+    res.json(response);
   });
 
   // Auth part
