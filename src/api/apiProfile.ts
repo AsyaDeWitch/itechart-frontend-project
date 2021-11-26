@@ -34,3 +34,12 @@ export async function changeDefaultDeliveryAddress(id: number, address: Address)
   });
   return response;
 }
+
+export async function getBalance(id: number): Promise<AxiosResponse> {
+  const response = await api.get("/api/getBalance", {
+    params: {
+      id,
+    },
+  });
+  return response;
+}
