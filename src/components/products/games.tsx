@@ -2,20 +2,12 @@ import RouteItems from "@/shared/routes/items/routeItems";
 import { Redirect, useParams } from "react-router-dom";
 import Categories from "@/shared/categories/gameCategories";
 import "./games.scss";
-import { ChangeEvent, lazy, Suspense, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import SearchBar from "@/home/searchBar/searchBar";
-import Spinner from "@/home/spinner/spinner";
 import useSearchSuspense from "@/hooks/useSearchSuspense";
 import SortPanel from "./sortPanel";
 import GenresPanel from "./genresPanel";
 import AgePanel from "./agePanel";
-
-const ProductsPanel = lazy(async () => {
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-  return import("./productsPanel");
-});
 
 type Params = {
   category: string;
@@ -38,7 +30,7 @@ export default function Games(): JSX.Element {
   );
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearchName(event.target.value);
+    setTimeout(() => setSearchName(event.target.value), 500);
   };
 
   const handleSortCriteriaChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -90,15 +82,7 @@ export default function Games(): JSX.Element {
         <div className="games__table__searchBar">
           <SearchBar onChange={handleSearchChange} />
         </div>
-        <Suspense
-          fallback={
-            <div className="games__table__spinner">
-              <Spinner />
-            </div>
-          }
-        >
-          <ProductsPanel productItems={productItems} />
-        </Suspense>
+        {productItems}
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ export default webpackMockServer.add((app) => {
       let result = 0;
       switch (Criterias.filter((c) => c.name === req.query.sortType)[0].id) {
         case 1: {
-          result = a.price - b.price;
+          result = a.totalRating - b.totalRating;
           break;
         }
         case 2: {
@@ -98,7 +98,7 @@ export default webpackMockServer.add((app) => {
     const response = JsonGames.filter(
       (game) => isFitsSearchName(game) && isInFilterGenre(game) && isInFilterAge(game) && isInFilterCategory(game)
     ).sort((a, b) => sortFunction(a, b));
-    res.json(response);
+    setTimeout(() => res.json(response), 1000);
   });
 
   // Auth part

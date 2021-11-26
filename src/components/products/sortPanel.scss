@@ -2,23 +2,24 @@
 @import "sanitize.css";
 
 .sortItems {
-  font-size: 0.8rem;
+  font-size: 0.9vw;
   font-weight: normal;
 
   &__label {
   }
 
   &__type {
-    margin-top: 0.5rem;
+    margin-top: 0.5vw;
   }
 
   &__criteria {
-    margin-top: 0.5rem;
+    margin-top: 0.5vw;
   }
 
   &__select {
+    font-size: 0.9vw;
     float: right;
-    margin-left: 2rem;
+    margin-left: 2vw;
     color: $basicFontColor;
     background-color: transparent;
     border-radius: 5px;

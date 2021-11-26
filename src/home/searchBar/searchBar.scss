@@ -3,15 +3,15 @@
 
 .searchBar {
   width: 50vw;
-  height: 5vh;
+  height: 2.5vw;
   border-style: solid;
   border-color: $basicDarkThemeColor;
   border-radius: 10px;
-  font-size: 1.2em;
+  font-size: 1.2vw;
   display: inline;
   position: relative;
-  padding-left: 1rem;
-  margin: 1rem 1rem 1rem 1rem;
+  padding-left: 1vw;
+  margin: 1vw 1vw 1vw 1vw;
   color: $basicFontColor;
 }
 
