@@ -1,11 +1,11 @@
 type ProductItem = {
   id: number;
   name: string;
-  platform: string;
+  platform: number[];
   dateCreated: string;
   totalRating: number;
-  genre: string;
-  rating: string;
+  genre: number;
+  age: number;
   logo: string;
   price: number;
   count: number;

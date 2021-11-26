@@ -4,6 +4,12 @@ import { StatusCodes } from "http-status-codes";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
 import Profile from "@/shared/types/profile";
+import ProductItem from "@/shared/types/productItem";
+import Genres from "@/mockData/genres.json";
+import Ages from "@/mockData/ages.json";
+import Categories from "@/mockData/categories.json";
+import Criterias from "@/mockData/criterias.json";
+import SortTypes from "@/mockData/sortTypes.json";
 import JsonUsers from "./src/mockData/users.json";
 import JsonGames from "./src/mockData/games.json";
 
@@ -19,6 +25,80 @@ export default webpackMockServer.add((app) => {
   app.get("/api/getTopProducts", (_req, res) => {
     JsonGames.sort((a, b) => new Date(b.dateCreated).valueOf() - new Date(a.dateCreated).valueOf());
     res.json(JsonGames.slice(0, 3));
+  });
+
+  app.get("/api/products", (req, res) => {
+    function sortFunction(a: ProductItem, b: ProductItem) {
+      let result = 0;
+      switch (Criterias.filter((c) => c.name === req.query.sortType)[0].id) {
+        case 1: {
+          result = a.totalRating - b.totalRating;
+          break;
+        }
+        case 2: {
+          result = a.price - b.price;
+          break;
+        }
+        default: {
+          result = 0;
+          break;
+        }
+      }
+      return SortTypes.filter((t) => t.name === req.query.sortDir)[0].id === 1 ? result : -result;
+    }
+
+    function isInFilterGenre(element: ProductItem): boolean {
+      if (req.query.genre === "") {
+        return true;
+      }
+
+      if (element.genre === Genres.filter((g) => g.name === req.query.genre)[0].id) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function isInFilterAge(element: ProductItem): boolean {
+      if (req.query.age === "") {
+        return true;
+      }
+
+      if (element.age === Ages.filter((a) => a.name === req.query.age)[0].id) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function isInFilterCategory(element: ProductItem): boolean {
+      if (req.query.category === "") {
+        return true;
+      }
+
+      if (element.platform.includes(Categories.filter((c) => c.name === req.query.category)[0].id)) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function isFitsSearchName(element: ProductItem): boolean {
+      if (req.query.searchName === "") {
+        return true;
+      }
+
+      if (element.name.toLowerCase().includes((req.query.searchName as string).toLowerCase())) {
+        return true;
+      }
+
+      return false;
+    }
+
+    const response = JsonGames.filter(
+      (game) => isFitsSearchName(game) && isInFilterGenre(game) && isInFilterAge(game) && isInFilterCategory(game)
+    ).sort((a, b) => sortFunction(a, b));
+    setTimeout(() => res.json(response), 1000);
   });
 
   // Auth part
@@ -100,7 +180,6 @@ export default webpackMockServer.add((app) => {
         description: req.body.updatedUser.description,
         phoneNumber: req.body.updatedUser.phoneNumber,
       };
-      console.log(profile.image);
       JsonUsers[req.body.updatedUser.id - 1] = profile;
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
         if (err) throw err;

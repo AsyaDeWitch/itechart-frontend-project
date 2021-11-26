@@ -12,7 +12,7 @@ import fromFileToBase64 from "@/helpers/base64FileConverter";
 import { joiProfileSchema } from "@/helpers/formJoiSchema";
 import { setSignInData } from "@/redux/slices/loggingSlice";
 import User from "@/shared/types/user";
-import nullImgFile from "@/assets/images/profile/no-profile-photo.png";
+import nullImgFile from "images/profile/no-profile-photo.png";
 import PasswordChanger from "./passwordChanger";
 import DeliveryAddressChanger from "./deliveryAddressChanger";
 import ImageProfile from "./imageProfile";
@@ -51,6 +51,7 @@ export default function Profile(): JSX.Element {
   const [isClearedImage, setIsClearedImage] = useState(false);
   const [userProfile, setUserProfile] = useState(nullUserProfile);
   const [formErrors, setFormErrors] = useState("");
+  const [formSuccess, setFormSuccess] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const dispatch = useDispatch();
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
@@ -67,6 +68,9 @@ export default function Profile(): JSX.Element {
         setDescription(response.data.description);
         if (response.data.image !== "") {
           setImage64(response.data.image);
+        } else {
+          setImage64(nullImgFile);
+          setIsClearedImage(true);
         }
       }
     } catch (error) {
@@ -86,6 +90,7 @@ export default function Profile(): JSX.Element {
       setIsFormValid(true);
       setFormErrors("");
     }
+    setFormSuccess("");
   };
 
   const handleInputFocusChange = (): void => {
@@ -134,6 +139,8 @@ export default function Profile(): JSX.Element {
         if (response.status === StatusCodes.OK) {
           const updatedSignInUser: User = { id: signInUser.id, name: response.data.name };
           dispatch(setSignInData(updatedSignInUser));
+          getUserProfile();
+          setFormSuccess("Changes successfully saved!");
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
@@ -143,12 +150,13 @@ export default function Profile(): JSX.Element {
           setFormErrors("Something went wrong while changing profile information...");
         }
       }
-      getUserProfile();
+      setSelectedImage("");
     }
   };
 
   const handleSkipChangesButtonClick = () => {
     getUserProfile();
+    setSelectedImage("");
   };
 
   const handleChangeAddressButtonClick = () => {
@@ -165,6 +173,7 @@ export default function Profile(): JSX.Element {
     validateForm();
     setSelectedImage(event.target.value);
     setImage64(await fromFileToBase64(event.target.files[0]));
+    console.log(await fromFileToBase64(event.target.files[0]));
     setIsClearedImage(false);
   };
 
@@ -197,7 +206,8 @@ export default function Profile(): JSX.Element {
         </div>
 
         <div className="profile__area__inputs">
-          <div className="modal__error">{formErrors}</div>
+          <div className="profile__area__inputs__error">{formErrors}</div>
+          <div className="profile__area__inputs__success">{formSuccess}</div>
           <InputProfileText
             type="text"
             placeholder="Name"

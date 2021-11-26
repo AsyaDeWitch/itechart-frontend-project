@@ -1,5 +1,5 @@
+import gameImages from "@/shared/games/gameImages";
 import ProductItem from "@/shared/types/productItem";
-import GameImages from "@/shared/games/gameImages";
 import GameCard from "./gameCard";
 import "./gameCardContainer.scss";
 
@@ -15,7 +15,11 @@ export default function GameCardsContainer(props: { productItems: ProductItem[] 
             onKeyPress={() => alert("got product!")}
             role="menuitem"
           >
-            <GameCard key={item.id} productItem={item} image={GameImages[item.id - 1]} />
+            <GameCard
+              key={item.id}
+              productItem={item}
+              image={gameImages.filter((image) => image.includes(item.logo as string))[0]}
+            />
           </li>
         ))}
       </ul>

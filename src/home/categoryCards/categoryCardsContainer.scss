@@ -4,7 +4,7 @@
 .category {
   &__cards-container {
     position: relative;
-    height: 14vh;
+    height: 7vw;
     display: block;
     justify-content: center;
     align-items: center;
@@ -19,10 +19,10 @@
     align-items: center;
     justify-items: center;
     display: inline-grid;
-    height: 14vh;
+    height: 7vw;
     width: 20vw;
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    margin: 0 1rem 0 1rem;
+    padding: 0.5vw 1vw 0.5vw 1vw;
+    margin: 0 1vw 0 1vw;
     border-radius: 5px;
 
     &:hover {

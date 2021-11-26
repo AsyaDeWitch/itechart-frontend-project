@@ -2,11 +2,11 @@
 @import "sanitize.css";
 
 .profile {
-  padding-bottom: 8.5rem;
+  padding-bottom: 8.5vw;
 
   &__title {
-    margin: 1rem 1rem 1rem 0;
-    padding-left: 1rem;
+    margin: 1vw 1vw 1vw 0;
+    padding-left: 1vw;
   }
   &__area {
     display: flex;
@@ -22,6 +22,24 @@
 
     &__inputs {
       flex: 1;
+
+      &__error {
+        margin: 0 0 5px 0;
+        align-items: center;
+        font-size: 0.8vw;
+        text-align: center;
+        color: red;
+        justify-self: center;
+      }
+
+      &__success {
+        margin: 0 0 5px 0;
+        align-items: center;
+        font-size: 0.8vw;
+        text-align: center;
+        color: green;
+        justify-self: center;
+      }
     }
 
     &__buttons {

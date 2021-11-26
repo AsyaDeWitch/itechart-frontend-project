@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react";
-import imgClose from "@/assets/images/header/close.png";
+import imgClose from "images/header/close.png";
 import "./buttonClose.scss";
 
 export default function ButtonClose(props: { onClick: MouseEventHandler }): JSX.Element {

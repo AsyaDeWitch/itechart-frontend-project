@@ -3,7 +3,7 @@
 
 .game-card {
   width: auto;
-  height: 30vw;
+  height: 20vw;
   text-align: center;
   border-radius: 10px;
   cursor: pointer;
@@ -13,22 +13,24 @@
   display: block;
 
   &__name {
-    font-size: 1em;
+    font-size: 1vw;
+    font-weight: bold;
     color: white;
     margin: 0;
-    padding-bottom: 0.9rem;
+    height: 4vw;
+    padding-top: 0.5vw;
   }
 
   &__platform {
-    padding-top: 0.9rem;
-    font-size: 1rem;
+    font-size: 1vw;
     color: white;
     margin: 0;
   }
 
   &__image {
-    height: 19.4vw;
-    width: auto;
+    height: 15vw;
+    width: 15vw;
+    object-fit: cover;
   }
 
   &:focus {

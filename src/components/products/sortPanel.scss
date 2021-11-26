@@ -1,0 +1,37 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.sortItems {
+  font-size: 0.9vw;
+  font-weight: normal;
+
+  &__label {
+  }
+
+  &__type {
+    margin-top: 0.5vw;
+  }
+
+  &__criteria {
+    margin-top: 0.5vw;
+  }
+
+  &__select {
+    font-size: 0.9vw;
+    float: right;
+    margin-left: 2vw;
+    color: $basicFontColor;
+    background-color: transparent;
+    border-radius: 5px;
+    border-color: $basicFontColor;
+    width: 10.7vw;
+    align-self: end;
+
+    &__option {
+      color: $basicFontColor;
+      background: $basicTransparentThemeColor;
+      border-radius: 5px;
+      border-color: $basicFontColor;
+    }
+  }
+}

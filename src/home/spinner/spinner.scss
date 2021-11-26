@@ -2,11 +2,11 @@
 @import "sanitize.css";
 
 .spinner {
-  border: 0.3rem solid lightgray;
-  border-top: 0.3rem solid $basicThemeColor;
+  border: 0.3vw solid lightgray;
+  border-top: 0.3vw solid $basicThemeColor;
   border-radius: 50%;
-  width: 2.3rem;
-  height: 2.3rem;
+  width: 2.3vw;
+  height: 2.3vw;
   animation: spin 1s linear infinite;
   left: 50%;
   position: absolute;

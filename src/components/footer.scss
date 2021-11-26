@@ -3,14 +3,14 @@
 
 .footer {
   display: block;
-  font-size: 1em;
+  font-size: 1vw;
   justify-content: center;
   align-items: center;
   position: absolute;
   bottom: 0;
   width: 100%;
   text-align: center;
-  height: 6.7rem;
+  height: 6.7vw;
 
   &__slogan {
     text-align: center;
@@ -22,7 +22,7 @@
     grid-template: 1fr / repeat(10, 9vw);
     list-style: none;
     justify-content: center;
-    margin-right: 2rem;
+    margin-right: 2vw;
   }
 
   &__links {
@@ -45,7 +45,7 @@
   }
 
   &__icons {
-    height: 1.5em;
+    height: 1.5vw;
     width: auto;
   }
 }

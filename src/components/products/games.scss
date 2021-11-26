@@ -2,5 +2,54 @@
 @import "sanitize.css";
 
 .games {
-  padding-bottom: 8.5rem;
+  padding-bottom: 8.5vw;
+  display: flex;
+
+  &__panel {
+    background-color: $basicTransparentThemeColor;
+    border-radius: 20px;
+    flex: 0.25;
+    margin: 1vw 1vw 0 0;
+    padding: 1vw 1vw 1vw 1vw;
+  }
+
+  &__category {
+    text-align: center;
+    font-size: 1.2vw;
+    font-weight: bold;
+  }
+
+  &__sortPanel {
+    font-size: 1vw;
+    margin: 1vw 0 1vw 0;
+    font-weight: bold;
+  }
+
+  &__agePanel {
+    font-size: 1vw;
+    margin: 1vw 0 0 0;
+    font-weight: bold;
+  }
+
+  &__genresPanel {
+    font-size: 1vw;
+    margin: 1vw 0 1vw 0;
+    font-weight: bold;
+  }
+
+  &__table {
+    flex: 1.2;
+    margin-left: 1vw;
+    text-align: center;
+
+    &__searchBar {
+    }
+
+    &__spinner {
+      margin-bottom: 3vw;
+      display: inline-block;
+      position: relative;
+      text-align: center;
+    }
+  }
 }

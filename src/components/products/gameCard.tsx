@@ -4,9 +4,9 @@ import "./gameCard.scss";
 export default function GameCard(props: { productItem: ProductItem; image: string }): JSX.Element {
   return (
     <div className="game-card">
-      <h4 className="game-card__name">{props.productItem.name}</h4>
       <img className="game-card__image" src={props.image} alt={props.productItem.name} />
-      <p className="game-card__platform">{props.productItem.platform}</p>
+      <p className="game-card__name">{props.productItem.name}</p>
+      <p className="game-card__platform">{`$${props.productItem.price} ${props.productItem.totalRating}`}</p>
     </div>
   );
 }
