@@ -5,6 +5,7 @@ import "./games.scss";
 import { ChangeEvent, useState } from "react";
 import SearchBar from "@/home/searchBar/searchBar";
 import useSearchSuspense from "@/hooks/useSearchSuspense";
+import debounce from "lodash/debounce";
 import SortPanel from "./sortPanel";
 import GenresPanel from "./genresPanel";
 import AgePanel from "./agePanel";
@@ -29,8 +30,12 @@ export default function Games(): JSX.Element {
     category
   );
 
+  const handleDebouncedSearchChange = debounce((event) => {
+    setSearchName(event.target.value);
+  }, 500);
+
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setTimeout(() => setSearchName(event.target.value), 500);
+    handleDebouncedSearchChange(event);
   };
 
   const handleSortCriteriaChange = (event: ChangeEvent<HTMLSelectElement>) => {
