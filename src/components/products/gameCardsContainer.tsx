@@ -8,18 +8,14 @@ export default function GameCardsContainer(props: { productItems: ProductItem[] 
     <>
       <ul className="game__cards-container">
         {props.productItems.map((item: ProductItem) => (
-          <li
-            key={item.id.toString().concat(item.name)}
-            className="game__card-container"
-            onClick={() => alert("got product!")}
-            onKeyPress={() => alert("got product!")}
-            role="menuitem"
-          >
-            <GameCard
-              key={item.id}
-              productItem={item}
-              image={gameImages.filter((image) => image.includes(item.logo as string))[0]}
-            />
+          <li key={item.id.toString().concat(item.name)} className="game__card-container" role="menuitem">
+            <div className="game__card-holder">
+              <GameCard
+                key={item.id}
+                productItem={item}
+                image={gameImages.filter((image) => image.includes(item.logo as string))[0]}
+              />
+            </div>
           </li>
         ))}
       </ul>

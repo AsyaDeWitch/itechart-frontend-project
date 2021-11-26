@@ -1,230 +1,242 @@
 [
-	{
-		"id": 1,
-		"name": "Asya1",
-		"email": "test@gmail.com",
-		"password": "!Bischi1",
-		"defaultDeliveryAddress": {
-			"country": "Belarus",
-			"city": "Minsk",
-			"street": "st. Platonova",
-			"houseNumber": 49,
-			"houseBuilding": "B",
-			"entranceNumber": 2,
-			"floorNumber": 9,
-			"flatNumber": 919
-		},
-		"image": "",
-		"description": "something interesting",
-		"phoneNumber": "1234567890"
-	},
-	{
-		"id": 2,
-		"name": "Asya2",
-		"email": "test@gmail.com",
-		"password": "!Bischi2",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
-		},
-		"image": "",
-		"description": "",
-		"phoneNumber": ""
-	},
-	{
-		"id": 3,
-		"name": "Asya3",
-		"email": "test@gmail.com",
-		"password": "!Bischi3",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
-		},
-		"image": "",
-		"description": "",
-		"phoneNumber": ""
-	},
-	{
-		"id": 4,
-		"name": "Asya4",
-		"email": "test@gmail.com",
-		"password": "!Bischi4",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
-		},
-		"image": "",
-		"description": "",
-		"phoneNumber": ""
-	},
-	{
-		"id": 5,
-		"name": "Asya5",
-		"email": "test@gmail.com",
-		"password": "!Bischi5",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
-		},
-		"image": "",
-		"description": "",
-		"phoneNumber": ""
-	},
-	{
-		"id": 6,
-		"name": "Asya6",
-		"email": "test@gmail.com",
-		"password": "!Bischi6",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
-		},
-		"image": "",
-		"description": "",
-		"phoneNumber": ""
-	},
-	{
-		"id": 7,
-		"name": "Asya7",
-		"email": "test@gmail.com",
-		"password": "!Bischi7",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
-		},
-		"image": "",
-		"description": "",
-		"phoneNumber": ""
-	},
-	{
-		"id": 8,
-		"name": "Asya8",
-		"email": "test@gmail.com",
-		"password": "!Bischi8",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
-		},
-		"image": "",
-		"description": "",
-		"phoneNumber": ""
-	},
-	{
-		"id": 9,
-		"name": "Asya9",
-		"email": "test@gmail.com",
-		"password": "!Bischi9",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
-		},
-		"image": "",
-		"description": "",
-		"phoneNumber": ""
-	},
-	{
-		"id": 10,
-		"name": "wserdtfyguhjnmkjidnfvdfkv",
-		"email": "test@gmail.com",
-		"password": "!Bischi1",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
-		},
-		"image": "",
-		"description": "",
-		"phoneNumber": ""
-	},
-	{
-		"id": 11,
-		"name": "Asya12",
-		"email": "test@gmail.com",
-		"password": "!Bischi12",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0
-		},
-		"image": "",
-		"description": "",
-		"phoneNumber": ""
-	},
-	{
-		"id": 12,
-		"name": "Asya123",
-		"email": "test@gmail.com",
-		"password": "!Bischi123",
-		"defaultDeliveryAddress": {
-			"country": "",
-			"city": "",
-			"street": "",
-			"houseNumber": 0,
-			"houseBuilding": "",
-			"entranceNumber": 0,
-			"floorNumber": 0,
-			"flatNumber": 0,
-			"image": "",
-			"description": "",
-			"phoneNumber": ""
-		}
-	}
+  {
+    "id": 1,
+    "name": "Asya1",
+    "email": "test@gmail.com",
+    "password": "!Bischi1",
+    "defaultDeliveryAddress": {
+      "country": "Belarus",
+      "city": "Minsk",
+      "street": "st. Platonova",
+      "houseNumber": 49,
+      "houseBuilding": "B",
+      "entranceNumber": 2,
+      "floorNumber": 9,
+      "flatNumber": 919
+    },
+    "image": "",
+    "description": "something interesting",
+    "phoneNumber": "1234567890",
+    "balance": 30.98
+  },
+  {
+    "id": 2,
+    "name": "Asya2",
+    "email": "test@gmail.com",
+    "password": "!Bischi2",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  },
+  {
+    "id": 3,
+    "name": "Asya3",
+    "email": "test@gmail.com",
+    "password": "!Bischi3",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  },
+  {
+    "id": 4,
+    "name": "Asya4",
+    "email": "test@gmail.com",
+    "password": "!Bischi4",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  },
+  {
+    "id": 5,
+    "name": "Asya5",
+    "email": "test@gmail.com",
+    "password": "!Bischi5",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  },
+  {
+    "id": 6,
+    "name": "Asya6",
+    "email": "test@gmail.com",
+    "password": "!Bischi6",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  },
+  {
+    "id": 7,
+    "name": "Asya7",
+    "email": "test@gmail.com",
+    "password": "!Bischi7",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  },
+  {
+    "id": 8,
+    "name": "Asya8",
+    "email": "test@gmail.com",
+    "password": "!Bischi8",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  },
+  {
+    "id": 9,
+    "name": "Asya9",
+    "email": "test@gmail.com",
+    "password": "!Bischi9",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  },
+  {
+    "id": 10,
+    "name": "wserdtfyguhjnmkjidnfvdfkv",
+    "email": "test@gmail.com",
+    "password": "!Bischi1",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  },
+  {
+    "id": 11,
+    "name": "Asya12",
+    "email": "test@gmail.com",
+    "password": "!Bischi12",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  },
+  {
+    "id": 12,
+    "name": "Asya123",
+    "email": "test@gmail.com",
+    "password": "!Bischi123",
+    "defaultDeliveryAddress": {
+      "country": "",
+      "city": "",
+      "street": "",
+      "houseNumber": 0,
+      "houseBuilding": "",
+      "entranceNumber": 0,
+      "floorNumber": 0,
+      "flatNumber": 0
+    },
+    "image": "",
+    "description": "",
+    "phoneNumber": "",
+    "balance": 30.98
+  }
 ]

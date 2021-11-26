@@ -120,7 +120,7 @@ export default webpackMockServer.add((app) => {
       res.status(StatusCodes.BAD_REQUEST).json();
     } else {
       const newUser = {
-        id: JsonUsers.length + 1,
+        id: JsonUsers[JsonUsers.length - 1].id + 1,
         name: req.body.userName,
         email: "test@gmail.com",
         password: req.body.password,
@@ -133,10 +133,11 @@ export default webpackMockServer.add((app) => {
           entranceNumber: 0,
           floorNumber: 0,
           flatNumber: 0,
-          image: "",
-          description: "",
-          phoneNumber: "",
         },
+        image: "",
+        description: "",
+        phoneNumber: "",
+        balance: 0,
       };
       JsonUsers.push(newUser);
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
@@ -179,6 +180,7 @@ export default webpackMockServer.add((app) => {
         image: req.body.updatedUser.image,
         description: req.body.updatedUser.description,
         phoneNumber: req.body.updatedUser.phoneNumber,
+        balance: findedUser.balance,
       };
       JsonUsers[req.body.updatedUser.id - 1] = profile;
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {

@@ -11,13 +11,18 @@
   align-items: center;
   justify-content: center;
   display: block;
+  background: $basicDarkThemeColor;
+
+  position: absolute;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
 
   &__name {
     font-size: 1vw;
     font-weight: bold;
     color: white;
     margin: 0;
-    height: 4vw;
+    height: 3.5vw;
     padding-top: 0.5vw;
   }
 
@@ -30,6 +35,7 @@
   &__image {
     height: 15vw;
     width: 15vw;
+    border-radius: 5px;
     object-fit: cover;
   }
 
@@ -39,5 +45,16 @@
     height: 12vh;
     transition: all 0.2s ease-out;
     outline: none;
+  }
+
+  &__back {
+    position: absolute;
+    height: 20vw;
+    width: 15vw;
+    border-radius: 5px;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    background-color: $basicDarkThemeColor;
+    transform: rotateY(180deg);
   }
 }

@@ -14,16 +14,22 @@
   }
 
   &__card-container {
-    background: $basicDarkThemeColor;
+    background-color: transparent;
     display: inline-grid;
-    height: 21vw;
+    height: 20vw;
     width: 15vw;
     margin: 0.5vw 0.5vw 0.5vw 0.5vw;
     border-radius: 5px;
+    perspective: 1000px;
+  }
 
-    &:hover {
-      background-color: $basicThemeColor;
-      outline: $basicThemeColor solid 3px;
-    }
+  &__card-holder {
+    position: relative;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+
+  &__card-container:hover &__card-holder {
+    transform: rotateY(180deg);
   }
 }
