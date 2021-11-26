@@ -18,7 +18,7 @@ export default function SortPanel(props: {
       <div className="sortItems">
         <div className="sortItems__criteria">
           <label className="sortItems__label" htmlFor="criteria-select">
-            Criteria:{" "}
+            Criteria:
             <select
               id="criteria-select"
               className="sortItems__select"
@@ -35,7 +35,7 @@ export default function SortPanel(props: {
         </div>
         <div className="sortItems__type">
           <label className="sortItems__label" htmlFor="type-select">
-            Type:{" "}
+            Type:
             <select
               id="type-select"
               className="sortItems__select"
