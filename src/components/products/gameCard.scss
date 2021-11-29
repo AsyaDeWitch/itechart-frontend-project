@@ -30,6 +30,23 @@
     font-size: 1vw;
     color: white;
     margin: 0;
+    font-weight: normal;
+  }
+
+  &__description {
+    font-size: 0.95vw;
+    color: white;
+    text-align: justify;
+    margin: 0.8vw 0.8vw 0.8vw 0.8vw;
+    font-weight: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+
+    &__container {
+      height: 15vw;
+    }
   }
 
   &__image {

@@ -5,6 +5,7 @@ type CartItem = {
   product: ProductItem;
   date: string;
   amount: number;
+  choosedPlatform: number;
 };
 
 export default CartItem;

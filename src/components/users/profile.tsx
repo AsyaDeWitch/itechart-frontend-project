@@ -146,6 +146,8 @@ export default function Profile(): JSX.Element {
       } catch (error: any) {
         if (error.message.includes("413")) {
           setFormErrors("Image is too large. Try to choose another");
+        } else if (error.message.includes("409")) {
+          setFormErrors("User with such name already exists");
         } else {
           setFormErrors("Something went wrong while changing profile information...");
         }

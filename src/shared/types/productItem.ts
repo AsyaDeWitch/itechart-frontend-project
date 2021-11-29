@@ -8,7 +8,7 @@ type ProductItem = {
   age: number;
   logo: string;
   price: number;
-  count: number;
+  description: string;
 };
 
 export default ProductItem;

@@ -3,4 +3,10 @@
 
 .cart {
   padding-bottom: 8.5vw;
+
+  &__table {
+    width: 100%;
+    font-size: 1vw;
+    border-collapse: collapse;
+  }
 }

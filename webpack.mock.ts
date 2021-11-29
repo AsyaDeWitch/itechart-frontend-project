@@ -10,8 +10,11 @@ import Ages from "@/mockData/ages.json";
 import Categories from "@/mockData/categories.json";
 import Criterias from "@/mockData/criterias.json";
 import SortTypes from "@/mockData/sortTypes.json";
-import JsonUsers from "./src/mockData/users.json";
-import JsonGames from "./src/mockData/games.json";
+import JsonUsers from "@/mockData/users.json";
+import JsonGames from "@/mockData/games.json";
+import JsonCarts from "@/mockData/carts.json";
+import CartItem from "@/shared/types/cartItem";
+import Cart from "@/shared/types/cart";
 
 export default webpackMockServer.add((app) => {
   // Product part
@@ -169,27 +172,35 @@ export default webpackMockServer.add((app) => {
   });
 
   app.post("/api/saveProfile", (req, res) => {
-    const findedUser = JsonUsers.filter((user) => user.id === req.body.updatedUser.id)[0];
-    if (findedUser !== undefined) {
-      const profile = {
-        id: findedUser.id,
-        name: req.body.updatedUser.name,
-        email: req.body.updatedUser.email,
-        password: findedUser.password,
-        defaultDeliveryAddress: (findedUser as unknown as Profile).defaultDeliveryAddress,
-        image: req.body.updatedUser.image,
-        description: req.body.updatedUser.description,
-        phoneNumber: req.body.updatedUser.phoneNumber,
-        balance: findedUser.balance,
-      };
-      JsonUsers[req.body.updatedUser.id - 1] = profile;
-      fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
-        if (err) throw err;
-        console.log("User information updated.");
-      });
-      res.status(StatusCodes.OK).json(profile);
+    if (
+      JsonUsers.filter((user) => user.name === req.body.updatedUser.name && user.id !== req.body.updatedUser.id)
+        .length === 1
+    ) {
+      console.log("User with such name already exists.");
+      res.status(StatusCodes.CONFLICT).json();
     } else {
-      res.status(StatusCodes.BAD_REQUEST).json();
+      const findedUser = JsonUsers.filter((user) => user.id === req.body.updatedUser.id)[0];
+      if (findedUser !== undefined) {
+        const profile = {
+          id: findedUser.id,
+          name: req.body.updatedUser.name,
+          email: req.body.updatedUser.email,
+          password: findedUser.password,
+          defaultDeliveryAddress: (findedUser as unknown as Profile).defaultDeliveryAddress,
+          image: req.body.updatedUser.image,
+          description: req.body.updatedUser.description,
+          phoneNumber: req.body.updatedUser.phoneNumber,
+          balance: findedUser.balance,
+        };
+        JsonUsers[req.body.updatedUser.id - 1] = profile;
+        fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
+          if (err) throw err;
+          console.log("User information updated.");
+        });
+        res.status(StatusCodes.OK).json(profile);
+      } else {
+        res.status(StatusCodes.BAD_REQUEST).json();
+      }
     }
   });
 
@@ -218,6 +229,184 @@ export default webpackMockServer.add((app) => {
         console.log("User default delivery address changed.");
       });
       res.status(StatusCodes.OK).json();
+    } else {
+      res.status(StatusCodes.BAD_REQUEST).json();
+    }
+  });
+
+  app.post("/api/changeDefaultDeliveryAddress", (req, res) => {
+    const findedUser = JsonUsers.filter((user) => user.id === req.body.id)[0];
+    if (findedUser !== undefined) {
+      (findedUser as unknown as Profile).defaultDeliveryAddress = req.body.address;
+      JsonUsers[req.body.id - 1] = findedUser;
+      fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
+        if (err) throw err;
+        console.log("User default delivery address changed.");
+      });
+      res.status(StatusCodes.OK).json();
+    } else {
+      res.status(StatusCodes.BAD_REQUEST).json();
+    }
+  });
+
+  app.get("/api/getBalance", (req, res) => {
+    const findedUser = JsonUsers.filter((user) => user.id === Number(req.query.id))[0];
+    if (findedUser !== undefined) {
+      res.status(StatusCodes.OK).json(findedUser.balance);
+    } else {
+      res.status(StatusCodes.BAD_REQUEST).json();
+    }
+  });
+
+  // Cart part
+  app.post("/api/addProductToCart", (req, res) => {
+    const findedCart = JsonCarts.filter((cart) => cart.idUser === Number(req.body.id) && cart.paid !== true)[0];
+    const today = new Date();
+    if (findedCart === undefined) {
+      const newCart = {
+        id: JsonCarts[JsonCarts.length - 1].id + 1,
+        idUser: Number(req.body.id),
+        items: [
+          {
+            id: 1,
+            productId: req.body.productId,
+            date: `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`,
+            amount: 1,
+            choosedPlatform: req.body.platform,
+          },
+        ],
+        totalPrice: Math.round(req.body.product.price * 100) / 100,
+        paid: false,
+      };
+      JsonCarts[newCart.id - 1] = newCart;
+      fs.writeFile("./src/mockData/carts.json", JSON.stringify(JsonCarts, null, "\t"), (err) => {
+        if (err) throw err;
+        console.log("Product successfully added to cart");
+      });
+      res.status(StatusCodes.OK).json();
+    } else {
+      const findedItem = findedCart.items.filter(
+        (item) => req.body.productId === item.productId && item.choosedPlatform === req.body.platform
+      )[0];
+      if (findedItem !== undefined) {
+        findedItem.amount += 1;
+        findedCart.items[findedItem.id - 1] = findedItem;
+        findedCart.totalPrice += JsonGames.filter((game) => game.id === findedItem.productId)[0].price;
+        findedCart.totalPrice = Math.round(findedCart.totalPrice * 100) / 100;
+        JsonCarts[findedCart.id - 1] = findedCart;
+        fs.writeFile("./src/mockData/carts.json", JSON.stringify(JsonCarts, null, "\t"), (err) => {
+          if (err) throw err;
+          console.log("Product amount successfully increased.");
+        });
+        res.status(StatusCodes.OK).json();
+      } else {
+        const newCartItem = {
+          id: findedCart.items[findedCart.items.length - 1].id + 1,
+          productId: req.body.productId,
+          date: `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`,
+          amount: 1,
+          choosedPlatform: req.body.platform,
+        };
+        findedCart.items.push(newCartItem);
+        findedCart.items[newCartItem.id - 1] = newCartItem;
+        findedCart.totalPrice += JsonGames.filter((game) => game.id === newCartItem.productId)[0].price;
+        findedCart.totalPrice = Math.round(findedCart.totalPrice * 100) / 100;
+        JsonCarts[findedCart.id - 1] = findedCart;
+        fs.writeFile("./src/mockData/carts.json", JSON.stringify(JsonCarts, null, "\t"), (err) => {
+          if (err) throw err;
+          console.log("Product successfully added to cart.");
+        });
+        res.status(StatusCodes.OK).json();
+      }
+      res.status(StatusCodes.OK).json();
+    }
+  });
+
+  app.get("/api/getProductsInCart", (req, res) => {
+    const findedCart = JsonCarts.filter((cart) => cart.idUser === Number(req.query.id) && cart.paid !== true)[0];
+    if (findedCart !== undefined) {
+      const returnCartItems: CartItem[] = [];
+      findedCart.items.forEach((item) =>
+        returnCartItems.push({
+          id: item.productId,
+          product: JsonGames.filter((game) => game.id === item.productId)[0],
+          date: item.date,
+          amount: item.amount,
+          choosedPlatform: item.choosedPlatform,
+        })
+      );
+      const returnCart: Cart = {
+        id: findedCart.id,
+        idUser: findedCart.idUser,
+        items: returnCartItems,
+        totalPrice: findedCart.totalPrice,
+        paid: findedCart.paid,
+      };
+      res.status(StatusCodes.OK).json(returnCart);
+    } else {
+      res.status(StatusCodes.BAD_REQUEST).json();
+    }
+  });
+
+  app.post("/api/buyProductsFromCart", (req, res) => {
+    const findedCart = JsonCarts.filter((cart) => cart.idUser === Number(req.query.id) && cart.paid !== true)[0];
+    if (findedCart !== undefined) {
+      try {
+        findedCart.paid = true;
+        JsonCarts[findedCart.id - 1] = findedCart;
+        fs.writeFile("./src/mockData/carts.json", JSON.stringify(JsonCarts, null, "\t"), (err) => {
+          if (err) throw err;
+        });
+
+        const findedUser = JsonUsers.filter((user) => user.id === Number(req.query.id))[0];
+        findedUser.balance -= findedCart.totalPrice;
+        JsonUsers[findedUser.id - 1] = findedUser;
+        fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonCarts, null, "\t"), (err) => {
+          if (err) throw err;
+          console.log("Products from cart successfully bought.");
+        });
+        res.status(StatusCodes.OK).json();
+      } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json();
+      }
+    } else {
+      res.status(StatusCodes.BAD_REQUEST).json();
+    }
+  });
+
+  app.delete("/api/removeProductsFromCart", (req, res) => {
+    const findedCart = JsonCarts.filter((cart) => cart.idUser === Number(req.query.id) && cart.paid !== true)[0];
+    if (findedCart !== undefined && req.body.productIds !== undefined) {
+      findedCart.items = findedCart.items.filter((item) => !req.body.productIds.includes(item.productId));
+      let sum = 0;
+      for (let i = 0; i < findedCart.items.length; i++) {
+        sum += JsonGames.filter((game) => game.id === findedCart.items[i].productId)[0].price;
+      }
+      findedCart.totalPrice = Math.round(sum * 100) / 100;
+      fs.writeFile("./src/mockData/carts.json", JSON.stringify(JsonCarts, null, "\t"), (err) => {
+        if (err) throw err;
+        console.log("Products from cart successfully removed.");
+      });
+      res.status(StatusCodes.OK).json();
+    } else {
+      res.status(StatusCodes.BAD_REQUEST).json();
+    }
+  });
+
+  app.post("/api/changeProductQuantityInCart", (req, res) => {
+    const findedCart = JsonCarts.filter((cart) => cart.idUser === Number(req.body.id) && cart.paid !== true)[0];
+    if (findedCart !== undefined) {
+      const findedItem = findedCart.items.filter((item) => req.body.productId === item.productId)[0];
+      if (findedItem !== undefined) {
+        findedItem.amount += 1;
+        findedCart.items[findedItem.id - 1] = findedItem;
+        JsonCarts[findedCart.id - 1] = findedCart;
+        fs.writeFile("./src/mockData/carts.json", JSON.stringify(JsonCarts, null, "\t"), (err) => {
+          if (err) throw err;
+          console.log("Product amount successfully increased.");
+        });
+        res.status(StatusCodes.OK).json();
+      }
     } else {
       res.status(StatusCodes.BAD_REQUEST).json();
     }
