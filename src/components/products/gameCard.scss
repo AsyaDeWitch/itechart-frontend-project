@@ -3,7 +3,7 @@
 
 .game-card {
   width: auto;
-  height: 20vw;
+  height: 21.5vw;
   text-align: center;
   border-radius: 10px;
   cursor: pointer;
@@ -22,22 +22,58 @@
     font-weight: bold;
     color: white;
     margin: 0;
-    height: 3.5vw;
-    padding-top: 0.5vw;
+    height: 4.5vw;
+    padding: 0.5vw 0.5vw 0 0.5vw;
+    display: table-cell;
+    vertical-align: middle;
+    width: 15vw;
   }
 
+  &__info {
+    display: inline-flex;
+    vertical-align: bottom;
+    text-align: start;
+    width: 15vw;
+    padding: 0 2.5vw 0 2.5vw;
+
+    &__star {
+      font-size: 1vw;
+      color: white;
+      margin: 0;
+      font-weight: normal;
+      vertical-align: text-top;
+      text-align: end;
+      flex: 1.5;
+    }
+
+    &__name {
+      font-size: 1vw;
+      color: white;
+      margin: 0;
+      font-weight: normal;
+      vertical-align: text-top;
+      text-align: start;
+      flex: 1;
+    }
+
+    &__rating {
+      font-size: 1vw;
+      color: white;
+      margin: 0;
+      font-weight: normal;
+      vertical-align: text-top;
+      text-align: end;
+      flex: 0.5;
+    }
+  }
   &__platform {
-    font-size: 1vw;
-    color: white;
-    margin: 0;
-    font-weight: normal;
   }
 
   &__description {
-    font-size: 0.95vw;
+    font-size: 0.9vw;
     color: white;
     text-align: justify;
-    margin: 0.8vw 0.8vw 0.8vw 0.8vw;
+    margin: 1.4vw 1.4vw 1.4vw 1.4vw;
     font-weight: normal;
     overflow: hidden;
     display: -webkit-box;
@@ -66,9 +102,9 @@
 
   &__back {
     position: absolute;
-    height: 20vw;
+    height: 20.5vw;
     width: 15vw;
-    border-radius: 5px;
+    border-radius: 10px;
     -webkit-backface-visibility: hidden; /* Safari */
     backface-visibility: hidden;
     background-color: $basicDarkThemeColor;
