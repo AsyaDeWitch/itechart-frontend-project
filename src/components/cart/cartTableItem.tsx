@@ -4,33 +4,31 @@ import { ChangeEvent, useState } from "react";
 import Categories from "@/shared/categories/gameCategories";
 import CategoryItem from "@/shared/categories/categoryItem";
 
-export default function CartTableItem(props: { onCartUpdate: () => void; cartItem: CartItem }): JSX.Element {
+export default function CartTableItem(props: {
+  onCartUpdate: (name: string, amount: number) => void;
+  cartItem: CartItem;
+}): JSX.Element {
   const [platform, setPlatform] = useState(Categories[props.cartItem.choosedPlatform - 1].name);
   const [amount, setAmount] = useState(props.cartItem.amount);
-  const [checked, setChecked] = useState();
+  const [checked, setChecked] = useState(false);
 
   const handleDebouncedAmountInputChange = debounce((event) => {
-    setAmount(event.target.value);
-    // alert("Smth changed");
-    // props.onCartUpdate();
+    console.log("here");
+    // setAmount(Number(event.target.value));
   }, 500);
 
-  const handleAmountInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleAmountInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     // debounce
-    // handleDebouncedAmountInputChange(event);
-    console.log(event.target.value);
-    // if (!isNaN(parseInt(event.target.value, 10)) || event.target.value === "") {
+    handleDebouncedAmountInputChange(event);
     setAmount(Number(event.target.value));
-    // }
+    // update cart
   };
 
   const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
     // debounce
     // handleDebouncedAmountInputChange(event);
-    console.log(event.target.value);
-    // if (!isNaN(parseInt(event.target.value, 10)) || event.target.value === "") {
     setPlatform(event.target.value);
-    // }
+    // update cart
   };
 
   return (
@@ -51,7 +49,7 @@ export default function CartTableItem(props: { onCartUpdate: () => void; cartIte
       </td>
       <td>{Math.round(props.cartItem.product.price * props.cartItem.amount * 100) / 100}</td>
       <td>
-        <input type="checkbox" />{" "}
+        <input type="checkbox" defaultChecked={checked} onChange={() => setChecked(!checked)} />{" "}
       </td>
     </tr>
   );
