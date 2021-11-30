@@ -59,22 +59,30 @@ export default function Cart(): JSX.Element {
       <table className="cart__table">
         <tbody>
           <tr>
-            <th>Name</th>
-            <th>Platform</th>
-            <th>Order date</th>
-            <th>Amount</th>
-            <th>Price</th>
-            <th> </th>
+            <th className="cart__table__name">Name</th>
+            <th className="cart__table__platform">Platform</th>
+            <th className="cart__table__date">Order date</th>
+            <th className="cart__table__amount">Amount</th>
+            <th className="cart__table__price">Price($)</th>
+            <th className="cart__table__remove-check"> </th>
           </tr>
           {cart.items.map((item) => (
             <CartTableItem key={item.id} onCartUpdate={handleAmountInputChange} cartItem={item} />
           ))}
         </tbody>
       </table>
-      <SmallButton onClick={handleRemoveButtonClick} buttonText="Remove" />
-      <p>{`Games cost ${cart.totalPrice}`}</p>
-      <p>{`Your balance ${userBalance}`}</p>
-      <SmallButton onClick={handleBuyButtonClick} buttonText="Buy" />
+      <div className="cart__remove-button">
+        <SmallButton onClick={handleRemoveButtonClick} buttonText="Remove" />
+        <hr />
+      </div>
+
+      <div className="cart__balance-part">
+        <p className="cart__balance-part__cost">{`Games cost:  ${cart.totalPrice}$`}</p>
+        <p className="cart__balance-part__balance">{`Your balance:  ${userBalance}$`}</p>
+        <div className="cart__balance-part__buy-button">
+          <SmallButton onClick={handleBuyButtonClick} buttonText="Buy" />
+        </div>
+      </div>
     </div>
   );
 }

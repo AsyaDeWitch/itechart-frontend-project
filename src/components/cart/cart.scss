@@ -8,5 +8,60 @@
     width: 100%;
     font-size: 1vw;
     border-collapse: collapse;
+
+    &__name {
+      text-align: center;
+      width: 30%;
+    }
+
+    &__platform {
+      text-align: center;
+      width: 15%;
+    }
+
+    &__date {
+      text-align: center;
+      width: 15%;
+    }
+
+    &__amount {
+      text-align: center;
+      width: 15%;
+    }
+
+    &__price {
+      text-align: center;
+      width: 15%;
+    }
+
+    &__remove-check {
+      text-align: center;
+      width: 10%;
+    }
+  }
+
+  &__remove-button {
+    width: 100%;
+    text-align: end;
+  }
+
+  &__balance-part {
+    display: inline-flex;
+    width: 70%;
+    align-items: center;
+    text-align: center;
+    margin: 0 15vw 0 15vw;
+
+    &__cost {
+      flex: 1;
+    }
+
+    &__balance {
+      flex: 1;
+    }
+
+    &__buy-button {
+      flex: 1;
+    }
   }
 }

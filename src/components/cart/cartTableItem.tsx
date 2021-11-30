@@ -2,7 +2,8 @@ import CartItem from "@/shared/types/cartItem";
 import debounce from "lodash/debounce";
 import { ChangeEvent, useState } from "react";
 import Categories from "@/shared/categories/gameCategories";
-import CategoryItem from "@/shared/categories/categoryItem";
+import PlatformSelect from "./platformSelect";
+import AmountInput from "./amountInput";
 
 export default function CartTableItem(props: {
   onCartUpdate: (name: string, amount: number) => void;
@@ -33,22 +34,18 @@ export default function CartTableItem(props: {
 
   return (
     <tr>
-      <td>{props.cartItem.product.name}</td>
-      <td>
-        <select id="type-select" className="select" onChange={handleCategoryChange} value={platform}>
-          {Categories.map((item: CategoryItem) => (
-            <option className="select__option" key={`${item.name}`}>
-              {item.name}
-            </option>
-          ))}
-        </select>
+      <td className="cart__table__name">{props.cartItem.product.name}</td>
+      <td className="cart__table__platform">
+        <PlatformSelect onChange={handleCategoryChange} value={platform} />
       </td>
-      <td>{props.cartItem.date}</td>
-      <td>
-        <input type="number" min="0" onChange={handleAmountInputChange} value={amount} />
+      <td className="cart__table__date">{props.cartItem.date}</td>
+      <td className="cart__table__amount">
+        <AmountInput onChange={handleAmountInputChange} value={amount} />
       </td>
-      <td>{Math.round(props.cartItem.product.price * props.cartItem.amount * 100) / 100}</td>
-      <td>
+      <td className="cart__table__price">
+        {Math.round(props.cartItem.product.price * props.cartItem.amount * 100) / 100}
+      </td>
+      <td className="cart__table__remove-check">
         <input type="checkbox" defaultChecked={checked} onChange={() => setChecked(!checked)} />{" "}
       </td>
     </tr>

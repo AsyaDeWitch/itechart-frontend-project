@@ -30,9 +30,16 @@
 				"date": "11/29/2021",
 				"amount": 1,
 				"choosedPlatform": 2
+			},
+			{
+				"id": 5,
+				"productId": 5,
+				"date": "11/29/2021",
+				"amount": 1,
+				"choosedPlatform": 2
 			}
 		],
-		"totalPrice": 207.49,
+		"totalPrice": 247.94,
 		"paid": false
 	}
 ]
