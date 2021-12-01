@@ -118,7 +118,7 @@ export default webpackMockServer.add((app) => {
   });
 
   app.put("/api/auth/signUp", (req, res) => {
-    if (JsonUsers.filter((user) => user.name === req.body.userName).length === 1) {
+    if (JsonUsers.filter((user) => user.name === req.body.userName).length !== 0) {
       console.log("User already exists.");
       res.status(StatusCodes.BAD_REQUEST).json();
     } else {
@@ -175,7 +175,7 @@ export default webpackMockServer.add((app) => {
   app.post("/api/saveProfile", (req, res) => {
     if (
       JsonUsers.filter((user) => user.name === req.body.updatedUser.name && user.id !== req.body.updatedUser.id)
-        .length === 1
+        .length !== 0
     ) {
       console.log("User with such name already exists.");
       res.status(StatusCodes.CONFLICT).json();

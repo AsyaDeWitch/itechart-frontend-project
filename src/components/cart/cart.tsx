@@ -29,7 +29,19 @@ export default function Cart(): JSX.Element {
     return Math.round(sum * 100) / 100;
   };
 
-  const totalPrice = useMemo(() => getTotalPrice(), [checkedItems]);
+  // const reducer = (acc: number, curr: CartItem) => {
+  //  acc += curr.product.price * curr.amount;
+  // };
+
+  // const totalPrice = useMemo(() => getTotalPrice(), [checkedItems]);
+  const totalPrice = useMemo(
+    () =>
+      Object.values(checkedItems).reduce(
+        (acc, curr) => Math.round((acc + curr.product.price * curr.amount) * 100) / 100,
+        0
+      ),
+    [checkedItems, cart]
+  );
 
   const getUserCart = async () => {
     try {
@@ -111,6 +123,12 @@ export default function Cart(): JSX.Element {
     clearMessages();
     try {
       await apiCart.changeProductQuantityInCart(signInUser.id, cartItem.product, cartItem.amount);
+      const index = checkedItems.findIndex((item) => item.id === cartItem.id);
+      if (index >= 0) {
+        const newCheckedItems = [...checkedItems];
+        newCheckedItems[index] = cartItem;
+        setCheckedItems(newCheckedItems);
+      }
     } catch {
       setErrorMessage("Something went wrong while changing product amount");
     }
