@@ -1,4 +1,3 @@
-import CategoryItem from "@/shared/categories/categoryItem";
 import Categories from "@/shared/categories/gameCategories";
 import { ChangeEventHandler } from "react";
 import "./platformSelect.scss";
@@ -6,12 +5,13 @@ import "./platformSelect.scss";
 export default function PlatformSelect(props: {
   onChange: ChangeEventHandler<HTMLSelectElement>;
   value: string;
+  platforms: number[];
 }): JSX.Element {
   return (
     <select id="type-select" className="platform-select" onChange={props.onChange} value={props.value}>
-      {Categories.map((item: CategoryItem) => (
-        <option className="platform-select__option" key={`${item.name}`}>
-          {item.name}
+      {props.platforms.map((item: number) => (
+        <option className="platform-select__option" key={`${Categories[item].name}`}>
+          {Categories[item].name}
         </option>
       ))}
     </select>

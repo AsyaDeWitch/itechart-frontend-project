@@ -40,4 +40,6 @@ export const joiProfileSchema = Joi.object({
   email: Joi.string().pattern(new RegExp("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")).required(),
 
   phoneNumber: Joi.string().pattern(new RegExp("^\\+?(\\d[\\d\\-. ]+)?(\\([\\d\\-. ]+\\))?[\\d\\-. ]+\\d$")).required(),
+
+  balance: Joi.number().min(0).required(),
 });

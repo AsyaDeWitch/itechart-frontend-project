@@ -8,6 +8,7 @@ type Profile = {
   image: string;
   description: string;
   phoneNumber: string;
+  balance: number;
 };
 
 export default Profile;

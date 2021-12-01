@@ -5,41 +5,11 @@
 		"items": [
 			{
 				"id": 1,
-				"productId": 1,
-				"date": "11/29/2021",
-				"amount": 7,
-				"choosedPlatform": 1
-			},
-			{
-				"id": 2,
-				"productId": 6,
-				"date": "11/29/2021",
-				"amount": 1,
-				"choosedPlatform": 1
-			},
-			{
-				"id": 3,
-				"productId": 4,
-				"date": "11/29/2021",
-				"amount": 1,
-				"choosedPlatform": 1
-			},
-			{
-				"id": 4,
 				"productId": 2,
-				"date": "11/29/2021",
-				"amount": 1,
-				"choosedPlatform": 2
-			},
-			{
-				"id": 5,
-				"productId": 5,
-				"date": "11/29/2021",
+				"date": "12/1/2021",
 				"amount": 1,
 				"choosedPlatform": 2
 			}
-		],
-		"totalPrice": 247.94,
-		"paid": false
+		]
 	}
 ]

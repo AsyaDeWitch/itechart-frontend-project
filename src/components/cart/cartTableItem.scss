@@ -1,2 +1,57 @@
 @import "normalize.css";
 @import "sanitize.css";
+
+.tableItem {
+  &__bottom-line {
+    border-bottom: 1px solid $basicFontColor;
+  }
+
+  &__name {
+    text-align: center;
+    width: 30%;
+    padding: 0.7vw 0 0.7vw 0;
+  }
+
+  &__platform {
+    text-align: center;
+    width: 15%;
+    padding: 0.7vw 0 0.7vw 0;
+  }
+
+  &__date {
+    text-align: center;
+    width: 15%;
+    padding: 0.7vw 0 0.7vw 0;
+  }
+
+  &__amount {
+    text-align: center;
+    width: 15%;
+    padding: 0.7vw 0 0.7vw 0;
+  }
+
+  &__price {
+    text-align: center;
+    width: 15%;
+    padding: 0.7vw 0 0.7vw 0;
+  }
+
+  &__remove-check {
+    text-align: center;
+    width: 10%;
+    padding: 0.7vw 0 0.7vw 0;
+  }
+
+  &__checkbox {
+    height: 1.4vw;
+    width: 1.4vw;
+    border-color: $basicFontColor;
+    border-radius: 5px;
+    text-align: center;
+    vertical-align: middle;
+
+    &:checked {
+      border-radius: 5px;
+    }
+  }
+}

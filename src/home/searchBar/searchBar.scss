@@ -13,11 +13,11 @@
   padding-left: 1vw;
   margin: 1vw 1vw 1vw 1vw;
   color: $basicFontColor;
-}
 
-.searchBar:focus {
-  border-style: solid;
-  border-color: $basicDarkThemeColor;
-  border-radius: 10px;
-  outline: none;
+  &:focus {
+    border-style: solid;
+    border-color: $basicDarkThemeColor;
+    border-radius: 10px;
+    outline: none;
+  }
 }
