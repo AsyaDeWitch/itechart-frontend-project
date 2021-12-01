@@ -10,8 +10,8 @@ export default function PlatformSelect(props: {
   return (
     <select id="type-select" className="platform-select" onChange={props.onChange} value={props.value}>
       {props.platforms.map((item: number) => (
-        <option className="platform-select__option" key={`${Categories[item].name}`}>
-          {Categories[item].name}
+        <option className="platform-select__option" key={`${Categories[item - 1].name}`}>
+          {Categories[item - 1].name}
         </option>
       ))}
     </select>
