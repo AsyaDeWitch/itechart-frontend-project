@@ -7,7 +7,7 @@ export default function InputProfileText(props: {
   placeholder: string;
   label: string;
   name: string;
-  value: string;
+  value: string | number;
   onBlur: FocusEventHandler;
 }): JSX.Element {
   return (

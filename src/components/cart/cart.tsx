@@ -82,7 +82,6 @@ export default function Cart(): JSX.Element {
   const handleBuyButtonClick = async () => {
     clearMessages();
     if (checkedItems.length !== 0) {
-      console.log(userBalance, totalPrice);
       if (userBalance >= totalPrice) {
         try {
           await apiCart.buyProductsFromCart(signInUser.id, checkedItems, totalPrice);

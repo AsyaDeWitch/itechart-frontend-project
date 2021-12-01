@@ -17,8 +17,7 @@ export async function buyProductsFromCart(
   cartItems: CartItem[],
   totalPrice: number
 ): Promise<AxiosResponse> {
-  const productIds: number[] = [];
-  cartItems.forEach((cartItem) => productIds.push(cartItem.product.id));
+  const productIds = cartItems.map((item) => item.product.id);
   const response = await api.post("/api/buyProductsFromCart", {
     id,
     productIds,
@@ -28,8 +27,7 @@ export async function buyProductsFromCart(
 }
 
 export async function removeProductsFromCart(id: number, cartItems: CartItem[]): Promise<AxiosResponse> {
-  const productIds: number[] = [];
-  cartItems.forEach((cartItem) => productIds.push(cartItem.product.id));
+  const productIds = cartItems.map((item) => item.product.id);
 
   const response = await api.delete("/api/removeProductsFromCart", {
     params: {

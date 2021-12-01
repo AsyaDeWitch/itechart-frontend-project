@@ -12,16 +12,11 @@ export default function CartTableItem(props: {
   cartItem: CartItem;
 }): JSX.Element {
   const [platform, setPlatform] = useState(Categories[props.cartItem.choosedPlatform - 1].name);
-  const [amount, setAmount] = useState(props.cartItem.amount.toString());
+  const [amount, setAmount] = useState(props.cartItem.amount);
   const [checked, setChecked] = useState(false);
 
   const handleAmountInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (amount === "0") {
-      setAmount(event.target.value.substring(1));
-    } else {
-      setAmount(event.target.value);
-    }
-
+    setAmount(Number(event.target.value));
     const updatedCartItem = props.cartItem;
     updatedCartItem.amount = Number(event.target.value);
     props.onProductAmountChange(updatedCartItem);

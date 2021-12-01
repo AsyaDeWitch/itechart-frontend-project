@@ -46,7 +46,7 @@ export default function Profile(): JSX.Element {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [balance, setBalance] = useState("");
+  const [balance, setBalance] = useState(0);
   const [description, setDescription] = useState("");
   const [image64, setImage64] = useState(nullImgFile);
   const [selectedImage, setSelectedImage] = useState("");
@@ -67,7 +67,7 @@ export default function Profile(): JSX.Element {
         setUserName(response.data.name);
         setEmail(response.data.email);
         setPhoneNumber(response.data.phoneNumber);
-        setBalance(response.data.balance.toString());
+        setBalance(response.data.balance);
         setDescription(response.data.description);
         if (response.data.image !== "") {
           setImage64(response.data.image);
@@ -117,7 +117,7 @@ export default function Profile(): JSX.Element {
   };
 
   const handleBalanceChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setBalance(event.target.value);
+    setBalance(Number(event.target.value));
   };
 
   const handleChangePasswordButtonClick = () => {
