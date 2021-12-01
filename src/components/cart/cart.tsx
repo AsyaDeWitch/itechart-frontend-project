@@ -20,20 +20,6 @@ export default function Cart(): JSX.Element {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const getTotalPrice = (): number => {
-    let sum = 0;
-    for (let i = 0; i < checkedItems.length; i++) {
-      sum += checkedItems[i].product.price * checkedItems[i].amount;
-    }
-
-    return Math.round(sum * 100) / 100;
-  };
-
-  // const reducer = (acc: number, curr: CartItem) => {
-  //  acc += curr.product.price * curr.amount;
-  // };
-
-  // const totalPrice = useMemo(() => getTotalPrice(), [checkedItems]);
   const totalPrice = useMemo(
     () =>
       Object.values(checkedItems).reduce(
