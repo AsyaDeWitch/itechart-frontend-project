@@ -265,7 +265,8 @@ export default webpackMockServer.add((app) => {
     const today = new Date();
     // there isn't any cart for user
     if (foundCart === undefined) {
-      const newCart = {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const newCart: any = {
         id: JsonCarts.length === 0 ? 1 : JsonCarts[JsonCarts.length - 1].id + 1,
         idUser: Number(req.body.id),
         items: [
