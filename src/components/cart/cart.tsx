@@ -118,13 +118,12 @@ export default function Cart(): JSX.Element {
 
   const handleCheckedItemsUpdate = (cartItem: CartItem, checked: boolean) => {
     clearMessages();
-    let newCheckedItems = checkedItems.map((item) => ({ ...item }));
     if (checked) {
-      newCheckedItems.push(cartItem);
+      const newCheckedItems = [...checkedItems, cartItem];
+      setCheckedItems(newCheckedItems);
     } else {
-      newCheckedItems = newCheckedItems.filter((item) => item.id !== cartItem.id);
+      setCheckedItems(checkedItems.filter((item) => item.id !== cartItem.id));
     }
-    setCheckedItems(newCheckedItems);
   };
 
   return (
