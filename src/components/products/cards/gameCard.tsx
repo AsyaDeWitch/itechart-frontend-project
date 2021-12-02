@@ -11,6 +11,7 @@ import ConfirmationModal from "../modals/confirmationModal";
 export default function GameCard(props: { productItem: ProductItem; image: string }): JSX.Element {
   const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const [isShownConfirmation, setIsShownConfirmation] = useState(false);
+  const [isShownProductModal, setIsShownProductModal] = useState(false);
 
   const handleAddToCartButtonClick = async () => {
     try {
@@ -21,8 +22,12 @@ export default function GameCard(props: { productItem: ProductItem; image: strin
     }
   };
 
-  const handleEditButtonClick = async () => {
-    // open edit modal
+  const handleEditButtonClick = () => {
+    setIsShownProductModal(true);
+  };
+
+  const handleEditButtonCloseClick = () => {
+    setIsShownProductModal(false);
   };
 
   const handleRemoveButtonClick = () => {
