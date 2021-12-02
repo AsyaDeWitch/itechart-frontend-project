@@ -4,9 +4,13 @@ import { useSelector } from "react-redux";
 import "./gameCard.scss";
 import * as apiCart from "@/api/apiCart";
 import SmallButton from "@/components/products/elements/smallButton";
+import { useState } from "react";
+import Modal from "@/elements/modal";
+import ConfirmationModal from "../modals/confirmationModal";
 
 export default function GameCard(props: { productItem: ProductItem; image: string }): JSX.Element {
   const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
+  const [isShownConfirmation, setIsShownConfirmation] = useState(false);
 
   const handleAddToCartButtonClick = async () => {
     try {
@@ -21,8 +25,12 @@ export default function GameCard(props: { productItem: ProductItem; image: strin
     // open edit modal
   };
 
-  const handleRemoveButtonClick = async () => {
-    // popup for confirmation
+  const handleRemoveButtonClick = () => {
+    setIsShownConfirmation(true);
+  };
+
+  const handleRemoveButtonCloseClick = () => {
+    setIsShownConfirmation(false);
   };
 
   return (
@@ -60,6 +68,15 @@ export default function GameCard(props: { productItem: ProductItem; image: strin
           </>
         ) : null}
       </div>
+      {isShownConfirmation ? (
+        <Modal>
+          <ConfirmationModal
+            productId={props.productItem.id}
+            productName={props.productItem.name}
+            onButtonCloseClick={handleRemoveButtonCloseClick}
+          />
+        </Modal>
+      ) : null}
     </>
   );
 }

@@ -43,3 +43,17 @@ export const joiProfileSchema = Joi.object({
 
   balance: Joi.number().min(0).required(),
 });
+
+export const joiProductShema = Joi.object({
+  name: Joi.string().alphanum().min(3).max(100).required(),
+
+  dateCreated: Joi.string().required(),
+
+  totalRating: Joi.number().min(0).required(),
+
+  logo: Joi.string(),
+
+  price: Joi.number().min(0).required(),
+
+  description: Joi.string().min(1).required(),
+});
