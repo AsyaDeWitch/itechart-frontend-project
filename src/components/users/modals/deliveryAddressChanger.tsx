@@ -2,7 +2,7 @@ import ButtonSubmit from "@/elements/buttonSubmit";
 import InputText from "@/elements/inputText";
 import * as apiProfile from "@/api/apiProfile";
 import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useEffect } from "react";
-import "../../elements/modal.scss";
+import "../../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import { joiAddressSchema } from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";

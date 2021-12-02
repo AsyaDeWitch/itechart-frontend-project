@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Navbar from "./navbar";
+import Navbar from "./elements/navbar";
 
 export default function Header(props: { title: string }): JSX.Element {
   useEffect(() => {

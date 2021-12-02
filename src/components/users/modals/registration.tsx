@@ -4,7 +4,7 @@ import * as apiAuth from "@/api/apiAuth";
 import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
 import RouteItems from "@/shared/routes/items/routeItems";
 import { useHistory } from "react-router-dom";
-import "../../elements/modal.scss";
+import "../../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import { joiLoggingSchema } from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";

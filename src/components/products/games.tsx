@@ -2,13 +2,16 @@ import RouteItems from "@/shared/routes/items/routeItems";
 import { Redirect, useParams } from "react-router-dom";
 import Categories from "@/shared/categories/gameCategories";
 import "./games.scss";
-import { ChangeEvent, useState } from "react";
-import SearchBar from "@/home/searchBar/searchBar";
+import { ChangeEvent, useState, MouseEvent } from "react";
+import SearchBar from "@/components/home/elements/searchBar";
 import useSearchSuspense from "@/hooks/useSearchSuspense";
 import debounce from "lodash/debounce";
-import SortPanel from "./sortPanel";
-import GenresPanel from "./genresPanel";
-import AgePanel from "./agePanel";
+import { useSelector } from "react-redux";
+import { TStore } from "@/redux/store";
+import SortPanel from "./panels/sortPanel";
+import GenresPanel from "./panels/genresPanel";
+import AgePanel from "./panels/agePanel";
+import CreateCardButton from "./elements/createCardButton";
 
 type Params = {
   category: string;
@@ -29,6 +32,7 @@ export default function Games(): JSX.Element {
     searchName,
     category
   );
+  const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
   const handleDebouncedSearchChange = debounce((event) => {
     setSearchName(event.target.value);
@@ -51,6 +55,11 @@ export default function Games(): JSX.Element {
   };
   const handleFilterAgeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFilterAgeValue(event.target.value);
+  };
+
+  const handleCreateCarduttonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    // open create modal
+    console.log(event);
   };
 
   return (
@@ -86,6 +95,9 @@ export default function Games(): JSX.Element {
       <div className="games__table">
         <div className="games__table__searchBar">
           <SearchBar onChange={handleSearchChange} />
+          {signInUser.role === "admin" ? (
+            <CreateCardButton onClick={handleCreateCarduttonClick} buttonText="Create card" />
+          ) : null}
         </div>
         {productItems}
       </div>

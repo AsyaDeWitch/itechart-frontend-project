@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import { TStore } from "@/redux/store";
 import Cart from "@/shared/types/cart";
 import CartItem from "@/shared/types/cartItem";
-import SmallButton from "../products/smallButton";
-import CartTableItem from "./cartTableItem";
+import SmallButton from "../products/elements/smallButton";
+import CartTableItem from "./elements/cartTableItem";
 
 const nullItems: CartItem[] = [];
 const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };

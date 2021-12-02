@@ -12,9 +12,13 @@
   border: none;
   outline: none;
   border-radius: 8px;
-  width: 9vw;
+  width: 7vw;
   height: 2vw;
-  margin: 0.5vw;
+
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  margin: 0.3vw;
 
   &:hover {
     background-color: $basicThemeColor;

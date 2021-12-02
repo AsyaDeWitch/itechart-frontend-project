@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import "./header.scss";
+import "../header.scss";
 import RouteItems from "@/shared/routes/items/routeItems";
 import imgLogout from "images/header/logout.png";
 import imgCart from "images/header/cart.png";
@@ -9,9 +9,9 @@ import Modal from "@/elements/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { setSignOutData } from "@/redux/slices/loggingSlice";
 import { TStore } from "@/redux/store";
+import Login from "@/components/users/modals/login";
+import Registration from "@/components/users/modals/registration";
 import Dropdown from "./dropdown";
-import Login from "../users/login";
-import Registration from "../users/registration";
 
 export default function Navbar(props: { title: string }): JSX.Element {
   const [isShownSingIn, setIsShownSingIn] = useState(false);

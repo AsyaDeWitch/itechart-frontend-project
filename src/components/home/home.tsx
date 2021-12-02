@@ -2,9 +2,9 @@ import { PureComponent, ChangeEvent } from "react";
 import * as apiProducts from "@/api/apiProducts";
 import debounce from "lodash/debounce";
 import { AxiosResponse } from "axios";
-import GameCardsContainer from "@/components/products/gameCardsContainer";
-import SearchBar from "./searchBar/searchBar";
-import Spinner from "./spinner/spinner";
+import GameCardsContainer from "@/components/products/cards/gameCardsContainer";
+import SearchBar from "./elements/searchBar";
+import Spinner from "./elements/spinner";
 import "./home.scss";
 import CategoryCardsContainer from "./categoryCards/categoryCardsContainer";
 

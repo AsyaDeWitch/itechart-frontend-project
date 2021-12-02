@@ -1,8 +1,8 @@
 import ProductItem from "@/shared/types/productItem";
 import { useEffect, useState } from "react";
 import * as apiProducts from "@/api/apiProducts";
-import Spinner from "@/home/spinner/spinner";
-import ProductsPanel from "@/components/products/productsPanel";
+import Spinner from "@/components/home/elements/spinner";
+import ProductsPanel from "@/components/products/panels/productsPanel";
 
 const nullProductItems: ProductItem[] = [];
 

@@ -1,3 +1,4 @@
+import ProductItem from "@/shared/types/productItem";
 import { AxiosResponse } from "axios";
 import api from "./apiAxios";
 
@@ -31,6 +32,29 @@ export async function products(
       age,
       searchName,
       category,
+    },
+  });
+  return response;
+}
+
+export async function AddNewProduct(newProduct: ProductItem): Promise<AxiosResponse> {
+  const response = await api.post("/api/product", {
+    newProduct,
+  });
+  return response;
+}
+
+export async function EditProduct(product: ProductItem): Promise<AxiosResponse> {
+  const response = await api.put("/api/product", {
+    product,
+  });
+  return response;
+}
+
+export async function RemoveProduct(id: number): Promise<AxiosResponse> {
+  const response = await api.put("/api/product", {
+    params: {
+      id,
     },
   });
   return response;

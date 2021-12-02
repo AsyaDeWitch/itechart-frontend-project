@@ -3,7 +3,7 @@ import ProductItem from "@/shared/types/productItem";
 import { useSelector } from "react-redux";
 import "./gameCard.scss";
 import * as apiCart from "@/api/apiCart";
-import SmallButton from "./smallButton";
+import SmallButton from "@/components/products/elements/smallButton";
 
 export default function GameCard(props: { productItem: ProductItem; image: string }): JSX.Element {
   const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
@@ -15,6 +15,14 @@ export default function GameCard(props: { productItem: ProductItem; image: strin
     } catch {
       alert("Something went wrong");
     }
+  };
+
+  const handleEditButtonClick = async () => {
+    // open edit modal
+  };
+
+  const handleRemoveButtonClick = async () => {
+    // popup for confirmation
   };
 
   return (
@@ -34,7 +42,23 @@ export default function GameCard(props: { productItem: ProductItem; image: strin
           <p className="game-card__description">{props.productItem.description}</p>
         </div>
 
-        {isLoggedIn ? <SmallButton onClick={handleAddToCartButtonClick} buttonText="Add to cart" /> : null}
+        {isLoggedIn ? (
+          <>
+            {signInUser.role === "admin" ? (
+              <div className="game-card__back__admin-button-holder">
+                <SmallButton onClick={handleAddToCartButtonClick} buttonText="Add to cart" />
+                <div className="game-card__back__admin-button-holder__inline">
+                  <SmallButton onClick={handleEditButtonClick} buttonText="Edit" />
+                  <SmallButton onClick={handleRemoveButtonClick} buttonText="Remove" />
+                </div>
+              </div>
+            ) : (
+              <div className="game-card__back__main-button-holder">
+                <SmallButton onClick={handleAddToCartButtonClick} buttonText="Add to cart" />
+              </div>
+            )}
+          </>
+        ) : null}
       </div>
     </>
   );
