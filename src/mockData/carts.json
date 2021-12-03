@@ -1,0 +1,22 @@
+[
+	{
+		"id": 1,
+		"idUser": 1,
+		"items": [
+			{
+				"id": 2,
+				"productId": 8,
+				"date": "12/1/2021",
+				"amount": 1,
+				"choosedPlatform": 2
+			},
+			{
+				"id": 3,
+				"productId": 2,
+				"date": "12/1/2021",
+				"amount": 1,
+				"choosedPlatform": 2
+			}
+		]
+	}
+]

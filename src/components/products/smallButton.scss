@@ -1,22 +1,23 @@
 @import "normalize.css";
 @import "sanitize.css";
 
-.buttonUniversal {
+.smallButton {
   font-size: 1.2vw;
-  color: white;
+  color: $basicDarkThemeColor;
   text-align: center;
   align-items: center;
   text-decoration: none;
-  background-color: $basicDarkThemeColor;
+  background-color: $basicBackgroundColor;
   background-repeat: no-repeat;
   border: none;
   outline: none;
   border-radius: 8px;
-  width: 18vw;
-  height: 3vw;
+  width: 9vw;
+  height: 2vw;
   margin: 0.5vw;
 
   &:hover {
     background-color: $basicThemeColor;
+    color: white;
   }
 }

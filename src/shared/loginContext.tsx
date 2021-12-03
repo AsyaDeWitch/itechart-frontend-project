@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import User from "./types/user";
 
 const nullUserId = 0;
-const nullUser: User = { id: nullUserId, name: "", email: "", password: "" };
+const nullUser: User = { id: nullUserId, name: "" };
 
 export const LoginContext = createContext({
   signInUser: nullUser,

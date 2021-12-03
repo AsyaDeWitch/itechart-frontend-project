@@ -3,7 +3,7 @@
 
 .game-card {
   width: auto;
-  height: 20vw;
+  height: 21.5vw;
   text-align: center;
   border-radius: 10px;
   cursor: pointer;
@@ -11,25 +11,84 @@
   align-items: center;
   justify-content: center;
   display: block;
+  background: $basicDarkThemeColor;
+
+  position: absolute;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
 
   &__name {
     font-size: 1vw;
     font-weight: bold;
     color: white;
     margin: 0;
-    height: 4vw;
-    padding-top: 0.5vw;
+    height: 4.5vw;
+    padding: 0.5vw 0.5vw 0 0.5vw;
+    display: table-cell;
+    vertical-align: middle;
+    width: 15vw;
   }
 
+  &__info {
+    display: inline-flex;
+    vertical-align: bottom;
+    text-align: start;
+    width: 15vw;
+    padding: 0 2.5vw 0 2.5vw;
+
+    &__star {
+      font-size: 1vw;
+      color: white;
+      margin: 0;
+      font-weight: normal;
+      vertical-align: text-top;
+      text-align: end;
+      flex: 1.5;
+    }
+
+    &__name {
+      font-size: 1vw;
+      color: white;
+      margin: 0;
+      font-weight: normal;
+      vertical-align: text-top;
+      text-align: start;
+      flex: 1;
+    }
+
+    &__rating {
+      font-size: 1vw;
+      color: white;
+      margin: 0;
+      font-weight: normal;
+      vertical-align: text-top;
+      text-align: end;
+      flex: 0.5;
+    }
+  }
   &__platform {
-    font-size: 1vw;
+  }
+
+  &__description {
+    font-size: 0.9vw;
     color: white;
-    margin: 0;
+    text-align: justify;
+    margin: 1.4vw 1.4vw 1.4vw 1.4vw;
+    font-weight: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+
+    &__container {
+      height: 15vw;
+    }
   }
 
   &__image {
     height: 15vw;
     width: 15vw;
+    border-radius: 5px;
     object-fit: cover;
   }
 
@@ -39,5 +98,16 @@
     height: 12vh;
     transition: all 0.2s ease-out;
     outline: none;
+  }
+
+  &__back {
+    position: absolute;
+    height: 21.5vw;
+    width: 15vw;
+    border-radius: 10px;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    background-color: $basicDarkThemeColor;
+    transform: rotateY(180deg);
   }
 }

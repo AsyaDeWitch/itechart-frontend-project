@@ -1,0 +1,20 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.platform-select {
+  font-size: 1vw;
+  height: 1.4vw;
+  color: $basicFontColor;
+  background-color: transparent;
+  border-radius: 5px;
+  border-color: $basicFontColor;
+  width: 10.7vw;
+  align-self: end;
+
+  &__option {
+    color: $basicFontColor;
+    background: $basicTransparentThemeColor;
+    border-radius: 5px;
+    border-color: $basicFontColor;
+  }
+}

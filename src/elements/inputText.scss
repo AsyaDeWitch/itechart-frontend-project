@@ -3,7 +3,7 @@
 
 .inputText {
   width: 50vw;
-  height: 3vw;
+  height: 2.5vw;
   border-style: solid;
   border-color: $basicDarkThemeColor;
   border-radius: 10px;
@@ -13,13 +13,13 @@
   padding-left: 1vw;
   margin: 0.4vw;
   color: $basicFontColor;
-}
 
-.inputText:focus {
-  border-style: solid;
-  border-color: $basicDarkThemeColor;
-  border-radius: 10px;
-  outline: none;
+  &:focus {
+    border-style: solid;
+    border-color: $basicDarkThemeColor;
+    border-radius: 10px;
+    outline: none;
+  }
 }
 
 .labelText {

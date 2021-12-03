@@ -37,6 +37,7 @@ const nullUserProfile: TProfile = {
   image: nullImgFile,
   description: "",
   phoneNumber: "",
+  balance: 0,
 };
 
 export default function Profile(): JSX.Element {
@@ -45,6 +46,7 @@ export default function Profile(): JSX.Element {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [balance, setBalance] = useState(0);
   const [description, setDescription] = useState("");
   const [image64, setImage64] = useState(nullImgFile);
   const [selectedImage, setSelectedImage] = useState("");
@@ -65,6 +67,7 @@ export default function Profile(): JSX.Element {
         setUserName(response.data.name);
         setEmail(response.data.email);
         setPhoneNumber(response.data.phoneNumber);
+        setBalance(response.data.balance);
         setDescription(response.data.description);
         if (response.data.image !== "") {
           setImage64(response.data.image);
@@ -83,7 +86,7 @@ export default function Profile(): JSX.Element {
   }, []);
 
   const validateForm = (): void => {
-    const { error } = joiProfileSchema.validate({ userName, description, email, phoneNumber });
+    const { error } = joiProfileSchema.validate({ userName, description, email, phoneNumber, balance });
     if (error !== undefined && error.message !== undefined) {
       setFormErrors(error.message as string);
     } else {
@@ -113,6 +116,10 @@ export default function Profile(): JSX.Element {
     setUserName(event.target.value);
   };
 
+  const handleBalanceChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setBalance(Number(event.target.value));
+  };
+
   const handleChangePasswordButtonClick = () => {
     setIsShownPasswordChange(true);
   };
@@ -134,6 +141,7 @@ export default function Profile(): JSX.Element {
           image: isClearedImage ? "" : image64,
           description,
           phoneNumber,
+          balance: Number(balance),
         };
         const response = await apiProfile.saveProfile(updatedUser);
         if (response.status === StatusCodes.OK) {
@@ -146,6 +154,8 @@ export default function Profile(): JSX.Element {
       } catch (error: any) {
         if (error.message.includes("413")) {
           setFormErrors("Image is too large. Try to choose another");
+        } else if (error.message.includes("409")) {
+          setFormErrors("User with such name already exists");
         } else {
           setFormErrors("Something went wrong while changing profile information...");
         }
@@ -173,7 +183,6 @@ export default function Profile(): JSX.Element {
     validateForm();
     setSelectedImage(event.target.value);
     setImage64(await fromFileToBase64(event.target.files[0]));
-    console.log(await fromFileToBase64(event.target.files[0]));
     setIsClearedImage(false);
   };
 
@@ -233,6 +242,15 @@ export default function Profile(): JSX.Element {
             name="phoneNumber"
             onChange={handlePhoneNumberChange}
             value={phoneNumber}
+            onBlur={handleInputFocusChange}
+          />
+          <InputProfileText
+            type="number"
+            placeholder="Balance"
+            label="Balance"
+            name="balance"
+            onChange={handleBalanceChange}
+            value={balance}
             onBlur={handleInputFocusChange}
           />
           <TextareaProfileDescription

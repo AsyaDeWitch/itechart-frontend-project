@@ -9,7 +9,7 @@
     "age": 4,
     "logo": "the-witcher-3-wild-hunt.jpg",
     "price": 19.99,
-    "count": 10
+    "description": "The Witcher 3: Wild Hunt is an action role-playing game with a third-person perspective. Players control Geralt of Rivia, a monster slayer known as a Witcher. Geralt walks, runs, rolls and dodges, and (for the first time in the series) jumps, climbs and swims."
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@
     "age": 2,
     "logo": "the-sims-3.jpg",
     "price": 19.99,
-    "count": 8
+    "description": "The freedom of The Sims 3 will inspire you with endless creative possibilities and amuse you with unexpected moments of surprise and mischief! Create over a million unique Sims and control their lives. Customize everything from their appearances, to their personalities and even the home of their dreams. "
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@
     "age": 1,
     "logo": "heroes-of-might-and-magic-iii.jpg",
     "price": 8.25,
-    "count": 6
+    "description": "Heroes of Might and Magic III: The Restoration of Erathia (commonly referred to as Heroes of Might & Magic 3, or simply Heroes 3) is a turn-based strategy game developed by Jon Van Caneghem through New World Computing originally released for Microsoft Windows by the 3DO Company in 1999."
   },
   {
     "id": 4,
@@ -45,7 +45,7 @@
     "age": 4,
     "logo": "grand-theft-auto-v.jpg",
     "price": 12.58,
-    "count": 6
+    "description": "Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions - linear scenarios with set objectives - to progress through the story. Outside of the missions, players may freely roam the open world."
   },
   {
     "id": 5,
@@ -57,7 +57,7 @@
     "age": 2,
     "logo": "world-of-warcraft-wrath-of-the-lich-king.jpg",
     "price": 40.45,
-    "count": 2
+    "description": "In World of Warcraft: Wrath of the Lich King, players journey to the frozen continent of Northrend to face the armies of the Lich King. ... In more detail, players team up as legendary heroes from across Azeroth, each with their own unique abilities to help in and out of combat."
   },
   {
     "id": 6,
@@ -69,7 +69,7 @@
     "age": 4,
     "logo": "red-dead-redemption-2.png",
     "price": 34.99,
-    "count": 25
+    "description": "Set in a fictional recreation of the American Old West in 1899, Red Dead Redemption 2 focuses on the life of Arthur Morgan and his position in the notorious Van der Linde gang. The game follows the gang's decline as they are pursued by lawmen, fellow gangs and Pinkerton agents."
   },
   {
     "id": 7,
@@ -81,7 +81,7 @@
     "age": 4,
     "logo": "the-elder-scrolls-v-skyrim.jpg",
     "price": 7.99,
-    "count": 3
+    "description": "The Elder Scrolls V: Skyrim is an action role-playing game, playable from either a first or third-person perspective. The player may freely roam over the land of Skyrim - an open world environment consisting of wilderness expanses, dungeons, caves, cities, towns, fortresses, and villages."
   },
   {
     "id": 8,
@@ -93,6 +93,6 @@
     "age": 3,
     "logo": "mafia-ii.jpg",
     "price": 5.93,
-    "count": 4
+    "description": "The storyline for Mafia II is a gritty drama and chronicles the rise of Vito Scaletta, the son of Sicilian immigrants. As the game progresses, Vito joins the Falcone Crime Family and becomes a \"made man\", as does his best friend Joe Barbaro."
   }
 ]

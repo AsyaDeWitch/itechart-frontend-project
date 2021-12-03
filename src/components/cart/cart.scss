@@ -3,4 +3,125 @@
 
 .cart {
   padding-bottom: 8.5vw;
+
+  &__title {
+    margin: 1vw 1vw 1vw 0;
+    padding-left: 1vw;
+    font-size: 1.3vw;
+  }
+
+  &__messages {
+    margin: 0 0 5px 0;
+    align-items: center;
+    font-size: 0.8vw;
+    text-align: center;
+
+    justify-self: center;
+    &__error {
+      color: red;
+    }
+
+    &__success {
+      color: green;
+    }
+  }
+
+  &__empty {
+    background-color: $basicTransparentThemeColor;
+    height: 4vw;
+    text-align: center;
+    line-height: 4vw;
+    margin: 2vw 3vw 2vw 3vw;
+    border-radius: 10px;
+
+    &__message {
+      margin: 0 0 5px 0;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: normal;
+      font-size: 1.3vw;
+    }
+  }
+
+  &__table-panel {
+    background-color: $basicTransparentThemeColor;
+    border-radius: 10px;
+    margin: 2vw 3vw 2vw 3vw;
+    font-size: 1.2vw;
+    padding: 1vw 1vw 1vw 1vw;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.2vw;
+
+    &__bottom-line {
+      border-bottom: 1px solid $basicFontColor;
+    }
+
+    &__name {
+      text-align: center;
+      width: 30%;
+      padding: 0.5vw 0 0.5vw 0;
+    }
+
+    &__platform {
+      text-align: center;
+      width: 15%;
+      padding: 0.5vw 0 0.5vw 0;
+    }
+
+    &__date {
+      text-align: center;
+      width: 15%;
+      padding: 0.5vw 0 0.5vw 0;
+    }
+
+    &__amount {
+      text-align: center;
+      width: 15%;
+      padding: 0.5vw 0 0.5vw 0;
+    }
+
+    &__price {
+      text-align: center;
+      width: 15%;
+      padding: 0.5vw 0 0.5vw 0;
+    }
+
+    &__remove-check {
+      text-align: center;
+      width: 10%;
+      padding: 0.5vw 0 0.5vw 0;
+    }
+  }
+
+  &__remove-button {
+    width: 100%;
+    text-align: end;
+  }
+
+  &__balance-part {
+    display: inline-flex;
+    width: 70%;
+    align-items: center;
+    text-align: center;
+    margin: 0 15vw 0 15vw;
+    font-size: 1.2vw;
+    background-color: $basicTransparentThemeColor;
+    border-radius: 10px;
+
+    &__cost {
+      flex: 1;
+    }
+
+    &__balance {
+      flex: 1;
+    }
+
+    &__buy-button {
+      flex: 1;
+    }
+  }
 }
