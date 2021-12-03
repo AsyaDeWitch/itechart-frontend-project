@@ -161,80 +161,86 @@ export default function ProductModal(props: {
               <ButtonClose onClick={props.onButtonCloseClick} />
             </div>
           </nav>
-          <div>
-            <img src={logo === "" ? nullImage : logo} alt="game-card" />
-          </div>
-          <div>
-            <div className="modal__error">{formErrors}</div>
-            <div className="modal__small-input">
-              <InputText
-                onChange={handleNameChange}
-                type="text"
-                placeholder="Name"
-                label="Name"
-                name="name"
-                value={name}
-                onBlur={handleInputFocusChange}
-              />
+          <div className="modal__form__flex">
+            <div className="modal__form__card-image">
+              <img src={logo === "" ? nullImage : logo} alt="game-card" />
             </div>
-            <div className="modal__small-input">
-              <InputNumberText
-                onChange={handlePriceChange}
-                label="Price"
-                name="price"
-                value={price}
-                onBlur={handleInputFocusChange}
-              />
-            </div>
-            <div className="modal__small-input">
-              <InputText
-                onChange={handleLogoChange}
-                type="text"
-                placeholder="Image URL"
-                label="Image URL"
-                name="logo"
-                value={logo}
-                onBlur={handleInputFocusChange}
-              />
-            </div>
-            <div className="modal__small-input">
-              <InputDate
-                onChange={handleDateCreatedChange}
-                label="Creation date"
-                name="dateCreated"
-                value={dateCreated}
-                onBlur={handleInputFocusChange}
-              />
-            </div>
-            <div className="modal__small-input">
-              <InputNumberText
-                onChange={handleTotalRatingChange}
-                label="Rating"
-                name="totalRating"
-                value={totalRating}
-                onBlur={handleInputFocusChange}
-              />
-            </div>
-            <div className="modal__small-textarea">
-              <DescriptionTextArea
-                onChange={handleDescriptionChange}
-                placeholder="Description"
-                label="Description"
-                name="description"
-                value={description}
-                onBlur={handleInputFocusChange}
-              />
-            </div>
-            <div className="modal__small-select">
-              <GenreSelect onChange={handleGenreChange} label="Genre" value={genre} />
-            </div>
-            <div className="modal__small-select">
-              <AgeSelect onChange={handleAgeChange} label="Age" value={age} />
-            </div>
-            <div>
-              {Categories.map((category: CategoryItem) => (
-                <CheckCategoryItem onCheckedItemsUpdate={handleCheckedItemsUpdate} categoryItem={category} />
-              ))}
+            <div className="modal__form__inputs-panel">
+              <div className="modal__error">{formErrors}</div>
+              <div className="modal__small-input">
+                <InputText
+                  onChange={handleNameChange}
+                  type="text"
+                  placeholder="Name"
+                  label="Name"
+                  name="name"
+                  value={name}
+                  onBlur={handleInputFocusChange}
+                />
+              </div>
+              <div className="modal__small-input">
+                <InputText
+                  onChange={handleLogoChange}
+                  type="text"
+                  placeholder="Image URL"
+                  label="Image URL"
+                  name="logo"
+                  value={logo}
+                  onBlur={handleInputFocusChange}
+                />
+              </div>
+              <div className="modal__small-textarea">
+                <DescriptionTextArea
+                  onChange={handleDescriptionChange}
+                  placeholder="Description"
+                  label="Description"
+                  name="description"
+                  value={description}
+                  onBlur={handleInputFocusChange}
+                />
+              </div>
+              <div className="modal__small-input">
+                <InputNumberText
+                  onChange={handlePriceChange}
+                  label="Price"
+                  name="price"
+                  value={price}
+                  onBlur={handleInputFocusChange}
+                />
+              </div>
+              <div className="modal__small-input">
+                <InputNumberText
+                  onChange={handleTotalRatingChange}
+                  label="Rating"
+                  name="totalRating"
+                  value={totalRating}
+                  onBlur={handleInputFocusChange}
+                />
+              </div>
+              <div className="modal__small-input">
+                <InputDate
+                  onChange={handleDateCreatedChange}
+                  label="Creation date"
+                  name="dateCreated"
+                  value={dateCreated}
+                  onBlur={handleInputFocusChange}
+                />
+              </div>
+              <div className="modal__small-select">
+                <GenreSelect onChange={handleGenreChange} label="Genre" value={genre} />
+              </div>
+              <div className="modal__small-select">
+                <AgeSelect onChange={handleAgeChange} label="Age" value={age} />
+              </div>
+              <div className="modal__checkboxes">
+                {Categories.map((category: CategoryItem) => (
+                  <CheckCategoryItem
+                    key={category.name}
+                    onCheckedItemsUpdate={handleCheckedItemsUpdate}
+                    categoryItem={category}
+                  />
+                ))}
+              </div>
             </div>
           </div>
 
@@ -251,8 +257,8 @@ export default function ProductModal(props: {
       {isShownConfirmation ? (
         <Modal>
           <ConfirmationModal
-            productId={props.oldProduct?.id}
-            productName={props.oldProduct?.name}
+            productId={props.oldProduct?.id || 0}
+            productName={props.oldProduct?.name || ""}
             onButtonCloseClick={handleRemoveButtonCloseClick}
           />
         </Modal>

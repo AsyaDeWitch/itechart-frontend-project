@@ -8,7 +8,7 @@ export default function GenreSelect(props: {
 }): JSX.Element {
   return (
     <div className="">
-      <label className="" htmlFor="genre-select">
+      <label className="labelText" htmlFor="genre-select">
         {props.label}
         <select id="genre-select" className="" onChange={props.onChange} value={props.value}>
           {Genres.map((item) => (

@@ -14,6 +14,30 @@
     justify-content: center;
     display: grid;
     width: 100vw;
+
+    &__flex {
+      display: flex;
+    }
+
+    &__card-image {
+      flex: 0.5;
+    }
+
+    &__inputs-panel {
+      flex: 1.5;
+    }
+  }
+
+  &__small-input {
+    justify-self: center;
+  }
+
+  &__small-textarea {
+    justify-self: center;
+  }
+
+  &__small-select {
+    justify-self: center;
   }
 
   &__buttonSubmit {

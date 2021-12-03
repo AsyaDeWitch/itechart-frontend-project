@@ -14,7 +14,7 @@ export default function CheckCategoryItem(props: {
 
   return (
     <>
-      <label htmlFor={`"input-checkbox"${props.categoryItem.name}`} className="">
+      <label htmlFor={`"input-checkbox"${props.categoryItem.name}`} className="labelText">
         {props.categoryItem.name}
       </label>
       <input

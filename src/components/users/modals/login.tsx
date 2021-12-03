@@ -8,6 +8,13 @@ import { joiLoggingSchema } from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
 import { useDispatch } from "react-redux";
 import { setSignInData } from "@/redux/slices/loggingSlice";
+import * as apiCart from "@/api/apiCart";
+import { setCartData } from "@/redux/slices/cartSlice";
+import CartItem from "@/shared/types/cartItem";
+import Cart from "@/shared/types/cart";
+
+const nullItems: CartItem[] = [];
+const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };
 
 export default function Login(props: { onSignInButtonCloseClick: MouseEventHandler }): JSX.Element {
   const [userName, setUserName] = useState("");
@@ -45,6 +52,12 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
         if (response.status === StatusCodes.OK) {
           dispatch(setSignInData(response.data));
           props.onSignInButtonCloseClick(event);
+          try {
+            const responseCart = await apiCart.getProductsInCart(response.data.id);
+            dispatch(setCartData(responseCart.data));
+          } catch {
+            dispatch(setCartData(nullCart));
+          }
         }
       } catch (error) {
         setFormErrors("Invalid user name or password");

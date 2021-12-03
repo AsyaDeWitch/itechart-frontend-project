@@ -8,7 +8,7 @@ export default function AgeSelect(props: {
 }): JSX.Element {
   return (
     <div className="">
-      <label className="" htmlFor="age-select">
+      <label className="labelText" htmlFor="age-select">
         {props.label}
         <select id="age-select" className="" onChange={props.onChange} value={props.value}>
           {Ages.map((item) => (

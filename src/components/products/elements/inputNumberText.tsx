@@ -1,4 +1,5 @@
 import { ChangeEventHandler, FocusEventHandler } from "react";
+import "./inputNumberText.scss";
 
 export default function InputNumberText(props: {
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -9,12 +10,12 @@ export default function InputNumberText(props: {
 }): JSX.Element {
   return (
     <>
-      <label htmlFor={`"input-number"${props.label}`} className="">
+      <label htmlFor={`"input-number"${props.label}`} className="labelText">
         {props.label}
       </label>
       <input
         id={`"input-text"${props.label}`}
-        className=""
+        className="inputNumberText"
         type="number"
         min="0"
         onChange={props.onChange}
