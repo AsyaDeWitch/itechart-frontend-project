@@ -8,10 +8,12 @@ import useSearchSuspense from "@/hooks/useSearchSuspense";
 import debounce from "lodash/debounce";
 import { useSelector } from "react-redux";
 import { TStore } from "@/redux/store";
+import Modal from "@/elements/modal";
 import SortPanel from "./panels/sortPanel";
 import GenresPanel from "./panels/genresPanel";
 import AgePanel from "./panels/agePanel";
 import CreateCardButton from "./elements/createCardButton";
+import ProductModal from "./modals/productModal";
 
 type Params = {
   category: string;
@@ -24,6 +26,7 @@ export default function Games(): JSX.Element {
   const [filterGenreValue, setFilterGenreValue] = useState("");
   const [filterAgeValue, setFilterAgeValue] = useState("");
   const [searchName, setSearchName] = useState("");
+  const [isShownAddCard, setIsShownAddCard] = useState(false);
   const productItems = useSearchSuspense(
     sortCriteriaValue,
     sortTypeValue,
@@ -58,49 +61,60 @@ export default function Games(): JSX.Element {
   };
 
   const handleCreateCarduttonClick = (event: MouseEvent<HTMLButtonElement>) => {
-    // open create modal
+    setIsShownAddCard(true);
     console.log(event);
   };
 
-  return (
-    <div className="games">
-      <div className="games__panel">
-        <div className="games__category">
-          {Categories.findIndex((item) => item.name === category) !== -1 ? (
-            <>{category}</>
-          ) : (
-            <>
-              <Redirect to={RouteItems.Products.url} />
-              All categories
-            </>
-          )}
-          <hr />
-        </div>
-        <div className="games__sortPanel">
-          <SortPanel
-            criteriaValue={sortCriteriaValue}
-            typeValue={sortTypeValue}
-            OnCriteriaChange={handleSortCriteriaChange}
-            OnTypeChange={handleSortTypeChange}
-          />
-        </div>
-        <div className="games__genresPanel">
-          <GenresPanel value={filterGenreValue} OnChange={handleFilterGenreChange} />
-        </div>
-        <div className="games__agePanel">
-          <AgePanel value={filterAgeValue} OnChange={handleFilterAgeChange} />
-        </div>
-      </div>
+  const handleAddButtonCloseClick = () => {
+    setIsShownAddCard(false);
+  };
 
-      <div className="games__table">
-        <div className="games__table__searchBar">
-          <SearchBar onChange={handleSearchChange} />
-          {signInUser.role === "admin" ? (
-            <CreateCardButton onClick={handleCreateCarduttonClick} buttonText="Create card" />
-          ) : null}
+  return (
+    <>
+      <div className="games">
+        <div className="games__panel">
+          <div className="games__category">
+            {Categories.findIndex((item) => item.name === category) !== -1 ? (
+              <>{category}</>
+            ) : (
+              <>
+                <Redirect to={RouteItems.Products.url} />
+                All categories
+              </>
+            )}
+            <hr />
+          </div>
+          <div className="games__sortPanel">
+            <SortPanel
+              criteriaValue={sortCriteriaValue}
+              typeValue={sortTypeValue}
+              OnCriteriaChange={handleSortCriteriaChange}
+              OnTypeChange={handleSortTypeChange}
+            />
+          </div>
+          <div className="games__genresPanel">
+            <GenresPanel value={filterGenreValue} OnChange={handleFilterGenreChange} />
+          </div>
+          <div className="games__agePanel">
+            <AgePanel value={filterAgeValue} OnChange={handleFilterAgeChange} />
+          </div>
         </div>
-        {productItems}
+
+        <div className="games__table">
+          <div className="games__table__searchBar">
+            <SearchBar onChange={handleSearchChange} />
+            {signInUser.role === "admin" ? (
+              <CreateCardButton onClick={handleCreateCarduttonClick} buttonText="Create card" />
+            ) : null}
+          </div>
+          {productItems}
+        </div>
       </div>
-    </div>
+      {isShownAddCard ? (
+        <Modal>
+          <ProductModal oldProduct={null} onButtonCloseClick={handleAddButtonCloseClick} />
+        </Modal>
+      ) : null}
+    </>
   );
 }

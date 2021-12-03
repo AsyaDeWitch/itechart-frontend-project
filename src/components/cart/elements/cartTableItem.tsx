@@ -11,7 +11,9 @@ export default function CartTableItem(props: {
   onCheckedItemsUpdate: (cartItem: CartItem, checked: boolean) => void;
   cartItem: CartItem;
 }): JSX.Element {
-  const [platform, setPlatform] = useState(Categories[props.cartItem.choosedPlatform - 1].name);
+  const [platform, setPlatform] = useState(
+    (Categories.find((category) => category.id === props.cartItem.choosedPlatform) || Categories[0]).name
+  );
   const [amount, setAmount] = useState(props.cartItem.amount);
   const [checked, setChecked] = useState(false);
 
