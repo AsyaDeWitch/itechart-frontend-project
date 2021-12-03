@@ -19,6 +19,7 @@ export default function Navbar(props: { title: string }): JSX.Element {
   const history = useHistory();
   const dispatch = useDispatch();
   const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
+  const { cartItemsQuantity } = useSelector((state: TStore) => state.reducer.cartReducer);
 
   const handleLogoutButtonClick = () => {
     dispatch(setSignOutData());
@@ -72,6 +73,7 @@ export default function Navbar(props: { title: string }): JSX.Element {
             <li className="navbar__menu__li">
               <Link className="navbar__menu__link" to={RouteItems.Cart.url}>
                 <img className="navbar__menu__icon" src={imgCart} alt="Cart" />
+                <span className="navbar__menu__quantity">{` ${cartItemsQuantity}`}</span>
               </Link>
             </li>
             <li className="navbar__menu__li">

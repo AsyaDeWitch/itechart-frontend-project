@@ -19,14 +19,14 @@ export default function CartTableItem(props: {
 
   const handleAmountInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setAmount(Number(event.target.value));
-    const updatedCartItem = props.cartItem;
+    const updatedCartItem = { ...props.cartItem };
     updatedCartItem.amount = Number(event.target.value);
     props.onProductAmountChange(updatedCartItem);
   };
 
   const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setPlatform(event.target.value);
-    const updatedCartItem = props.cartItem;
+    const updatedCartItem = { ...props.cartItem };
     updatedCartItem.choosedPlatform = Categories.filter((category) => category.name === event.target.value)[0].id;
     props.onProductCategoryChange(updatedCartItem);
   };

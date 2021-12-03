@@ -12,6 +12,18 @@ export default function CheckCategoryItem(props: {
     props.onCheckedItemsUpdate(props.categoryItem.id, !checked);
   };
 
-  // label for input
-  return <input className="" type="checkbox" defaultChecked={checked} onChange={handleCheckboxChange} />;
+  return (
+    <>
+      <label htmlFor={`"input-checkbox"${props.categoryItem.name}`} className="">
+        {props.categoryItem.name}
+      </label>
+      <input
+        id={`"input-checkbox"${props.categoryItem.name}`}
+        className=""
+        type="checkbox"
+        defaultChecked={checked}
+        onChange={handleCheckboxChange}
+      />
+    </>
+  );
 }

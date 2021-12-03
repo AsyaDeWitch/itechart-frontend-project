@@ -2,7 +2,7 @@ import { ChangeEventHandler, FocusEventHandler } from "react";
 
 export default function InputDate(props: {
   onChange: ChangeEventHandler<HTMLInputElement>;
-  value: number;
+  value: string;
   label: string;
   name: string;
   onBlur: FocusEventHandler;

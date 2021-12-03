@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import * as apiProducts from "@/api/apiProducts";
 import Spinner from "@/components/home/elements/spinner";
 import ProductsPanel from "@/components/products/panels/productsPanel";
+import { TStore } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setProductsData } from "@/redux/slices/productsSlice";
 
 const nullProductItems: ProductItem[] = [];
 
@@ -14,17 +17,18 @@ function useSearchSuspense(
   searchName: string,
   category: string
 ): JSX.Element {
-  const [apiData, setApiData] = useState(nullProductItems);
   const [isLoading, setIsLoading] = useState(false);
+  const { products } = useSelector((state: TStore) => state.reducer.productsReducer);
+  const dispatch = useDispatch();
 
   async function getSearchGames() {
     try {
       setIsLoading(true);
       const response = await apiProducts.products(sortType, sortDir, genre, age, searchName, !category ? "" : category);
-      setApiData(response.data);
+      dispatch(setProductsData(response.data));
     } catch (error) {
       console.log((error as Error).message);
-      setApiData([]);
+      dispatch(setProductsData(nullProductItems));
     }
     setIsLoading(false);
   }
@@ -38,7 +42,7 @@ function useSearchSuspense(
       <Spinner />
     </div>
   ) : (
-    <ProductsPanel productItems={apiData} />
+    <ProductsPanel productItems={products} />
   );
 }
 
