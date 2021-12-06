@@ -3,19 +3,21 @@ import "./styles/main.scss";
 import ReactDom from "react-dom";
 import { History, createBrowserHistory } from "history";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
-import { Component } from "react";
+// eslint-disable-next-line no-use-before-define
+import React, { Component } from "react";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import Header from "./components/header/header";
 import Footer from "./components/footer";
 import RouteItems from "./shared/routes/items/routeItems";
 import ErrorBoundary from "./shared/errorBoundary";
-import Games from "./components/products/games";
-import About from "./components/about/about";
-import Home from "./components/home/home";
-import Profile from "./components/users/profile";
-import Cart from "./components/cart/cart";
 import ProtectedRoute from "./shared/routes/protectedRoute";
+import Home from "./components/home/home";
+
+const Games = React.lazy(() => import("./components/products/games"));
+const About = React.lazy(() => import("./components/about/about"));
+const Profile = React.lazy(() => import("./components/users/profile"));
+const Cart = React.lazy(() => import("./components/cart/cart"));
 
 const title = "Best Games Market";
 const history = createBrowserHistory();
