@@ -15,7 +15,6 @@ export default function CheckCategoryItems(props: {
       <div className="modal__checkboxes" id={`"checkboxes"${props.label}`}>
         {Categories.map((category: CategoryItem) => (
           <ul className="modal__checkboxes__list" key={category.name}>
-            {console.log(props.checkedPlatforms.some((platform) => platform === category.id))}
             <CheckCategoryItem
               onCheckedItemsUpdate={props.onCheckedItemsUpdate}
               categoryItem={category}

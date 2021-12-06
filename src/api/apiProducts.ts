@@ -52,7 +52,7 @@ export async function EditProduct(product: ProductItem): Promise<AxiosResponse> 
 }
 
 export async function RemoveProduct(id: number): Promise<AxiosResponse> {
-  const response = await api.put("/api/product", {
+  const response = await api.delete("/api/product", {
     params: {
       id,
     },

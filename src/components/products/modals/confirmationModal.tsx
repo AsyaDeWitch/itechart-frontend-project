@@ -2,9 +2,17 @@ import ButtonClose from "@/elements/buttonClose";
 import { StatusCodes } from "http-status-codes";
 import { MouseEventHandler, MouseEvent, useState } from "react";
 import * as apiProducts from "@/api/apiProducts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsNeedToUpdate } from "@/redux/slices/productsSlice";
+import CartItem from "@/shared/types/cartItem";
+import Cart from "@/shared/types/cart";
+import { setCartData } from "@/redux/slices/cartSlice";
+import * as apiCart from "@/api/apiCart";
+import { TStore } from "@/redux/store";
 import AnswerButton from "../elements/answerButton";
+
+const nullItems: CartItem[] = [];
+const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };
 
 export default function ConfirmationModal(props: {
   productId: number;
@@ -13,6 +21,7 @@ export default function ConfirmationModal(props: {
   onButtonYesClick: MouseEventHandler;
 }): JSX.Element {
   const [formErrors, setFormErrors] = useState("");
+  const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const dispatch = useDispatch();
 
   const handleButtonYesClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
@@ -21,6 +30,12 @@ export default function ConfirmationModal(props: {
       if (response.status === StatusCodes.NO_CONTENT) {
         dispatch(setIsNeedToUpdate());
         props.onButtonYesClick(event);
+        try {
+          const cartResponse = await apiCart.getProductsInCart(signInUser.id);
+          dispatch(setCartData(cartResponse.data));
+        } catch {
+          dispatch(setCartData(nullCart));
+        }
       }
     } catch (error) {
       setFormErrors("Something went wrong while deleting card...");

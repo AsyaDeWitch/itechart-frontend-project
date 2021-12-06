@@ -7,7 +7,7 @@ export default function CheckCategoryItem(props: {
   categoryItem: CategoryItem;
   isChecked: boolean;
 }): JSX.Element {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(props.isChecked);
 
   const handleCheckboxChange = () => {
     setChecked(!checked);
@@ -15,8 +15,11 @@ export default function CheckCategoryItem(props: {
   };
 
   useEffect(() => {
-    if (props.isChecked) setChecked(true);
-  }, []);
+    if (props.isChecked) {
+      setChecked(true);
+      console.log("here");
+    }
+  }, [props.isChecked]);
 
   return (
     <li>
@@ -28,6 +31,7 @@ export default function CheckCategoryItem(props: {
         className="category-checkbox"
         type="checkbox"
         defaultChecked={checked}
+        checked={checked}
         onChange={handleCheckboxChange}
       />
     </li>
