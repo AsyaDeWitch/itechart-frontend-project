@@ -45,7 +45,7 @@ export const joiProfileSchema = Joi.object({
 });
 
 export const joiProductShema = Joi.object({
-  name: Joi.string().alphanum().min(3).max(100).required(),
+  name: Joi.string().min(3).max(100).required(),
 
   dateCreated: Joi.string().required(),
 

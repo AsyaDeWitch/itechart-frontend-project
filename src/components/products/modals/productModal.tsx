@@ -5,12 +5,14 @@ import "../../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose";
 import ProductItem from "@/shared/types/productItem";
 import { joiProductShema } from "@/helpers/formJoiSchema";
-import CategoryItem from "@/shared/categories/categoryItem";
 import Categories from "@/shared/categories/gameCategories";
 import Ages from "@/mockData/ages.json";
 import Genres from "@/mockData/genres.json";
 import Modal from "@/elements/modal";
-import CheckCategoryItem from "../elements/checkCategoryItem";
+import * as apiProducts from "@/api/apiProducts";
+import { StatusCodes } from "http-status-codes";
+import { useDispatch } from "react-redux";
+import { setIsNeedToUpdate } from "@/redux/slices/productsSlice";
 import InputNumberText from "../elements/inputNumberText";
 import InputDate from "../elements/inputDate";
 import DescriptionTextArea from "../elements/descriptionTextArea";
@@ -18,8 +20,9 @@ import GenreSelect from "../elements/genreSelect";
 import AgeSelect from "../elements/ageSelect";
 import ProductModalButton from "../elements/productModalButton";
 import ConfirmationModal from "./confirmationModal";
+import CheckCategoryItems from "../elements/checkCategoryItems";
 
-const nullPlatforms: number[] = []; // string[]
+const nullPlatforms: number[] = [];
 const nullImage = "https://www.freeiconspng.com/uploads/no-image-icon-6.png";
 
 export default function ProductModal(props: {
@@ -41,6 +44,7 @@ export default function ProductModal(props: {
   const [formErrors, setFormErrors] = useState("");
   const [isAddModal, setIsAddModal] = useState(false);
   const [isShownConfirmation, setIsShownConfirmation] = useState(false);
+  const dispatch = useDispatch();
 
   const validateForm = (): void => {
     const { error } = joiProductShema.validate({
@@ -79,27 +83,54 @@ export default function ProductModal(props: {
     validateForm();
   };
 
-  const handleSubmitButtonClick = (event: MouseEvent<HTMLButtonElement>): void => {
+  const handleSubmitButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     if (isFormValid) {
-      // try {
-      /* const address: Address = {
-          country,
-          city,
-          street,
-          houseNumber: Number(houseNumber),
-          houseBuilding,
-          entranceNumber: Number(entranceNumber),
-          floorNumber: Number(floorNumber),
-          flatNumber: Number(flatNumber),
+      if (isAddModal) {
+        // create card
+        try {
+          const newProduct: ProductItem = {
+            id: 0,
+            name,
+            platform: platforms,
+            dateCreated: new Date(dateCreated).toISOString(),
+            totalRating,
+            genre: genreId,
+            age: ageId,
+            logo,
+            price,
+            description,
+          };
+          const response = await apiProducts.AddNewProduct(newProduct);
+          if (response.status === StatusCodes.CREATED) {
+            dispatch(setIsNeedToUpdate());
+            props.onButtonCloseClick(event);
+          }
+        } catch {
+          setFormErrors("Something went wrong while adding card...");
+        }
+      }
+      // edit card
+      try {
+        const product: ProductItem = {
+          id: props.oldProduct?.id || 0,
+          name,
+          platform: platforms,
+          dateCreated: new Date(dateCreated).toISOString(),
+          totalRating,
+          genre: genreId,
+          age: ageId,
+          logo,
+          price,
+          description,
         };
-        const response = await apiProfile.changeDefaultDeliveryAddress(signInUser.id, address);
+        const response = await apiProducts.EditProduct(product);
         if (response.status === StatusCodes.OK) {
-          props.onChangeAddressButtonCloseClick(event);
+          dispatch(setIsNeedToUpdate());
+          props.onButtonCloseClick(event);
         }
       } catch (error) {
-        setFormErrors("Something went wrong while changing delivery address...");
-      } */
-      props.onButtonCloseClick(event);
+        setFormErrors("Something went wrong while editing card...");
+      }
     }
   };
 
@@ -147,7 +178,12 @@ export default function ProductModal(props: {
     setIsShownConfirmation(false);
   };
 
-  const handleButtonDeleteClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleButtonDeleteClick = () => {
+    setIsShownConfirmation(true);
+  };
+
+  const handleButtonYesClick = (event: MouseEvent<HTMLButtonElement>): void => {
+    setIsShownConfirmation(false);
     props.onButtonCloseClick(event);
   };
 
@@ -156,14 +192,14 @@ export default function ProductModal(props: {
       <div className="modal">
         <div className="modal__form">
           <nav className="modal__head">
-            <div className="modal__title">Change default delivery address</div>
+            <div className="modal__title">{isAddModal ? "Create card" : "Edit card"}</div>
             <div className="modal__buttonClose">
               <ButtonClose onClick={props.onButtonCloseClick} />
             </div>
           </nav>
           <div className="modal__form__flex">
-            <div className="modal__form__card-image">
-              <img src={logo === "" ? nullImage : logo} alt="game-card" />
+            <div className="modal__form__image-holder">
+              <img className="modal__form__card-image" src={logo === "" ? nullImage : logo} alt="game-card" />
             </div>
             <div className="modal__form__inputs-panel">
               <div className="modal__error">{formErrors}</div>
@@ -232,14 +268,12 @@ export default function ProductModal(props: {
               <div className="modal__small-select">
                 <AgeSelect onChange={handleAgeChange} label="Age" value={age} />
               </div>
-              <div className="modal__checkboxes">
-                {Categories.map((category: CategoryItem) => (
-                  <CheckCategoryItem
-                    key={category.name}
-                    onCheckedItemsUpdate={handleCheckedItemsUpdate}
-                    categoryItem={category}
-                  />
-                ))}
+              <div className="modal__checkboxes-holder">
+                <CheckCategoryItems
+                  label="Platforms"
+                  onCheckedItemsUpdate={handleCheckedItemsUpdate}
+                  checkedPlatforms={platforms}
+                />
               </div>
             </div>
           </div>
@@ -260,6 +294,7 @@ export default function ProductModal(props: {
             productId={props.oldProduct?.id || 0}
             productName={props.oldProduct?.name || ""}
             onButtonCloseClick={handleRemoveButtonCloseClick}
+            onButtonYesClick={handleButtonYesClick}
           />
         </Modal>
       ) : null}

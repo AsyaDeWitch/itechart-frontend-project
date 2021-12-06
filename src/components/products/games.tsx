@@ -27,13 +27,15 @@ export default function Games(): JSX.Element {
   const [filterAgeValue, setFilterAgeValue] = useState("");
   const [searchName, setSearchName] = useState("");
   const [isShownAddCard, setIsShownAddCard] = useState(false);
+  const { isNeedToUpdate } = useSelector((state: TStore) => state.reducer.productsReducer);
   const productItems = useSearchSuspense(
     sortCriteriaValue,
     sortTypeValue,
     filterGenreValue,
     filterAgeValue,
     searchName,
-    category
+    category,
+    isNeedToUpdate
   );
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
 

@@ -1,0 +1,23 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.category-checkbox {
+  height: 1.4vw;
+  width: 1.4vw;
+  border-color: $basicFontColor;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+
+  &:checked {
+    border-radius: 5px;
+  }
+}
+
+.checkbox-label {
+  color: white;
+  text-align: left;
+  font-size: 1.1vw;
+  display: inline-block;
+  width: 10vw;
+}

@@ -108,7 +108,7 @@ export default webpackMockServer.add((app) => {
     const { newProduct } = req.body;
     newProduct.id = JsonGames[JsonGames.length - 1].id + 1;
     JsonGames.push(newProduct);
-    fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonGames, null, "\t"), (err) => {
+    fs.writeFile("./src/mockData/games.json", JSON.stringify(JsonGames, null, "\t"), (err) => {
       if (err) throw err;
       console.log("New game added.");
     });
@@ -117,7 +117,7 @@ export default webpackMockServer.add((app) => {
 
   app.put("/api/product", (req, res) => {
     JsonGames[JsonGames.findIndex((game) => game.id === req.body.product.id)] = req.body.product;
-    fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonGames, null, "\t"), (err) => {
+    fs.writeFile("./src/mockData/games.json", JSON.stringify(JsonGames, null, "\t"), (err) => {
       if (err) throw err;
       console.log("Game was changed.");
     });
@@ -129,7 +129,7 @@ export default webpackMockServer.add((app) => {
       JsonGames.findIndex((game) => game.id === Number(req.query.id)),
       1
     );
-    fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonGames, null, "\t"), (err) => {
+    fs.writeFile("./src/mockData/games.json", JSON.stringify(JsonGames, null, "\t"), (err) => {
       if (err) throw err;
       console.log("Game was deleted.");
     });

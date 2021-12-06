@@ -15,7 +15,8 @@ function useSearchSuspense(
   genre: string,
   age: string,
   searchName: string,
-  category: string
+  category: string,
+  isNeedToUpdate: boolean
 ): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
   const { products } = useSelector((state: TStore) => state.reducer.productsReducer);
@@ -35,7 +36,7 @@ function useSearchSuspense(
 
   useEffect(() => {
     getSearchGames();
-  }, [sortType, sortDir, genre, age, searchName, category]);
+  }, [sortType, sortDir, genre, age, searchName, category, isNeedToUpdate]);
 
   return isLoading ? (
     <div className="games__table__spinner">

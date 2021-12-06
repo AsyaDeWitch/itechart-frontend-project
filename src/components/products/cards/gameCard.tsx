@@ -93,6 +93,7 @@ export default function GameCard(props: { productItem: ProductItem; image: strin
             productId={props.productItem.id}
             productName={props.productItem.name}
             onButtonCloseClick={handleRemoveButtonCloseClick}
+            onButtonYesClick={handleRemoveButtonCloseClick}
           />
         </Modal>
       ) : null}

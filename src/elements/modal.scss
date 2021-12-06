@@ -19,12 +19,26 @@
       display: flex;
     }
 
-    &__card-image {
+    &__image-holder {
       flex: 0.5;
+      margin: 0.4vw;
+    }
+
+    &__card-image {
+      height: 16vw;
+      width: 16vw;
+      border-radius: 5px;
+      object-fit: cover;
     }
 
     &__inputs-panel {
       flex: 1.5;
+    }
+  }
+
+  &__checkboxes {
+    &__list {
+      list-style: none;
     }
   }
 

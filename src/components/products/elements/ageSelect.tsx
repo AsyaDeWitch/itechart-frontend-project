@@ -1,5 +1,6 @@
 import { ChangeEventHandler } from "react";
 import Ages from "@/mockData/ages.json";
+import "./ageSelect.scss";
 
 export default function AgeSelect(props: {
   onChange: ChangeEventHandler<HTMLSelectElement>;
@@ -7,17 +8,17 @@ export default function AgeSelect(props: {
   label: string;
 }): JSX.Element {
   return (
-    <div className="">
+    <>
       <label className="labelText" htmlFor="age-select">
         {props.label}
-        <select id="age-select" className="" onChange={props.onChange} value={props.value}>
-          {Ages.map((item) => (
-            <option className="" key={`${item.name}`}>
-              {item.name}
-            </option>
-          ))}
-        </select>
       </label>
-    </div>
+      <select id="age-select" className="age-select" onChange={props.onChange} value={props.value}>
+        {Ages.map((item) => (
+          <option className="age-select__option" key={`${item.name}`}>
+            {item.name}
+          </option>
+        ))}
+      </select>
+    </>
   );
 }

@@ -2,23 +2,28 @@ import ButtonClose from "@/elements/buttonClose";
 import { StatusCodes } from "http-status-codes";
 import { MouseEventHandler, MouseEvent, useState } from "react";
 import * as apiProducts from "@/api/apiProducts";
+import { useDispatch } from "react-redux";
+import { setIsNeedToUpdate } from "@/redux/slices/productsSlice";
 import AnswerButton from "../elements/answerButton";
 
 export default function ConfirmationModal(props: {
   productId: number;
   productName: string;
   onButtonCloseClick: MouseEventHandler;
+  onButtonYesClick: MouseEventHandler;
 }): JSX.Element {
   const [formErrors, setFormErrors] = useState("");
+  const dispatch = useDispatch();
 
   const handleButtonYesClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     try {
       const response = await apiProducts.RemoveProduct(props.productId);
       if (response.status === StatusCodes.NO_CONTENT) {
-        props.onButtonCloseClick(event);
+        dispatch(setIsNeedToUpdate());
+        props.onButtonYesClick(event);
       }
     } catch (error) {
-      setFormErrors("Something went wrong while changing password...");
+      setFormErrors("Something went wrong while deleting card...");
     }
   };
 
