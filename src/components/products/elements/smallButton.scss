@@ -1,22 +1,27 @@
 @import "normalize.css";
 @import "sanitize.css";
 
-.buttonSubmit {
+.smallButton {
   font-size: 1.2vw;
-  color: white;
+  color: $basicDarkThemeColor;
   text-align: center;
   align-items: center;
   text-decoration: none;
-  background-color: $basicDarkThemeColor;
+  background-color: $basicBackgroundColor;
   background-repeat: no-repeat;
   border: none;
   outline: none;
-  border-radius: 5px;
-  width: 10vw;
-  height: 4vh;
-  margin: 1.5vw;
+  border-radius: 8px;
+  width: 7vw;
+  height: 2vw;
+
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  margin: 0.3vw;
 
   &:hover {
     background-color: $basicThemeColor;
+    color: white;
   }
 }

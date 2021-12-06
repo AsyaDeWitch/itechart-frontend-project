@@ -9,6 +9,7 @@ type Profile = {
   description: string;
   phoneNumber: string;
   balance: number;
+  role: string;
 };
 
 export default Profile;

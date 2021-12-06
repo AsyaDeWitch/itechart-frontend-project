@@ -2,13 +2,18 @@ import RouteItems from "@/shared/routes/items/routeItems";
 import { Redirect, useParams } from "react-router-dom";
 import Categories from "@/shared/categories/gameCategories";
 import "./games.scss";
-import { ChangeEvent, useState } from "react";
-import SearchBar from "@/home/searchBar/searchBar";
+import { ChangeEvent, useState, MouseEvent } from "react";
+import SearchBar from "@/components/home/elements/searchBar";
 import useSearchSuspense from "@/hooks/useSearchSuspense";
 import debounce from "lodash/debounce";
-import SortPanel from "./sortPanel";
-import GenresPanel from "./genresPanel";
-import AgePanel from "./agePanel";
+import { useSelector } from "react-redux";
+import { TStore } from "@/redux/store";
+import Modal from "@/elements/modal";
+import SortPanel from "./panels/sortPanel";
+import GenresPanel from "./panels/genresPanel";
+import AgePanel from "./panels/agePanel";
+import CreateCardButton from "./elements/createCardButton";
+import ProductModal from "./modals/productModal";
 
 type Params = {
   category: string;
@@ -21,14 +26,18 @@ export default function Games(): JSX.Element {
   const [filterGenreValue, setFilterGenreValue] = useState("");
   const [filterAgeValue, setFilterAgeValue] = useState("");
   const [searchName, setSearchName] = useState("");
+  const [isShownAddCard, setIsShownAddCard] = useState(false);
+  const { isNeedToUpdate } = useSelector((state: TStore) => state.reducer.productsReducer);
   const productItems = useSearchSuspense(
     sortCriteriaValue,
     sortTypeValue,
     filterGenreValue,
     filterAgeValue,
     searchName,
-    category
+    category,
+    isNeedToUpdate
   );
+  const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
   const handleDebouncedSearchChange = debounce((event) => {
     setSearchName(event.target.value);
@@ -53,42 +62,61 @@ export default function Games(): JSX.Element {
     setFilterAgeValue(event.target.value);
   };
 
-  return (
-    <div className="games">
-      <div className="games__panel">
-        <div className="games__category">
-          {Categories.findIndex((item) => item.name === category) !== -1 ? (
-            <>{category}</>
-          ) : (
-            <>
-              <Redirect to={RouteItems.Products.url} />
-              All categories
-            </>
-          )}
-          <hr />
-        </div>
-        <div className="games__sortPanel">
-          <SortPanel
-            criteriaValue={sortCriteriaValue}
-            typeValue={sortTypeValue}
-            OnCriteriaChange={handleSortCriteriaChange}
-            OnTypeChange={handleSortTypeChange}
-          />
-        </div>
-        <div className="games__genresPanel">
-          <GenresPanel value={filterGenreValue} OnChange={handleFilterGenreChange} />
-        </div>
-        <div className="games__agePanel">
-          <AgePanel value={filterAgeValue} OnChange={handleFilterAgeChange} />
-        </div>
-      </div>
+  const handleCreateCarduttonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setIsShownAddCard(true);
+    console.log(event);
+  };
 
-      <div className="games__table">
-        <div className="games__table__searchBar">
-          <SearchBar onChange={handleSearchChange} />
+  const handleAddButtonCloseClick = () => {
+    setIsShownAddCard(false);
+  };
+
+  return (
+    <>
+      <div className="games">
+        <div className="games__panel">
+          <div className="games__category">
+            {Categories.findIndex((item) => item.name === category) !== -1 ? (
+              <>{category}</>
+            ) : (
+              <>
+                <Redirect to={RouteItems.Products.url} />
+                All categories
+              </>
+            )}
+            <hr />
+          </div>
+          <div className="games__sortPanel">
+            <SortPanel
+              criteriaValue={sortCriteriaValue}
+              typeValue={sortTypeValue}
+              OnCriteriaChange={handleSortCriteriaChange}
+              OnTypeChange={handleSortTypeChange}
+            />
+          </div>
+          <div className="games__genresPanel">
+            <GenresPanel value={filterGenreValue} OnChange={handleFilterGenreChange} />
+          </div>
+          <div className="games__agePanel">
+            <AgePanel value={filterAgeValue} OnChange={handleFilterAgeChange} />
+          </div>
         </div>
-        {productItems}
+
+        <div className="games__table">
+          <div className="games__table__searchBar">
+            <SearchBar onChange={handleSearchChange} />
+            {signInUser.role === "admin" ? (
+              <CreateCardButton onClick={handleCreateCarduttonClick} buttonText="Create card" />
+            ) : null}
+          </div>
+          {productItems}
+        </div>
       </div>
-    </div>
+      {isShownAddCard ? (
+        <Modal>
+          <ProductModal oldProduct={null} onButtonCloseClick={handleAddButtonCloseClick} />
+        </Modal>
+      ) : null}
+    </>
   );
 }

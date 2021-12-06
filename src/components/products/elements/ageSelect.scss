@@ -1,0 +1,19 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.age-select {
+  font-size: 1.2vw;
+  color: $basicFontColor;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: $basicDarkThemeColor;
+  width: 16vw;
+  height: 2.5vw;
+  margin: 0.4vw;
+
+  &__option {
+    color: $basicFontColor;
+    border-radius: 5px;
+    border-color: $basicFontColor;
+  }
+}

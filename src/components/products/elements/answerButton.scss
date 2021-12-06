@@ -1,7 +1,7 @@
 @import "normalize.css";
 @import "sanitize.css";
 
-.buttonSubmit {
+.answerButton {
   font-size: 1.2vw;
   color: white;
   text-align: center;
@@ -14,7 +14,7 @@
   border-radius: 5px;
   width: 10vw;
   height: 4vh;
-  margin: 1.5vw;
+  margin: 1vw;
 
   &:hover {
     background-color: $basicThemeColor;

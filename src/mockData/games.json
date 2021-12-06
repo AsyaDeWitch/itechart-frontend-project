@@ -1,98 +1,122 @@
 [
-  {
-    "id": 1,
-    "name": "The Witcher 3: Wild Hunt",
-    "platform": [1, 2, 3],
-    "dateCreated": "2015-05-18T00:00:00",
-    "totalRating": 9.3,
-    "genre": 5,
-    "age": 4,
-    "logo": "the-witcher-3-wild-hunt.jpg",
-    "price": 19.99,
-    "description": "The Witcher 3: Wild Hunt is an action role-playing game with a third-person perspective. Players control Geralt of Rivia, a monster slayer known as a Witcher. Geralt walks, runs, rolls and dodges, and (for the first time in the series) jumps, climbs and swims."
-  },
-  {
-    "id": 2,
-    "name": "The Sims 3",
-    "platform": [2],
-    "dateCreated": "2009-06-02T00:00:00",
-    "totalRating": 8.6,
-    "genre": 6,
-    "age": 2,
-    "logo": "the-sims-3.jpg",
-    "price": 19.99,
-    "description": "The freedom of The Sims 3 will inspire you with endless creative possibilities and amuse you with unexpected moments of surprise and mischief! Create over a million unique Sims and control their lives. Customize everything from their appearances, to their personalities and even the home of their dreams. "
-  },
-  {
-    "id": 3,
-    "name": "Heroes of Might and Magic III",
-    "platform": [2],
-    "dateCreated": "1999-02-28T00:00:00",
-    "totalRating": 9.2,
-    "genre": 12,
-    "age": 1,
-    "logo": "heroes-of-might-and-magic-iii.jpg",
-    "price": 8.25,
-    "description": "Heroes of Might and Magic III: The Restoration of Erathia (commonly referred to as Heroes of Might & Magic 3, or simply Heroes 3) is a turn-based strategy game developed by Jon Van Caneghem through New World Computing originally released for Microsoft Windows by the 3DO Company in 1999."
-  },
-  {
-    "id": 4,
-    "name": "Grand Theft Auto V",
-    "platform": [1, 2, 3],
-    "dateCreated": "2013-09-17T00:00:00",
-    "totalRating": 9.7,
-    "genre": 9,
-    "age": 4,
-    "logo": "grand-theft-auto-v.jpg",
-    "price": 12.58,
-    "description": "Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions - linear scenarios with set objectives - to progress through the story. Outside of the missions, players may freely roam the open world."
-  },
-  {
-    "id": 5,
-    "name": "World of Warcraft: Wrath of the Lich King",
-    "platform": [2],
-    "dateCreated": "2008-11-18T00:00:00",
-    "totalRating": 9.1,
-    "genre": 5,
-    "age": 2,
-    "logo": "world-of-warcraft-wrath-of-the-lich-king.jpg",
-    "price": 40.45,
-    "description": "In World of Warcraft: Wrath of the Lich King, players journey to the frozen continent of Northrend to face the armies of the Lich King. ... In more detail, players team up as legendary heroes from across Azeroth, each with their own unique abilities to help in and out of combat."
-  },
-  {
-    "id": 6,
-    "name": "Red Dead Redemption 2",
-    "platform": [1, 2, 3],
-    "dateCreated": "2018-10-26T00:00:00",
-    "totalRating": 9.7,
-    "genre": 9,
-    "age": 4,
-    "logo": "red-dead-redemption-2.png",
-    "price": 34.99,
-    "description": "Set in a fictional recreation of the American Old West in 1899, Red Dead Redemption 2 focuses on the life of Arthur Morgan and his position in the notorious Van der Linde gang. The game follows the gang's decline as they are pursued by lawmen, fellow gangs and Pinkerton agents."
-  },
-  {
-    "id": 7,
-    "name": "The Elder Scrolls V: Skyrim",
-    "platform": [1, 2, 3],
-    "dateCreated": "2011-11-11T00:00:00",
-    "totalRating": 9.4,
-    "genre": 5,
-    "age": 4,
-    "logo": "the-elder-scrolls-v-skyrim.jpg",
-    "price": 7.99,
-    "description": "The Elder Scrolls V: Skyrim is an action role-playing game, playable from either a first or third-person perspective. The player may freely roam over the land of Skyrim - an open world environment consisting of wilderness expanses, dungeons, caves, cities, towns, fortresses, and villages."
-  },
-  {
-    "id": 8,
-    "name": "Mafia II",
-    "platform": [2],
-    "dateCreated": "2010-08-24T00:00:00",
-    "totalRating": 7.2,
-    "genre": 9,
-    "age": 3,
-    "logo": "mafia-ii.jpg",
-    "price": 5.93,
-    "description": "The storyline for Mafia II is a gritty drama and chronicles the rise of Vito Scaletta, the son of Sicilian immigrants. As the game progresses, Vito joins the Falcone Crime Family and becomes a \"made man\", as does his best friend Joe Barbaro."
-  }
+	{
+		"id": 6,
+		"name": "Red Dead Redemption 2",
+		"platform": [
+			1,
+			2,
+			3
+		],
+		"dateCreated": "2018-10-26T00:00:00",
+		"totalRating": 9.7,
+		"genre": 9,
+		"age": 4,
+		"logo": "https://s1.gaming-cdn.com/images/products/5679/271x377/game-rockstar-red-dead-redemption-2-standard-edition-cover.jpg",
+		"price": 34.99,
+		"description": "Set in a fictional recreation of the American Old West in 1899, Red Dead Redemption 2 focuses on the life of Arthur Morgan and his position in the notorious Van der Linde gang. The game follows the gang's decline as they are pursued by lawmen, fellow gangs and Pinkerton agents."
+	},
+	{
+		"id": 1,
+		"name": "The Witcher 3: Wild Hunt",
+		"platform": [
+			1,
+			2,
+			3
+		],
+		"dateCreated": "2015-05-18T00:00:00",
+		"totalRating": 9.3,
+		"genre": 5,
+		"age": 4,
+		"logo": "https://cdn02.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_download_software_1/H2x1_NSwitchDS_TheWitcher3WildHunt_enGB.jpg",
+		"price": 19.99,
+		"description": "The Witcher 3: Wild Hunt is an action role-playing game with a third-person perspective. Players control Geralt of Rivia, a monster slayer known as a Witcher. Geralt walks, runs, rolls and dodges, and (for the first time in the series) jumps, climbs and swims."
+	},
+	{
+		"id": 4,
+		"name": "Grand Theft Auto V",
+		"platform": [
+			1,
+			2,
+			3
+		],
+		"dateCreated": "2013-09-17T00:00:00",
+		"totalRating": 9.7,
+		"genre": 9,
+		"age": 4,
+		"logo": "https://images.sftcdn.net/images/t_app-cover-m,f_auto/p/bb8d724c-9aa2-11e6-9b10-00163ec9f5fa/2766737171/gta-v-cover-wallpaper-screenshot.jpg",
+		"price": 12.58,
+		"description": "Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions - linear scenarios with set objectives - to progress through the story. Outside of the missions, players may freely roam the open world."
+	},
+	{
+		"id": 7,
+		"name": "The Elder Scrolls V: Skyrim",
+		"platform": [
+			1,
+			2,
+			3
+		],
+		"dateCreated": "2011-11-11T00:00:00",
+		"totalRating": 9.4,
+		"genre": 5,
+		"age": 4,
+		"logo": "https://www.mobygames.com/images/covers/l/376858-the-elder-scrolls-v-skyrim-special-edition-xbox-one-front-cover.png",
+		"price": 7.99,
+		"description": "The Elder Scrolls V: Skyrim is an action role-playing game, playable from either a first or third-person perspective. The player may freely roam over the land of Skyrim - an open world environment consisting of wilderness expanses, dungeons, caves, cities, towns, fortresses, and villages."
+	},
+	{
+		"id": 8,
+		"name": "Mafia II",
+		"platform": [
+			2
+		],
+		"dateCreated": "2010-08-24T00:00:00",
+		"totalRating": 7.2,
+		"genre": 9,
+		"age": 3,
+		"logo": "https://www.mobygames.com/images/covers/l/502481-mafia-ii-playstation-3-front-cover.jpg",
+		"price": 5.93,
+		"description": "The storyline for Mafia II is a gritty drama and chronicles the rise of Vito Scaletta, the son of Sicilian immigrants. As the game progresses, Vito joins the Falcone Crime Family and becomes a \"made man\", as does his best friend Joe Barbaro."
+	},
+	{
+		"id": 2,
+		"name": "The Sims 3",
+		"platform": [
+			2
+		],
+		"dateCreated": "2009-06-02T00:00:00",
+		"totalRating": 8.6,
+		"genre": 6,
+		"age": 2,
+		"logo": "http://4.bp.blogspot.com/-n0gYgQE4A_M/UWxF8k_wiMI/AAAAAAAAAWU/mUL0nz9arac/s1600/unnamed.jpg",
+		"price": 19.99,
+		"description": "The freedom of The Sims 3 will inspire you with endless creative possibilities and amuse you with unexpected moments of surprise and mischief! Create over a million unique Sims and control their lives. Customize everything from their appearances, to their personalities and even the home of their dreams. "
+	},
+	{
+		"id": 5,
+		"name": "World of Warcraft: Wrath of the Lich King",
+		"platform": [
+			2
+		],
+		"dateCreated": "2008-11-18T00:00:00",
+		"totalRating": 9.1,
+		"genre": 5,
+		"age": 2,
+		"logo": "https://www.allkeyshop.com/blog/wp-content/uploads/wow-wrath-of-the-lich-king-img1.jpg",
+		"price": 40.45,
+		"description": "In World of Warcraft: Wrath of the Lich King, players journey to the frozen continent of Northrend to face the armies of the Lich King. ... In more detail, players team up as legendary heroes from across Azeroth, each with their own unique abilities to help in and out of combat."
+	},
+	{
+		"id": 3,
+		"name": "Heroes of Might and Magic III",
+		"platform": [
+			2
+		],
+		"dateCreated": "1999-02-28T00:00:00",
+		"totalRating": 9.2,
+		"genre": 12,
+		"age": 1,
+		"logo": "https://upload.wikimedia.org/wikipedia/ru/archive/8/85/20150312042320%21Heroes_of_Might_and_Magic_III_Cover_Art.jpg",
+		"price": 8.25,
+		"description": "Heroes of Might and Magic III: The Restoration of Erathia (commonly referred to as Heroes of Might & Magic 3, or simply Heroes 3) is a turn-based strategy game developed by Jon Van Caneghem through New World Computing originally released for Microsoft Windows by the 3DO Company in 1999."
+	}
 ]

@@ -1,0 +1,22 @@
+@import "normalize.css";
+@import "sanitize.css";
+
+.inputDate {
+  width: 16vw;
+  height: 2.5vw;
+  border-style: solid;
+  border-color: $basicDarkThemeColor;
+  border-radius: 10px;
+  font-size: 1.2vw;
+  position: relative;
+  padding-left: 1vw;
+  margin: 0.4vw;
+  color: $basicFontColor;
+
+  &:focus {
+    border-style: solid;
+    border-color: $basicDarkThemeColor;
+    border-radius: 10px;
+    outline: none;
+  }
+}

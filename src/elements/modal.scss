@@ -14,6 +14,44 @@
     justify-content: center;
     display: grid;
     width: 100vw;
+
+    &__flex {
+      display: flex;
+    }
+
+    &__image-holder {
+      flex: 0.5;
+      margin: 0.4vw;
+    }
+
+    &__card-image {
+      height: 16vw;
+      width: 16vw;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+
+    &__inputs-panel {
+      flex: 1.5;
+    }
+  }
+
+  &__checkboxes {
+    &__list {
+      list-style: none;
+    }
+  }
+
+  &__small-input {
+    justify-self: center;
+  }
+
+  &__small-textarea {
+    justify-self: center;
+  }
+
+  &__small-select {
+    justify-self: center;
   }
 
   &__buttonSubmit {
@@ -51,5 +89,11 @@
 
   &__input {
     justify-self: center;
+  }
+
+  &__confirmation-message {
+    justify-content: center;
+    justify-self: center;
+    font-size: 1.5vw;
   }
 }

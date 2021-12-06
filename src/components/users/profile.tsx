@@ -13,11 +13,11 @@ import { joiProfileSchema } from "@/helpers/formJoiSchema";
 import { setSignInData } from "@/redux/slices/loggingSlice";
 import User from "@/shared/types/user";
 import nullImgFile from "images/profile/no-profile-photo.png";
-import PasswordChanger from "./passwordChanger";
-import DeliveryAddressChanger from "./deliveryAddressChanger";
-import ImageProfile from "./imageProfile";
-import InputProfileText from "./inputProfileText";
-import TextareaProfileDescription from "./textareaProfileDescription";
+import PasswordChanger from "./modals/passwordChanger";
+import DeliveryAddressChanger from "./modals/deliveryAddressChanger";
+import ImageProfile from "./elements/imageProfile";
+import InputProfileText from "./elements/inputProfileText";
+import TextareaProfileDescription from "./elements/textareaProfileDescription";
 
 const nullAddress: Address = {
   country: "",
@@ -38,6 +38,7 @@ const nullUserProfile: TProfile = {
   description: "",
   phoneNumber: "",
   balance: 0,
+  role: "",
 };
 
 export default function Profile(): JSX.Element {
@@ -142,10 +143,11 @@ export default function Profile(): JSX.Element {
           description,
           phoneNumber,
           balance: Number(balance),
+          role: signInUser.role,
         };
         const response = await apiProfile.saveProfile(updatedUser);
         if (response.status === StatusCodes.OK) {
-          const updatedSignInUser: User = { id: signInUser.id, name: response.data.name };
+          const updatedSignInUser: User = { id: signInUser.id, name: response.data.name, role: signInUser.role };
           dispatch(setSignInData(updatedSignInUser));
           getUserProfile();
           setFormSuccess("Changes successfully saved!");

@@ -1,6 +1,6 @@
-import Login from "@/components/users/login";
+import Login from "@/components/users/modals/login";
 import Modal from "@/elements/modal";
-import Home from "@/home/home";
+import Home from "@/components/home/home";
 import { TStore } from "@/redux/store";
 import { useState } from "react";
 import { useSelector } from "react-redux";

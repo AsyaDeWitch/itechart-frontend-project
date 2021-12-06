@@ -1,8 +1,11 @@
 import ProductItem from "@/shared/types/productItem";
 import { useEffect, useState } from "react";
 import * as apiProducts from "@/api/apiProducts";
-import Spinner from "@/home/spinner/spinner";
-import ProductsPanel from "@/components/products/productsPanel";
+import Spinner from "@/components/home/elements/spinner";
+import ProductsPanel from "@/components/products/panels/productsPanel";
+import { TStore } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setProductsData } from "@/redux/slices/productsSlice";
 
 const nullProductItems: ProductItem[] = [];
 
@@ -12,33 +15,35 @@ function useSearchSuspense(
   genre: string,
   age: string,
   searchName: string,
-  category: string
+  category: string,
+  isNeedToUpdate: boolean
 ): JSX.Element {
-  const [apiData, setApiData] = useState(nullProductItems);
   const [isLoading, setIsLoading] = useState(false);
+  const { products } = useSelector((state: TStore) => state.reducer.productsReducer);
+  const dispatch = useDispatch();
 
   async function getSearchGames() {
     try {
       setIsLoading(true);
       const response = await apiProducts.products(sortType, sortDir, genre, age, searchName, !category ? "" : category);
-      setApiData(response.data);
+      dispatch(setProductsData(response.data));
     } catch (error) {
       console.log((error as Error).message);
-      setApiData([]);
+      dispatch(setProductsData(nullProductItems));
     }
     setIsLoading(false);
   }
 
   useEffect(() => {
     getSearchGames();
-  }, [sortType, sortDir, genre, age, searchName, category]);
+  }, [sortType, sortDir, genre, age, searchName, category, isNeedToUpdate]);
 
   return isLoading ? (
     <div className="games__table__spinner">
       <Spinner />
     </div>
   ) : (
-    <ProductsPanel productItems={apiData} />
+    <ProductsPanel productItems={products} />
   );
 }
 

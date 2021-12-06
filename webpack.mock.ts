@@ -104,13 +104,56 @@ export default webpackMockServer.add((app) => {
     setTimeout(() => res.json(response), 1000);
   });
 
+  app.post("/api/product", (req, res) => {
+    const { newProduct } = req.body;
+    newProduct.id = JsonGames[JsonGames.length - 1].id + 1;
+    JsonGames.push(newProduct);
+    fs.writeFile("./src/mockData/games.json", JSON.stringify(JsonGames, null, "\t"), (err) => {
+      if (err) throw err;
+      console.log("New game added.");
+    });
+    res.status(StatusCodes.CREATED).json(newProduct);
+  });
+
+  app.put("/api/product", (req, res) => {
+    JsonGames[JsonGames.findIndex((game) => game.id === req.body.product.id)] = req.body.product;
+    fs.writeFile("./src/mockData/games.json", JSON.stringify(JsonGames, null, "\t"), (err) => {
+      if (err) throw err;
+      console.log("Game was changed.");
+    });
+    res.status(StatusCodes.OK).json(req.body.product);
+  });
+
+  app.delete("/api/product", (req, res) => {
+    JsonGames.splice(
+      JsonGames.findIndex((game) => game.id === Number(req.query.id)),
+      1
+    );
+    fs.writeFile("./src/mockData/games.json", JSON.stringify(JsonGames, null, "\t"), (err) => {
+      if (err) throw err;
+      console.log("Game was deleted.");
+    });
+
+    JsonCarts.forEach((cart) =>
+      cart.items.splice(
+        cart.items.findIndex((item) => item.productId === Number(req.query.id)),
+        1
+      )
+    );
+    fs.writeFile("./src/mockData/carts.json", JSON.stringify(JsonCarts, null, "\t"), (err) => {
+      if (err) throw err;
+    });
+
+    res.status(StatusCodes.NO_CONTENT).json();
+  });
+
   // Auth part
   app.post("/api/auth/signIn", (req, res) => {
     const signInUser = JsonUsers.filter(
       (user) => user.name === req.body.userName && user.password === req.body.password
     )[0];
     if (signInUser !== undefined) {
-      const user: User = { id: signInUser.id, name: signInUser.name };
+      const user = { id: signInUser.id, name: signInUser.name, role: signInUser.role };
       res.status(StatusCodes.OK).json(user);
     } else {
       res.status(StatusCodes.BAD_REQUEST).json();
@@ -141,13 +184,14 @@ export default webpackMockServer.add((app) => {
         description: "",
         phoneNumber: "",
         balance: 0,
+        role: "user",
       };
       JsonUsers.push(newUser);
       fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
         if (err) throw err;
         console.log("New user added.");
       });
-      const user: User = { id: newUser.id, name: newUser.name };
+      const user: User = { id: newUser.id, name: newUser.name, role: newUser.role };
       res.status(StatusCodes.CREATED).json(user);
     }
   });
@@ -165,6 +209,7 @@ export default webpackMockServer.add((app) => {
         description: foundUser.description,
         phoneNumber: foundUser.phoneNumber,
         balance: foundUser.balance,
+        role: foundUser.role,
       };
       res.status(StatusCodes.OK).json(profile);
     } else {
@@ -192,6 +237,7 @@ export default webpackMockServer.add((app) => {
           description: req.body.updatedUser.description,
           phoneNumber: req.body.updatedUser.phoneNumber,
           balance: req.body.updatedUser.balance,
+          role: foundUser.role,
         };
         JsonUsers[JsonUsers.findIndex((user) => user.id === req.body.updatedUser.id)] = profile;
         fs.writeFile("./src/mockData/users.json", JSON.stringify(JsonUsers, null, "\t"), (err) => {
@@ -378,7 +424,7 @@ export default webpackMockServer.add((app) => {
         if (err) throw err;
         console.log("Products from cart successfully removed.");
       });
-      res.status(StatusCodes.OK).json();
+      res.status(StatusCodes.NO_CONTENT).json();
     } else {
       res.status(StatusCodes.BAD_REQUEST).json();
     }

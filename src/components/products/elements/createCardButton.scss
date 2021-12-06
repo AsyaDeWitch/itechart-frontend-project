@@ -1,7 +1,7 @@
 @import "normalize.css";
 @import "sanitize.css";
 
-.buttonSubmit {
+.createCardButton {
   font-size: 1.2vw;
   color: white;
   text-align: center;
@@ -11,10 +11,9 @@
   background-repeat: no-repeat;
   border: none;
   outline: none;
-  border-radius: 5px;
+  border-radius: 10px;
   width: 10vw;
-  height: 4vh;
-  margin: 1.5vw;
+  height: 2.5vw;
 
   &:hover {
     background-color: $basicThemeColor;

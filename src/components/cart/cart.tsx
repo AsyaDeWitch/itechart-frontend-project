@@ -2,12 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import "./cart.scss";
 import * as apiCart from "@/api/apiCart";
 import * as apiProfile from "@/api/apiProfile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TStore } from "@/redux/store";
 import Cart from "@/shared/types/cart";
 import CartItem from "@/shared/types/cartItem";
-import SmallButton from "../products/smallButton";
-import CartTableItem from "./cartTableItem";
+import { setCartData } from "@/redux/slices/cartSlice";
+import SmallButton from "../products/elements/smallButton";
+import CartTableItem from "./elements/cartTableItem";
 
 const nullItems: CartItem[] = [];
 const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };
@@ -15,10 +16,11 @@ const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };
 export default function Cart(): JSX.Element {
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const [userBalance, setUserBalance] = useState(0);
-  const [cart, setCart] = useState(nullCart);
   const [checkedItems, setCheckedItems] = useState(nullItems);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const dispatch = useDispatch();
+  const { cart } = useSelector((state: TStore) => state.reducer.cartReducer);
 
   const totalPrice = useMemo(
     () =>
@@ -32,9 +34,9 @@ export default function Cart(): JSX.Element {
   const getUserCart = async () => {
     try {
       const response = await apiCart.getProductsInCart(signInUser.id);
-      setCart(response.data);
+      dispatch(setCartData(response.data));
     } catch {
-      setCart(nullCart);
+      dispatch(setCartData(nullCart));
     }
   };
 
@@ -69,6 +71,7 @@ export default function Cart(): JSX.Element {
       try {
         await apiCart.removeProductsFromCart(signInUser.id, checkedItems);
         updateCart();
+        setCheckedItems([]);
       } catch {
         setErrorMessage("Something went wrong while removing products from cart");
       }
@@ -84,6 +87,7 @@ export default function Cart(): JSX.Element {
         try {
           await apiCart.buyProductsFromCart(signInUser.id, checkedItems, totalPrice);
           updateCart();
+          setCheckedItems([]);
           setSuccessMessage("Successfully bought products from cart");
         } catch {
           setErrorMessage("Something went wrong while buying products");
@@ -115,6 +119,7 @@ export default function Cart(): JSX.Element {
         newCheckedItems[index] = cartItem;
         setCheckedItems(newCheckedItems);
       }
+      updateCart();
     } catch {
       setErrorMessage("Something went wrong while changing product amount");
     }
