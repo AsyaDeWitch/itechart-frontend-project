@@ -23,7 +23,7 @@ export default function ConfirmationModal(props: {
   const [formErrors, setFormErrors] = useState("");
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const dispatch = useDispatch();
-
+  //
   const handleButtonYesClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     try {
       const response = await apiProducts.RemoveProduct(props.productId);

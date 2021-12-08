@@ -1,7 +1,7 @@
 import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
 import InputText from "@/elements/inputText/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useCallback } from "react";
 import RouteItems from "@/shared/routes/items/routeItems";
 import { useHistory } from "react-router-dom";
 import "../../../elements/modal.scss";
@@ -20,32 +20,41 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const validateForm = (): void => {
-    const { error } = joiLoggingSchema.validate({ userName, password, repeatPassword });
+  const memoizedValidateForm = useCallback((): void => {
+    const { error } = joiLoggingSchema.validate({
+      userName,
+      password,
+      repeatPassword,
+    });
     if (error !== undefined && error.message !== undefined) {
       setFormErrors(error.message as string);
     } else {
       setIsFormValid(true);
       setFormErrors("");
     }
-  };
+  }, [userName, password, repeatPassword]);
 
+  //
   const handleInputFocusChange = (): void => {
-    validateForm();
+    memoizedValidateForm();
   };
 
+  //
   const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setUserName(event.target.value);
   };
 
+  //
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
   };
 
+  //
   const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setRepeatPassword(event.target.value);
   };
 
+  //
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     if (isFormValid) {
       try {

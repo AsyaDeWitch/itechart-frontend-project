@@ -1,7 +1,7 @@
 import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
 import InputText from "@/elements/inputText/inputText";
 import * as apiProfile from "@/api/apiProfile";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useEffect } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useEffect, useCallback } from "react";
 import "../../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose/buttonClose";
 import { joiAddressSchema } from "@/helpers/formJoiSchema";
@@ -26,7 +26,7 @@ export default function DeliveryAddressChanger(props: {
   const [isFormValid, setIsFormValid] = useState(false);
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
-  const validateForm = (): void => {
+  const memoizedValidateForm = useCallback((): void => {
     const { error } = joiAddressSchema.validate({
       country,
       city,
@@ -43,7 +43,7 @@ export default function DeliveryAddressChanger(props: {
       setIsFormValid(true);
       setFormErrors("");
     }
-  };
+  }, [country, city, street, houseNumber, houseBuilding, entranceNumber, floorNumber, flatNumber]);
 
   useEffect(() => {
     setCountry(props.oldAddress.country);
@@ -56,37 +56,47 @@ export default function DeliveryAddressChanger(props: {
     setFlatNumber(props.oldAddress.flatNumber.toString());
   }, []);
 
+  //
   const handleInputFocusChange = (): void => {
-    validateForm();
+    memoizedValidateForm();
   };
 
+  //
   const handleCountryChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setCountry(event.target.value);
   };
 
+  //
   const handleCityChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setCity(event.target.value);
   };
 
+  //
   const handleStreetChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setStreet(event.target.value);
   };
+  //
   const handleHouseNumberChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setHouseNumber(event.target.value);
   };
+  //
   const handleHouseBuildingChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setHouseBuilding(event.target.value);
   };
+  //
   const handleEntranceNumberChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setEntranceNumber(event.target.value);
   };
+  //
   const handleFloorNumberChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setFloorNumber(event.target.value);
   };
+  //
   const handleFlatNumberChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setFlatNumber(event.target.value);
   };
 
+  //
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     if (isFormValid) {
       try {

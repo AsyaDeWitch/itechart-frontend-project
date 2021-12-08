@@ -1,6 +1,6 @@
 import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
 import InputText from "@/elements/inputText/inputText";
-import { useState, MouseEvent, MouseEventHandler, useEffect, useMemo, ChangeEvent } from "react";
+import { useState, MouseEvent, MouseEventHandler, useEffect, useMemo, ChangeEvent, useCallback } from "react";
 import "../../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose/buttonClose";
 import ProductItem from "@/shared/types/productItem";
@@ -46,7 +46,7 @@ export default function ProductModal(props: {
   const [isShownConfirmation, setIsShownConfirmation] = useState(false);
   const dispatch = useDispatch();
 
-  const validateForm = (): void => {
+  const memoizedValidateForm = useCallback((): void => {
     const { error } = joiProductShema.validate({
       name,
       price,
@@ -61,7 +61,7 @@ export default function ProductModal(props: {
       setIsFormValid(true);
       setFormErrors("");
     }
-  };
+  }, [name, price, dateCreated, totalRating, description, logo]);
 
   useEffect(() => {
     if (props.oldProduct !== null) {
@@ -79,10 +79,12 @@ export default function ProductModal(props: {
     }
   }, []);
 
+  //
   const handleInputFocusChange = (): void => {
-    validateForm();
+    memoizedValidateForm();
   };
 
+  //
   const handleSubmitButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     if (isFormValid) {
       if (isAddModal) {
@@ -135,8 +137,9 @@ export default function ProductModal(props: {
     }
   };
 
+  //
   const handleCheckedItemsUpdate = (categoryId: number, checked: boolean) => {
-    validateForm();
+    memoizedValidateForm();
     if (checked) {
       const newPlatforms = [...platforms, categoryId];
       setPlatforms(newPlatforms);
@@ -145,44 +148,55 @@ export default function ProductModal(props: {
     }
   };
 
+  //
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
+  //
   const handlePriceChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPrice(Number(event.target.value));
   };
 
+  //
   const handleLogoChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLogo(event.target.value);
   };
 
+  //
   const handleDateCreatedChange = (event: ChangeEvent<HTMLInputElement>) => {
     setDateCreated(event.target.value);
   };
 
+  //
   const handleTotalRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTotalRating(Number(event.target.value));
   };
 
+  //
   const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(event.target.value);
   };
+  //
   const handleGenreChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setGenre(event.target.value);
   };
+  //
   const handleAgeChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setAge(event.target.value);
   };
 
+  //
   const handleRemoveButtonCloseClick = () => {
     setIsShownConfirmation(false);
   };
 
+  //
   const handleButtonDeleteClick = () => {
     setIsShownConfirmation(true);
   };
 
+  //
   const handleButtonYesClick = (event: MouseEvent<HTMLButtonElement>): void => {
     setIsShownConfirmation(false);
     props.onButtonCloseClick(event);

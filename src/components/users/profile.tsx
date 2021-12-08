@@ -1,5 +1,5 @@
 import Modal from "@/elements/modal";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import * as apiProfile from "@/api/apiProfile";
 import { StatusCodes } from "http-status-codes";
 import "./profile.scss";
@@ -60,6 +60,7 @@ export default function Profile(): JSX.Element {
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   let fileInputRef: HTMLInputElement | null;
 
+  //
   async function getUserProfile() {
     try {
       const response = await apiProfile.getProfile(signInUser.id);
@@ -86,8 +87,14 @@ export default function Profile(): JSX.Element {
     getUserProfile();
   }, []);
 
-  const validateForm = (): void => {
-    const { error } = joiProfileSchema.validate({ userName, description, email, phoneNumber, balance });
+  const memoizedValidateForm = useCallback((): void => {
+    const { error } = joiProfileSchema.validate({
+      userName,
+      description,
+      email,
+      phoneNumber,
+      balance,
+    });
     if (error !== undefined && error.message !== undefined) {
       setFormErrors(error.message as string);
     } else {
@@ -95,43 +102,52 @@ export default function Profile(): JSX.Element {
       setFormErrors("");
     }
     setFormSuccess("");
-  };
+  }, [userName, description, email, phoneNumber, balance]);
 
+  //
   const handleInputFocusChange = (): void => {
-    validateForm();
+    memoizedValidateForm();
   };
 
+  //
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);
   };
 
+  //
   const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setPhoneNumber(event.target.value);
   };
 
+  //
   const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setDescription(event.target.value);
   };
 
+  //
   const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setUserName(event.target.value);
   };
 
+  //
   const handleBalanceChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setBalance(Number(event.target.value));
   };
 
+  //
   const handleChangePasswordButtonClick = () => {
     setIsShownPasswordChange(true);
   };
 
+  //
   const handlePasswordCloseButtonClick = () => {
     setIsShownPasswordChange(false);
     getUserProfile();
   };
 
+  //
   const handleSaveProfileButtonClick = async () => {
-    validateForm();
+    memoizedValidateForm();
     if (isFormValid) {
       try {
         const updatedUser: TProfile = {
@@ -166,15 +182,18 @@ export default function Profile(): JSX.Element {
     }
   };
 
+  //
   const handleSkipChangesButtonClick = () => {
     getUserProfile();
     setSelectedImage("");
   };
 
+  //
   const handleChangeAddressButtonClick = () => {
     setIsShownAddressChange(true);
   };
 
+  //
   const handleAddressCloseButtonClick = () => {
     setIsShownAddressChange(false);
     getUserProfile();
@@ -182,14 +201,15 @@ export default function Profile(): JSX.Element {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFileSelect = async (event: any) => {
-    validateForm();
+    memoizedValidateForm();
     setSelectedImage(event.target.value);
     setImage64(await fromFileToBase64(event.target.files[0]));
     setIsClearedImage(false);
   };
 
+  //
   const handleDeleteProfileImageButtonClick = () => {
-    validateForm();
+    memoizedValidateForm();
     setImage64(nullImgFile);
     setSelectedImage("");
     setIsClearedImage(true);

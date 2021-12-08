@@ -1,7 +1,7 @@
 import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
 import InputText from "@/elements/inputText/inputText";
 import * as apiProfile from "@/api/apiProfile";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useCallback } from "react";
 import "../../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose/buttonClose";
 import { joiPasswordSchema } from "@/helpers/formJoiSchema";
@@ -16,28 +16,35 @@ export default function PasswordChanger(props: { onChangePasswordButtonCloseClic
   const [isFormValid, setIsFormValid] = useState(false);
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
-  const validateForm = (): void => {
-    const { error } = joiPasswordSchema.validate({ password, repeatPassword });
+  const memoizedValidateForm = useCallback((): void => {
+    const { error } = joiPasswordSchema.validate({
+      password,
+      repeatPassword,
+    });
     if (error !== undefined && error.message !== undefined) {
       setFormErrors(error.message as string);
     } else {
       setIsFormValid(true);
       setFormErrors("");
     }
-  };
+  }, [password, repeatPassword]);
 
+  //
   const handleInputFocusChange = (): void => {
-    validateForm();
+    memoizedValidateForm();
   };
 
+  //
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
   };
 
+  //
   const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setRepeatPassword(event.target.value);
   };
 
+  //
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     if (isFormValid) {
       try {

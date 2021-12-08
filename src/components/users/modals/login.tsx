@@ -1,7 +1,7 @@
 import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
 import InputText from "@/elements/inputText/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useCallback } from "react";
 import "../../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose/buttonClose";
 import { joiLoggingSchema } from "@/helpers/formJoiSchema";
@@ -23,28 +23,35 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
   const [isFormValid, setIsFormValid] = useState(false);
   const dispatch = useDispatch();
 
-  const validateForm = (): void => {
-    const { error } = joiLoggingSchema.validate({ userName, password });
+  const memoizedValidateForm = useCallback((): void => {
+    const { error } = joiLoggingSchema.validate({
+      userName,
+      password,
+    });
     if (error !== undefined && error.message !== undefined) {
       setFormErrors(error.message as string);
     } else {
       setIsFormValid(true);
       setFormErrors("");
     }
-  };
+  }, [userName, password]);
 
+  //
   const handleInputFocusChange = (): void => {
-    validateForm();
+    memoizedValidateForm();
   };
 
+  //
   const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setUserName(event.target.value);
   };
 
+  //
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
   };
 
+  //
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     if (isFormValid) {
       try {

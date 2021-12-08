@@ -9,8 +9,9 @@ import imgRockstar from "images/companiesIcons/rockstar.png";
 import imgSega from "images/companiesIcons/sega.png";
 import imgSony from "images/companiesIcons/sony.png";
 import imgTencent from "images/companiesIcons/tencent.png";
+import { memo } from "react";
 
-export default function Footer(): JSX.Element {
+function Footer(): JSX.Element {
   return (
     <div>
       <footer className="footer">
@@ -72,3 +73,5 @@ export default function Footer(): JSX.Element {
     </div>
   );
 }
+
+export default memo(Footer);
