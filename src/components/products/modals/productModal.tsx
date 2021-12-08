@@ -108,28 +108,29 @@ export default function ProductModal(props: {
         } catch {
           setFormErrors("Something went wrong while adding card...");
         }
-      }
-      // edit card
-      try {
-        const product: ProductItem = {
-          id: props.oldProduct?.id || 0,
-          name,
-          platform: platforms,
-          dateCreated: new Date(dateCreated).toISOString(),
-          totalRating,
-          genre: genreId,
-          age: ageId,
-          logo,
-          price,
-          description,
-        };
-        const response = await apiProducts.EditProduct(product);
-        if (response.status === StatusCodes.OK) {
-          dispatch(setIsNeedToUpdate());
-          props.onButtonCloseClick(event);
+      } else {
+        // edit card
+        try {
+          const product: ProductItem = {
+            id: props.oldProduct?.id || 0,
+            name,
+            platform: platforms,
+            dateCreated: new Date(dateCreated).toISOString(),
+            totalRating,
+            genre: genreId,
+            age: ageId,
+            logo,
+            price,
+            description,
+          };
+          const response = await apiProducts.EditProduct(product);
+          if (response.status === StatusCodes.OK) {
+            dispatch(setIsNeedToUpdate());
+            props.onButtonCloseClick(event);
+          }
+        } catch (error) {
+          setFormErrors("Something went wrong while editing card...");
         }
-      } catch (error) {
-        setFormErrors("Something went wrong while editing card...");
       }
     }
   };

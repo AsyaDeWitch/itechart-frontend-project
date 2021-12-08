@@ -125,6 +125,7 @@ export default webpackMockServer.add((app) => {
   });
 
   app.delete("/api/product", (req, res) => {
+    console.log(req.query.id);
     JsonGames.splice(
       JsonGames.findIndex((game) => game.id === Number(req.query.id)),
       1
@@ -134,12 +135,14 @@ export default webpackMockServer.add((app) => {
       console.log("Game was deleted.");
     });
 
-    JsonCarts.forEach((cart) =>
-      cart.items.splice(
-        cart.items.findIndex((item) => item.productId === Number(req.query.id)),
-        1
-      )
-    );
+    JsonCarts.forEach((cart) => {
+      if (cart.items.findIndex((item) => item.productId === Number(req.query.id)) !== -1)
+        cart.items.splice(
+          cart.items.findIndex((item) => item.productId === Number(req.query.id)),
+          1
+        );
+    });
+
     fs.writeFile("./src/mockData/carts.json", JSON.stringify(JsonCarts, null, "\t"), (err) => {
       if (err) throw err;
     });

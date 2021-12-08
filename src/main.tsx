@@ -15,7 +15,11 @@ import Home from "./components/home/home";
 import Spinner from "./components/home/elements/spinner";
 
 const Games = lazy(() => import("./components/products/games"));
-const About = lazy(() => import("./components/about/about"));
+const About = lazy(async () => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return import("./components/about/about");
+});
+
 const Profile = lazy(() => import("./components/users/profile"));
 const Cart = lazy(() => import("./components/cart/cart"));
 
@@ -33,7 +37,13 @@ class AppContainer extends Component<Props> {
   render() {
     return (
       <ErrorBoundary history={this.props.history}>
-        <Suspense fallback={<Spinner />}>
+        <Suspense
+          fallback={
+            <div className="main-spinner">
+              <Spinner />
+            </div>
+          }
+        >
           <Router>
             <Header title={this.props.title} />
             <Switch>
