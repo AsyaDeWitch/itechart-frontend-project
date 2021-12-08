@@ -17,7 +17,6 @@ export default function CheckCategoryItem(props: {
   useEffect(() => {
     if (props.isChecked) {
       setChecked(true);
-      console.log("here");
     }
   }, [props.isChecked]);
 
@@ -30,7 +29,6 @@ export default function CheckCategoryItem(props: {
         id={`"input-checkbox"${props.categoryItem.name}`}
         className="category-checkbox"
         type="checkbox"
-        defaultChecked={checked}
         checked={checked}
         onChange={handleCheckboxChange}
       />

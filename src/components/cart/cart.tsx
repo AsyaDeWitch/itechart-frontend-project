@@ -7,8 +7,8 @@ import { TStore } from "@/redux/store";
 import Cart from "@/shared/types/cart";
 import CartItem from "@/shared/types/cartItem";
 import { setCartData } from "@/redux/slices/cartSlice";
-import SmallButton from "../products/elements/smallButton";
-import CartTableItem from "./elements/cartTableItem";
+import SmallButton from "../products/elements/smallButton/smallButton";
+import CartTableItem from "./elements/cartTableItem/cartTableItem";
 
 const nullItems: CartItem[] = [];
 const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };
@@ -40,6 +40,15 @@ export default function Cart(): JSX.Element {
     }
   }, [checkedItems, cart]);
 
+  const GetUserCart = async () => {
+    try {
+      const response = await apiCart.getProductsInCart(signInUser.id);
+      dispatch(setCartData(response.data));
+    } catch {
+      dispatch(setCartData(nullCart));
+    }
+  };
+
   const memoizedGetUserBalance = useCallback(async () => {
     try {
       const response = await apiProfile.getBalance(signInUser.id);
@@ -49,28 +58,47 @@ export default function Cart(): JSX.Element {
     }
   }, [checkedItems, cart]);
 
+  const GetUserBalance = async () => {
+    try {
+      const response = await apiProfile.getBalance(signInUser.id);
+      setUserBalance(response.data);
+    } catch {
+      setErrorMessage("Something went wrong while getting user balance");
+    }
+  };
+
   const memoizedUpdateCart = useCallback(() => {
-    memoizedGetUserCart();
-    memoizedGetUserBalance();
+    GetUserCart();
+    GetUserBalance();
   }, [checkedItems, cart]);
+
+  const UpdateCart = () => {
+    GetUserCart();
+    GetUserBalance();
+  };
 
   const memoizedClearMessages = useCallback(() => {
     setErrorMessage("");
     setSuccessMessage("");
   }, [checkedItems, cart]);
 
+  const ClearMessages = () => {
+    setErrorMessage("");
+    setSuccessMessage("");
+  };
+
   useEffect(() => {
-    memoizedUpdateCart();
+    UpdateCart();
     setCheckedItems([]);
-    memoizedClearMessages();
+    ClearMessages();
   }, []);
 
   const memoizedRemoveButtonClickHandler = useCallback(async () => {
-    memoizedClearMessages();
+    ClearMessages();
     if (checkedItems.length !== 0) {
       try {
         await apiCart.removeProductsFromCart(signInUser.id, checkedItems);
-        memoizedUpdateCart();
+        UpdateCart();
         setCheckedItems([]);
       } catch {
         setErrorMessage("Something went wrong while removing products from cart");
@@ -80,13 +108,28 @@ export default function Cart(): JSX.Element {
     }
   }, [checkedItems, cart]);
 
+  const RemoveButtonClickHandler = async () => {
+    ClearMessages();
+    if (checkedItems.length !== 0) {
+      try {
+        await apiCart.removeProductsFromCart(signInUser.id, checkedItems);
+        UpdateCart();
+        setCheckedItems([]);
+      } catch {
+        setErrorMessage("Something went wrong while removing products from cart");
+      }
+    } else {
+      setErrorMessage("Nothing to remove");
+    }
+  };
+
   const memoizedBuyButtonClickHandler = useCallback(async () => {
-    memoizedClearMessages();
+    ClearMessages();
     if (checkedItems.length !== 0) {
       if (userBalance >= totalPrice) {
         try {
           await apiCart.buyProductsFromCart(signInUser.id, checkedItems, totalPrice);
-          memoizedUpdateCart();
+          UpdateCart();
           setCheckedItems([]);
           setSuccessMessage("Successfully bought products from cart");
         } catch {
@@ -100,9 +143,29 @@ export default function Cart(): JSX.Element {
     }
   }, [checkedItems, cart]);
 
+  const BuyButtonClickHandler = async () => {
+    ClearMessages();
+    if (checkedItems.length !== 0) {
+      if (userBalance >= totalPrice) {
+        try {
+          await apiCart.buyProductsFromCart(signInUser.id, checkedItems, totalPrice);
+          UpdateCart();
+          setCheckedItems([]);
+          setSuccessMessage("Successfully bought products from cart");
+        } catch {
+          setErrorMessage("Something went wrong while buying products");
+        }
+      } else {
+        setErrorMessage("You haven't enough money to pay products from cart");
+      }
+    } else {
+      setErrorMessage("Nothing to buy");
+    }
+  };
+
   const memoizedProductCategoryChangeHandler = useCallback(
     async (cartItem: CartItem) => {
-      memoizedClearMessages();
+      ClearMessages();
       try {
         await apiCart.changeProductChoosedPlatformInCart(signInUser.id, cartItem.product, cartItem.choosedPlatform);
       } catch {
@@ -112,8 +175,16 @@ export default function Cart(): JSX.Element {
     [checkedItems, cart]
   );
 
-  const memoizedProductAmountChange = useCallback(async (cartItem: CartItem) => {
-    memoizedClearMessages();
+  const ProductCategoryChangeHandler = async (cartItem: CartItem) => {
+    ClearMessages();
+    try {
+      await apiCart.changeProductChoosedPlatformInCart(signInUser.id, cartItem.product, cartItem.choosedPlatform);
+    } catch {
+      setErrorMessage("Something went wrong while changing product amount");
+    }
+  };
+  const memoizedProductAmountChangeHandler = useCallback(async (cartItem: CartItem) => {
+    ClearMessages();
     try {
       await apiCart.changeProductQuantityInCart(signInUser.id, cartItem.product, cartItem.amount);
       const index = checkedItems.findIndex((item) => item.id === cartItem.id);
@@ -122,15 +193,31 @@ export default function Cart(): JSX.Element {
         newCheckedItems[index] = cartItem;
         setCheckedItems(newCheckedItems);
       }
-      memoizedUpdateCart();
+      UpdateCart();
     } catch {
       setErrorMessage("Something went wrong while changing product amount");
     }
   }, []);
 
-  const memoizedCheckedItemsUpdate = useCallback(
+  const ProductAmountChange = async (cartItem: CartItem) => {
+    ClearMessages();
+    try {
+      await apiCart.changeProductQuantityInCart(signInUser.id, cartItem.product, cartItem.amount);
+      const index = checkedItems.findIndex((item) => item.id === cartItem.id);
+      if (index >= 0) {
+        const newCheckedItems = [...checkedItems];
+        newCheckedItems[index] = cartItem;
+        setCheckedItems(newCheckedItems);
+      }
+      UpdateCart();
+    } catch {
+      setErrorMessage("Something went wrong while changing product amount");
+    }
+  };
+
+  const memoizedCheckedItemsUpdateHandler = useCallback(
     (cartItem: CartItem, checked: boolean) => {
-      memoizedClearMessages();
+      ClearMessages();
       if (checked) {
         console.log(checkedItems);
         const newCheckedItems = [...checkedItems, cartItem];
@@ -146,7 +233,7 @@ export default function Cart(): JSX.Element {
   );
 
   const CheckedItemsUpdate = (cartItem: CartItem, checked: boolean) => {
-    memoizedClearMessages();
+    ClearMessages();
     if (checked) {
       console.log(checkedItems);
       const newCheckedItems = [...checkedItems, cartItem];
@@ -192,16 +279,16 @@ export default function Cart(): JSX.Element {
                 {cart.items.map((item) => (
                   <CartTableItem
                     key={item.id}
-                    onProductCategoryChange={memoizedProductCategoryChangeHandler}
-                    onProductAmountChange={memoizedProductAmountChange}
-                    onCheckedItemsUpdate={memoizedCheckedItemsUpdate}
+                    onProductCategoryChange={ProductCategoryChangeHandler}
+                    onProductAmountChange={ProductAmountChange}
+                    onCheckedItemsUpdate={CheckedItemsUpdate}
                     cartItem={item}
                   />
                 ))}
               </tbody>
             </table>
             <div className="cart__remove-button">
-              <SmallButton onClick={memoizedRemoveButtonClickHandler} buttonText="Remove" />
+              <SmallButton onClick={RemoveButtonClickHandler} buttonText="Remove" />
             </div>
           </div>
           <hr />
@@ -209,7 +296,7 @@ export default function Cart(): JSX.Element {
             <p className="cart__balance-part__cost">{`Games cost:  ${totalPrice}$`}</p>
             <p className="cart__balance-part__balance">{`Your balance:  ${userBalance}$`}</p>
             <div className="cart__balance-part__buy-button">
-              <SmallButton onClick={memoizedBuyButtonClickHandler} buttonText="Buy" />
+              <SmallButton onClick={BuyButtonClickHandler} buttonText="Buy" />
             </div>
           </div>
         </>

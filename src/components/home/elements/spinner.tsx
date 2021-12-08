@@ -1,9 +1,12 @@
+import { memo } from "react";
 import "./spinner.scss";
 
-export default function Spinner(): JSX.Element {
+function Spinner(): JSX.Element {
   return (
     <>
       <div className="spinner" />
     </>
   );
 }
+
+export default memo(Spinner);

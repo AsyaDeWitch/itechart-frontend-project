@@ -1,9 +1,9 @@
-import ButtonSubmit from "@/elements/buttonSubmit";
-import InputText from "@/elements/inputText";
+import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
+import InputText from "@/elements/inputText/inputText";
 import * as apiProfile from "@/api/apiProfile";
 import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
 import "../../../elements/modal.scss";
-import ButtonClose from "@/elements/buttonClose";
+import ButtonClose from "@/elements/buttonClose/buttonClose";
 import { joiPasswordSchema } from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
 import { useSelector } from "react-redux";

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TStore } from "@/redux/store";
 import TProfile from "@/shared/types/profile";
 import Address from "@/shared/types/address";
-import ButtonUniversal from "@/elements/buttonUniversal";
+import ButtonUniversal from "@/elements/buttonUniversal/buttonUniversal";
 import fromFileToBase64 from "@/helpers/base64FileConverter";
 import { joiProfileSchema } from "@/helpers/formJoiSchema";
 import { setSignInData } from "@/redux/slices/loggingSlice";
@@ -15,9 +15,9 @@ import User from "@/shared/types/user";
 import nullImgFile from "images/profile/no-profile-photo.png";
 import PasswordChanger from "./modals/passwordChanger";
 import DeliveryAddressChanger from "./modals/deliveryAddressChanger";
-import ImageProfile from "./elements/imageProfile";
-import InputProfileText from "./elements/inputProfileText";
-import TextareaProfileDescription from "./elements/textareaProfileDescription";
+import ImageProfile from "./elements/imageProfile/imageProfile";
+import InputProfileText from "./elements/inputProfileText/inputProfileText";
+import TextareaProfileDescription from "./elements/textareaProfileDescription/textareaProfileDescription";
 
 const nullAddress: Address = {
   country: "",

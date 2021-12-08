@@ -1,4 +1,4 @@
-import ButtonClose from "@/elements/buttonClose";
+import ButtonClose from "@/elements/buttonClose/buttonClose";
 import { StatusCodes } from "http-status-codes";
 import { MouseEventHandler, MouseEvent, useState } from "react";
 import * as apiProducts from "@/api/apiProducts";
@@ -9,7 +9,7 @@ import Cart from "@/shared/types/cart";
 import { setCartData } from "@/redux/slices/cartSlice";
 import * as apiCart from "@/api/apiCart";
 import { TStore } from "@/redux/store";
-import AnswerButton from "../elements/answerButton";
+import AnswerButton from "../elements/answerButton/answerButton";
 
 const nullItems: CartItem[] = [];
 const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };

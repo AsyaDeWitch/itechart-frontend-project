@@ -1,5 +1,5 @@
 import ProductItem from "@/shared/types/productItem";
-import GameCardsContainer from "../cards/gameCardsContainer";
+import GameCardsContainer from "../../cards/gameCardsContainer";
 import "./productsPanel.scss";
 
 export default function ProductsPanel(props: { productItems: ProductItem[] }): JSX.Element {

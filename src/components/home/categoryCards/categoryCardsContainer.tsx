@@ -1,10 +1,11 @@
 import Categories from "@/shared/categories/gameCategories";
 import categoryImages from "@/shared/categories/categoryImages";
 import CategoryItem from "@/shared/categories/categoryItem";
+import { memo } from "react";
 import CategoryCard from "./categoryCard";
 import "./categoryCardsContainer.scss";
 
-export default function CategoryCardsContainer(): JSX.Element {
+function CategoryCardsContainer(): JSX.Element {
   return (
     <>
       <ul className="category__cards-container">
@@ -17,3 +18,5 @@ export default function CategoryCardsContainer(): JSX.Element {
     </>
   );
 }
+
+export default memo(CategoryCardsContainer);

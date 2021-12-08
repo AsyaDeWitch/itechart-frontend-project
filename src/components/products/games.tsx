@@ -3,16 +3,16 @@ import { Redirect, useParams } from "react-router-dom";
 import Categories from "@/shared/categories/gameCategories";
 import "./games.scss";
 import { ChangeEvent, useState, MouseEvent } from "react";
-import SearchBar from "@/components/home/elements/searchBar";
+import SearchBar from "@/components/home/elements/searchBar/searchBar";
 import useSearchSuspense from "@/hooks/useSearchSuspense";
 import debounce from "lodash/debounce";
 import { useSelector } from "react-redux";
 import { TStore } from "@/redux/store";
 import Modal from "@/elements/modal";
-import SortPanel from "./panels/sortPanel";
-import GenresPanel from "./panels/genresPanel";
-import AgePanel from "./panels/agePanel";
-import CreateCardButton from "./elements/createCardButton";
+import SortPanel from "./panels/sortPanel/sortPanel";
+import GenresPanel from "./panels/filterPanel/genresPanel";
+import AgePanel from "./panels/filterPanel/agePanel";
+import CreateCardButton from "./elements/createCardButton/createCardButton";
 import ProductModal from "./modals/productModal";
 
 type Params = {

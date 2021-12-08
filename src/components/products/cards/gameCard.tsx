@@ -3,8 +3,8 @@ import ProductItem from "@/shared/types/productItem";
 import { useDispatch, useSelector } from "react-redux";
 import "./gameCard.scss";
 import * as apiCart from "@/api/apiCart";
-import SmallButton from "@/components/products/elements/smallButton";
-import { useState } from "react";
+import SmallButton from "@/components/products/elements/smallButton/smallButton";
+import { memo, useState } from "react";
 import Modal from "@/elements/modal";
 import { setCartData } from "@/redux/slices/cartSlice";
 import CartItem from "@/shared/types/cartItem";
@@ -15,12 +15,12 @@ import ProductModal from "../modals/productModal";
 const nullItems: CartItem[] = [];
 const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };
 
-export default function GameCard(props: { productItem: ProductItem; image: string }): JSX.Element {
+function GameCard(props: { productItem: ProductItem; image: string }): JSX.Element {
   const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const [isShownConfirmation, setIsShownConfirmation] = useState(false);
   const [isShownProductModal, setIsShownProductModal] = useState(false);
   const dispatch = useDispatch();
-
+  //
   const handleAddToCartButtonClick = async () => {
     try {
       await apiCart.addProductToCart(signInUser.id, props.productItem, props.productItem.platform[0]);
@@ -35,19 +35,19 @@ export default function GameCard(props: { productItem: ProductItem; image: strin
       alert("Something went wrong");
     }
   };
-
+  //
   const handleEditButtonClick = () => {
     setIsShownProductModal(true);
   };
-
+  //
   const handleEditButtonCloseClick = () => {
     setIsShownProductModal(false);
   };
-
+  //
   const handleRemoveButtonClick = () => {
     setIsShownConfirmation(true);
   };
-
+  //
   const handleRemoveButtonCloseClick = () => {
     setIsShownConfirmation(false);
   };
@@ -105,3 +105,5 @@ export default function GameCard(props: { productItem: ProductItem; image: strin
     </>
   );
 }
+
+export default memo(GameCard);

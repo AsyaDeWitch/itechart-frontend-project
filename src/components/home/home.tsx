@@ -3,7 +3,7 @@ import * as apiProducts from "@/api/apiProducts";
 import debounce from "lodash/debounce";
 import { AxiosResponse } from "axios";
 import GameCardsContainer from "@/components/products/cards/gameCardsContainer";
-import SearchBar from "./elements/searchBar";
+import SearchBar from "./elements/searchBar/searchBar";
 import Spinner from "./elements/spinner";
 import "./home.scss";
 import CategoryCardsContainer from "./categoryCards/categoryCardsContainer";
@@ -40,10 +40,12 @@ export default class Home extends PureComponent<Props, State> {
     }
   }
 
+  //
   handleFoundGamesClear = (): void => {
     this.setState({ foundGames: [] });
   };
 
+  //
   handleFoundGamesChange = (data: AxiosResponse["data"]): void => {
     this.setState({ foundGames: data });
   };
@@ -53,6 +55,7 @@ export default class Home extends PureComponent<Props, State> {
     this.setState({ isLoading: false });
   }, 1000);
 
+  //
   handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     this.setState({ isLoading: true });
     this.handleDebouncedSearchChange(event);

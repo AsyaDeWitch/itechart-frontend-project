@@ -20,24 +20,24 @@ export default function Navbar(props: { title: string }): JSX.Element {
   const dispatch = useDispatch();
   const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const { cartItemsQuantity } = useSelector((state: TStore) => state.reducer.cartReducer);
-
+  //
   const handleLogoutButtonClick = () => {
     dispatch(setSignOutData());
     history.push(RouteItems.Home.url);
   };
-
+  //
   const handleSignInButtonClick = () => {
     setIsShownSingIn(true);
   };
-
+  //
   const handleSignUpButtonClick = () => {
     setIsShownSignUp(true);
   };
-
+  //
   const handleSignInButtonCloseClick = () => {
     setIsShownSingIn(false);
   };
-
+  //
   const handleSignUpButtonCloseClick = () => {
     setIsShownSignUp(false);
   };
