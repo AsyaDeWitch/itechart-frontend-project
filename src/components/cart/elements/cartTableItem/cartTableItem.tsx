@@ -24,15 +24,8 @@ function CartTableItem(props: {
       updatedCartItem.amount = Number(event.target.value);
       props.onProductAmountChange(updatedCartItem);
     },
-    [amount]
+    [amount, checked]
   );
-
-  const AmountInputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setAmount(Number(event.target.value));
-    const updatedCartItem = { ...props.cartItem };
-    updatedCartItem.amount = Number(event.target.value);
-    props.onProductAmountChange(updatedCartItem);
-  };
 
   const memoizedCategoryChangeHandler = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
@@ -65,11 +58,15 @@ function CartTableItem(props: {
     <tr className="tableItem__bottom-line">
       <td className="tableItem__name">{props.cartItem.product.name}</td>
       <td className="tableItem__platform">
-        <PlatformSelect onChange={CategoryChangeHandler} value={platform} platforms={props.cartItem.product.platform} />
+        <PlatformSelect
+          onChange={memoizedCategoryChangeHandler}
+          value={platform}
+          platforms={props.cartItem.product.platform}
+        />
       </td>
       <td className="tableItem__date">{props.cartItem.date}</td>
       <td className="tableItem__amount">
-        <AmountInput onChange={AmountInputChangeHandler} value={amount} />
+        <AmountInput onChange={memoizedAmountInputChangeHandler} value={amount} />
       </td>
       <td className="tableItem__price">
         {Math.round(props.cartItem.product.price * props.cartItem.amount * 100) / 100}

@@ -7,7 +7,7 @@
 				"id": 2,
 				"productId": 8,
 				"date": "12/1/2021",
-				"amount": 4,
+				"amount": 7,
 				"choosedPlatform": 2
 			},
 			{
@@ -23,6 +23,13 @@
 				"date": "12/3/2021",
 				"amount": 1,
 				"choosedPlatform": 2
+			},
+			{
+				"id": 5,
+				"productId": 6,
+				"date": "12/8/2021",
+				"amount": 1,
+				"choosedPlatform": 3
 			}
 		]
 	}

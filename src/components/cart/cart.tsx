@@ -168,6 +168,7 @@ export default function Cart(): JSX.Element {
       ClearMessages();
       try {
         await apiCart.changeProductChoosedPlatformInCart(signInUser.id, cartItem.product, cartItem.choosedPlatform);
+        UpdateCart();
       } catch {
         setErrorMessage("Something went wrong while changing product amount");
       }
@@ -179,6 +180,7 @@ export default function Cart(): JSX.Element {
     ClearMessages();
     try {
       await apiCart.changeProductChoosedPlatformInCart(signInUser.id, cartItem.product, cartItem.choosedPlatform);
+      UpdateCart();
     } catch {
       setErrorMessage("Something went wrong while changing product amount");
     }
@@ -219,13 +221,9 @@ export default function Cart(): JSX.Element {
     (cartItem: CartItem, checked: boolean) => {
       ClearMessages();
       if (checked) {
-        console.log(checkedItems);
         const newCheckedItems = [...checkedItems, cartItem];
-        console.log(checkedItems);
-        console.log(newCheckedItems);
         setCheckedItems(newCheckedItems);
       } else {
-        console.log(checkedItems.filter((item) => item.id !== cartItem.id));
         setCheckedItems(checkedItems.filter((item) => item.id !== cartItem.id));
       }
     },
@@ -235,13 +233,9 @@ export default function Cart(): JSX.Element {
   const CheckedItemsUpdate = (cartItem: CartItem, checked: boolean) => {
     ClearMessages();
     if (checked) {
-      console.log(checkedItems);
       const newCheckedItems = [...checkedItems, cartItem];
-      console.log(checkedItems);
-      console.log(newCheckedItems);
       setCheckedItems(newCheckedItems);
     } else {
-      console.log(checkedItems.filter((item) => item.id !== cartItem.id));
       setCheckedItems(checkedItems.filter((item) => item.id !== cartItem.id));
     }
   };
