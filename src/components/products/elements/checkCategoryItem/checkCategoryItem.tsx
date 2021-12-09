@@ -1,14 +1,15 @@
 import CategoryItem from "@/shared/categories/categoryItem";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import "./checkCategoryItem.scss";
 
-export default function CheckCategoryItem(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedCheckCategoryItem = memo(function CheckCategoryItem(props: {
   onCheckedItemsUpdate: (categoryId: number, checked: boolean) => void;
   categoryItem: CategoryItem;
   isChecked: boolean;
 }): JSX.Element {
   const [checked, setChecked] = useState(props.isChecked);
-
+  //
   const handleCheckboxChange = () => {
     setChecked(!checked);
     props.onCheckedItemsUpdate(props.categoryItem.id, !checked);
@@ -34,4 +35,6 @@ export default function CheckCategoryItem(props: {
       />
     </li>
   );
-}
+});
+
+export default MemoizedCheckCategoryItem;

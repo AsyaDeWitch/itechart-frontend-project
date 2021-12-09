@@ -1,9 +1,10 @@
 import Genres from "@/mockData/genres.json";
 import GenreItem from "@/shared/games/genreItem";
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, memo } from "react";
 import "./filterPanel.scss";
 
-export default function GenresPanel(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedGenresPanel = memo(function GenresPanel(props: {
   value: string;
   OnChange: ChangeEventHandler<HTMLInputElement>;
 }): JSX.Element {
@@ -35,4 +36,6 @@ export default function GenresPanel(props: {
       </div>
     </>
   );
-}
+});
+
+export default MemoizedGenresPanel;

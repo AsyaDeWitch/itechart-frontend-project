@@ -5,7 +5,8 @@ import PlatformSelect from "../platformSelect/platformSelect";
 import AmountInput from "../amountInput/amountInput";
 import "./cartTableItem.scss";
 
-function CartTableItem(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedCartTableItem = memo(function CartTableItem(props: {
   onProductCategoryChange: (cartItem: CartItem) => void;
   onProductAmountChange: (cartItem: CartItem) => void;
   onCheckedItemsUpdate: (cartItem: CartItem, checked: boolean) => void;
@@ -76,6 +77,6 @@ function CartTableItem(props: {
       </td>
     </tr>
   );
-}
+});
 
-export default memo(CartTableItem);
+export default MemoizedCartTableItem;

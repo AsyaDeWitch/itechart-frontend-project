@@ -1,7 +1,8 @@
-import { ChangeEventHandler, FocusEventHandler } from "react";
+import { ChangeEventHandler, FocusEventHandler, memo } from "react";
 import "./textareaProfileDescription.scss";
 
-export default function TextareaProfileDescription(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedTextareaProfileDescription = memo(function TextareaProfileDescription(props: {
   onChange: ChangeEventHandler;
   placeholder: string;
   label: string;
@@ -25,4 +26,6 @@ export default function TextareaProfileDescription(props: {
       />
     </>
   );
-}
+});
+
+export default MemoizedTextareaProfileDescription;

@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import "./dropdown.scss";
 import Categories from "@/shared/categories/gameCategories";
 import CategoryItem from "@/shared/categories/categoryItem";
+import { memo } from "react";
 
-export default function Dropdown(): JSX.Element {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedDropdown = memo(function Dropdown(): JSX.Element {
   return (
     <div className="dropdown__content">
       {Categories.map((item: CategoryItem) => (
@@ -14,4 +16,6 @@ export default function Dropdown(): JSX.Element {
       ))}
     </div>
   );
-}
+});
+
+export default MemoizedDropdown;

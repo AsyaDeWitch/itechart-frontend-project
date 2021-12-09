@@ -1,7 +1,8 @@
-import { ChangeEventHandler, KeyboardEvent } from "react";
+import { ChangeEventHandler, KeyboardEvent, memo } from "react";
 import "./amountInput.scss";
 
-export default function AmountInput(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedAmountInput = memo(function AmountInput(props: {
   onChange: ChangeEventHandler<HTMLInputElement>;
   value: number;
 }): JSX.Element {
@@ -19,4 +20,6 @@ export default function AmountInput(props: {
       onKeyDown={handleKeyDown}
     />
   );
-}
+});
+
+export default MemoizedAmountInput;

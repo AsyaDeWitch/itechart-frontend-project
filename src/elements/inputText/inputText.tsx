@@ -1,7 +1,8 @@
-import { ChangeEventHandler, FocusEventHandler } from "react";
+import { ChangeEventHandler, FocusEventHandler, memo } from "react";
 import "./inputText.scss";
 
-export default function InputText(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedInputText = memo(function InputText(props: {
   onChange: ChangeEventHandler;
   type: string;
   placeholder: string;
@@ -27,4 +28,6 @@ export default function InputText(props: {
       />
     </>
   );
-}
+});
+
+export default MemoizedInputText;

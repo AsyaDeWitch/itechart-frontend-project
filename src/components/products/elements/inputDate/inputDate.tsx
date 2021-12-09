@@ -1,7 +1,8 @@
-import { ChangeEventHandler, FocusEventHandler } from "react";
+import { ChangeEventHandler, FocusEventHandler, memo } from "react";
 import "./inputDate.scss";
 
-export default function InputDate(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedInputDate = memo(function InputDate(props: {
   onChange: ChangeEventHandler<HTMLInputElement>;
   value: string;
   label: string;
@@ -24,4 +25,6 @@ export default function InputDate(props: {
       />
     </>
   );
-}
+});
+
+export default MemoizedInputDate;

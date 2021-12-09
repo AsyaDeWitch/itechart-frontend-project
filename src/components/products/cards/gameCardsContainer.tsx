@@ -1,8 +1,12 @@
 import ProductItem from "@/shared/types/productItem";
+import { memo } from "react";
 import GameCard from "./gameCard";
 import "./gameCardContainer.scss";
 
-export default function GameCardsContainer(props: { productItems: ProductItem[] }): JSX.Element {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedGameCardsContainer = memo(function GameCardsContainer(props: {
+  productItems: ProductItem[];
+}): JSX.Element {
   return (
     <>
       <ul className="game__cards-container">
@@ -16,4 +20,6 @@ export default function GameCardsContainer(props: { productItems: ProductItem[] 
       </ul>
     </>
   );
-}
+});
+
+export default MemoizedGameCardsContainer;

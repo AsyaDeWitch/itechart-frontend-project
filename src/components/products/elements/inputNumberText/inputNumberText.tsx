@@ -1,7 +1,8 @@
-import { ChangeEventHandler, FocusEventHandler } from "react";
+import { ChangeEventHandler, FocusEventHandler, memo } from "react";
 import "./inputNumberText.scss";
 
-export default function InputNumberText(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedInputNumberText = memo(function InputNumberText(props: {
   onChange: ChangeEventHandler<HTMLInputElement>;
   value: number;
   label: string;
@@ -25,4 +26,6 @@ export default function InputNumberText(props: {
       />
     </>
   );
-}
+});
+
+export default MemoizedInputNumberText;

@@ -1,7 +1,7 @@
 import ProductItem from "@/shared/types/productItem";
 import { useEffect, useState } from "react";
 import * as apiProducts from "@/api/apiProducts";
-import Spinner from "@/components/home/elements/spinner";
+import Spinner from "@/components/home/elements/spinner/spinner";
 import ProductsPanel from "@/components/products/panels/productsPanel/productsPanel";
 import { TStore } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";

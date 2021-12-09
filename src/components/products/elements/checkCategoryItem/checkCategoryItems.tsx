@@ -1,8 +1,10 @@
 import CategoryItem from "@/shared/categories/categoryItem";
 import Categories from "@/shared/categories/gameCategories";
+import { memo } from "react";
 import CheckCategoryItem from "./checkCategoryItem";
 
-export default function CheckCategoryItems(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedCheckCategoryItems = memo(function CheckCategoryItems(props: {
   onCheckedItemsUpdate: (categoryId: number, checked: boolean) => void;
   label: string;
   checkedPlatforms: number[];
@@ -25,4 +27,6 @@ export default function CheckCategoryItems(props: {
       </div>
     </>
   );
-}
+});
+
+export default MemoizedCheckCategoryItems;

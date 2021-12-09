@@ -1,6 +1,8 @@
+import { memo } from "react";
 import "./imageProfile.scss";
 
-export default function ImageProfile(props: { image64: string }): JSX.Element {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedImageProfile = memo(function ImageProfile(props: { image64: string }): JSX.Element {
   return (
     <div className="image-profile__container">
       <div className="image-profile">
@@ -8,4 +10,6 @@ export default function ImageProfile(props: { image64: string }): JSX.Element {
       </div>
     </div>
   );
-}
+});
+
+export default MemoizedImageProfile;

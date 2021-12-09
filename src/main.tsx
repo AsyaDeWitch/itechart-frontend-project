@@ -12,7 +12,7 @@ import RouteItems from "./shared/routes/items/routeItems";
 import ErrorBoundary from "./shared/errorBoundary";
 import ProtectedRoute from "./shared/routes/protectedRoute";
 import Home from "./components/home/home";
-import Spinner from "./components/home/elements/spinner";
+import Spinner from "./components/home/elements/spinner/spinner";
 
 const Games = lazy(() => import("./components/products/games"));
 const About = lazy(async () => {

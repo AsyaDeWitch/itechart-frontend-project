@@ -1,7 +1,8 @@
-import { MouseEventHandler } from "react";
+import { memo, MouseEventHandler } from "react";
 import "./buttonUniversal.scss";
 
-export default function ButtonUniversal(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedButtonUniversal = memo(function ButtonUniversal(props: {
   onClick: MouseEventHandler<HTMLButtonElement>;
   buttonText: string;
 }): JSX.Element {
@@ -10,4 +11,6 @@ export default function ButtonUniversal(props: {
       {props.buttonText}
     </button>
   );
-}
+});
+
+export default MemoizedButtonUniversal;

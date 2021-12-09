@@ -1,8 +1,9 @@
 import Categories from "@/shared/categories/gameCategories";
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, memo } from "react";
 import "./platformSelect.scss";
 
-export default function PlatformSelect(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedPlatformSelect = memo(function PlatformSelect(props: {
   onChange: ChangeEventHandler<HTMLSelectElement>;
   value: string;
   platforms: number[];
@@ -19,4 +20,6 @@ export default function PlatformSelect(props: {
       ))}
     </select>
   );
-}
+});
+
+export default MemoizedPlatformSelect;

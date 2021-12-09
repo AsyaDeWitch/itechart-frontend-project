@@ -5,7 +5,8 @@ import { memo } from "react";
 import CategoryCard from "./categoryCard";
 import "./categoryCardsContainer.scss";
 
-function CategoryCardsContainer(): JSX.Element {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedCategoryCardsContainer = memo(function CategoryCardsContainer(): JSX.Element {
   return (
     <>
       <ul className="category__cards-container">
@@ -17,6 +18,6 @@ function CategoryCardsContainer(): JSX.Element {
       </ul>
     </>
   );
-}
+});
 
-export default memo(CategoryCardsContainer);
+export default MemoizedCategoryCardsContainer;

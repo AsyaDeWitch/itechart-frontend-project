@@ -1,11 +1,12 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, memo } from "react";
 import Criterias from "@/mockData/criterias.json";
 import SortTypes from "@/mockData/sortTypes.json";
 import CriteriaItem from "@/shared/games/criteriaItem";
 import "./sortPanel.scss";
 import TypeItem from "@/shared/games/typeItem";
 
-export default function SortPanel(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedSortPanel = memo(function SortPanel(props: {
   criteriaValue: string;
   typeValue: string;
   OnCriteriaChange: ChangeEventHandler<HTMLSelectElement>;
@@ -53,4 +54,6 @@ export default function SortPanel(props: {
       </div>
     </>
   );
-}
+});
+
+export default MemoizedSortPanel;

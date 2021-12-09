@@ -1,7 +1,8 @@
-import { MouseEventHandler } from "react";
+import { memo, MouseEventHandler } from "react";
 import "./createCardButton.scss";
 
-export default function CreateProductButton(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedCreateProductButton = memo(function CreateProductButton(props: {
   onClick: MouseEventHandler<HTMLButtonElement>;
   buttonText: string;
 }): JSX.Element {
@@ -10,4 +11,6 @@ export default function CreateProductButton(props: {
       {props.buttonText}
     </button>
   );
-}
+});
+
+export default MemoizedCreateProductButton;

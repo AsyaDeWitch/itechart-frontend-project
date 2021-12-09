@@ -1,7 +1,8 @@
-import { ChangeEventHandler, FocusEventHandler } from "react";
+import { ChangeEventHandler, FocusEventHandler, memo } from "react";
 import "./descriptionTextArea.scss";
 
-export default function DescriptionTextArea(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedDescriptionTextArea = memo(function DescriptionTextArea(props: {
   onChange: ChangeEventHandler;
   placeholder: string;
   label: string;
@@ -25,4 +26,6 @@ export default function DescriptionTextArea(props: {
       />
     </>
   );
-}
+});
+
+export default MemoizedDescriptionTextArea;

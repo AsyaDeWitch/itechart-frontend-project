@@ -1,8 +1,9 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, memo } from "react";
 import Ages from "@/mockData/ages.json";
 import "./ageSelect.scss";
 
-export default function AgeSelect(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedAgeSelect = memo(function AgeSelect(props: {
   onChange: ChangeEventHandler<HTMLSelectElement>;
   value: string;
   label: string;
@@ -21,4 +22,6 @@ export default function AgeSelect(props: {
       </select>
     </>
   );
-}
+});
+
+export default MemoizedAgeSelect;

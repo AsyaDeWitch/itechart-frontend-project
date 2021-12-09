@@ -1,6 +1,7 @@
-import { MouseEventHandler } from "react";
+import { memo, MouseEventHandler } from "react";
 
-export default function ProductModalButton(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedProductModalButton = memo(function ProductModalButton(props: {
   onClick: MouseEventHandler<HTMLButtonElement>;
   buttonText: string;
 }): JSX.Element {
@@ -9,4 +10,6 @@ export default function ProductModalButton(props: {
       {props.buttonText}
     </button>
   );
-}
+});
+
+export default MemoizedProductModalButton;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../header.scss";
 import RouteItems from "@/shared/routes/items/routeItems";
@@ -13,7 +13,8 @@ import Login from "@/components/users/modals/login";
 import Registration from "@/components/users/modals/registration";
 import Dropdown from "./dropdown";
 
-export default function Navbar(props: { title: string }): JSX.Element {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedNavbar = memo(function Navbar(props: { title: string }): JSX.Element {
   const [isShownSingIn, setIsShownSingIn] = useState(false);
   const [isShownSignUp, setIsShownSignUp] = useState(false);
   const history = useHistory();
@@ -109,4 +110,6 @@ export default function Navbar(props: { title: string }): JSX.Element {
       ) : null}
     </nav>
   );
-}
+});
+
+export default MemoizedNavbar;

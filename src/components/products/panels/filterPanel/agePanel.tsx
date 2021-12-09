@@ -1,9 +1,10 @@
 import Ages from "@/mockData/ages.json";
 import AgeItem from "@/shared/games/ageItem";
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, memo } from "react";
 import "./filterPanel.scss";
 
-export default function AgePanel(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedAgePanel = memo(function AgePanel(props: {
   value: string;
   OnChange: ChangeEventHandler<HTMLInputElement>;
 }): JSX.Element {
@@ -35,4 +36,6 @@ export default function AgePanel(props: {
       </div>
     </>
   );
-}
+});
+
+export default MemoizedAgePanel;

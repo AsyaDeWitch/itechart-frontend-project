@@ -15,7 +15,8 @@ import ProductModal from "../modals/productModal";
 const nullItems: CartItem[] = [];
 const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };
 
-function GameCard(props: { productItem: ProductItem; image: string }): JSX.Element {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedGameCard = memo(function GameCard(props: { productItem: ProductItem; image: string }): JSX.Element {
   const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const [isShownConfirmation, setIsShownConfirmation] = useState(false);
   const [isShownProductModal, setIsShownProductModal] = useState(false);
@@ -104,6 +105,6 @@ function GameCard(props: { productItem: ProductItem; image: string }): JSX.Eleme
       ) : null}
     </>
   );
-}
+});
 
-export default memo(GameCard);
+export default MemoizedGameCard;

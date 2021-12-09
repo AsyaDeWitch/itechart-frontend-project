@@ -1,8 +1,10 @@
 import ProductItem from "@/shared/types/productItem";
+import { memo } from "react";
 import GameCardsContainer from "../../cards/gameCardsContainer";
 import "./productsPanel.scss";
 
-export default function ProductsPanel(props: { productItems: ProductItem[] }): JSX.Element {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedProductsPanel = memo(function ProductsPanel(props: { productItems: ProductItem[] }): JSX.Element {
   return (
     <div className="productsPanel">
       Products
@@ -14,4 +16,6 @@ export default function ProductsPanel(props: { productItems: ProductItem[] }): J
       )}
     </div>
   );
-}
+});
+
+export default MemoizedProductsPanel;

@@ -1,8 +1,9 @@
 import Genres from "@/mockData/genres.json";
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, memo } from "react";
 import "./genreSelect.scss";
 
-export default function GenreSelect(props: {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoizedGenreSelect = memo(function GenreSelect(props: {
   onChange: ChangeEventHandler<HTMLSelectElement>;
   value: string;
   label: string;
@@ -21,4 +22,6 @@ export default function GenreSelect(props: {
       </select>
     </>
   );
-}
+});
+
+export default MemoizedGenreSelect;
