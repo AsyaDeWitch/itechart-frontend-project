@@ -1,15 +1,14 @@
 import { ChangeEventHandler, FocusEventHandler, memo } from "react";
 import "./inputNumberText.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedInputNumberText = memo(function InputNumberText(props: {
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  value: number;
-  label: string;
-  name: string;
-  onBlur: FocusEventHandler;
-}): JSX.Element {
-  return (
+const MemoizedInputNumberText = memo(
+  (props: {
+    onChange: ChangeEventHandler<HTMLInputElement>;
+    value: number;
+    label: string;
+    name: string;
+    onBlur: FocusEventHandler;
+  }): JSX.Element => (
     <>
       <label htmlFor={`"input-number"${props.label}`} className="labelText">
         {props.label}
@@ -25,7 +24,9 @@ const MemoizedInputNumberText = memo(function InputNumberText(props: {
         onBlur={props.onBlur}
       />
     </>
-  );
-});
+  )
+);
+
+MemoizedInputNumberText.displayName = "InputNumberText";
 
 export default MemoizedInputNumberText;

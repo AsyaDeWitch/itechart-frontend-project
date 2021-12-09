@@ -5,14 +5,13 @@ import CriteriaItem from "@/shared/games/criteriaItem";
 import "./sortPanel.scss";
 import TypeItem from "@/shared/games/typeItem";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedSortPanel = memo(function SortPanel(props: {
-  criteriaValue: string;
-  typeValue: string;
-  OnCriteriaChange: ChangeEventHandler<HTMLSelectElement>;
-  OnTypeChange: ChangeEventHandler<HTMLSelectElement>;
-}): JSX.Element {
-  return (
+const MemoizedSortPanel = memo(
+  (props: {
+    criteriaValue: string;
+    typeValue: string;
+    OnCriteriaChange: ChangeEventHandler<HTMLSelectElement>;
+    OnTypeChange: ChangeEventHandler<HTMLSelectElement>;
+  }): JSX.Element => (
     <>
       Sort
       <hr />
@@ -53,7 +52,9 @@ const MemoizedSortPanel = memo(function SortPanel(props: {
         </div>
       </div>
     </>
-  );
-});
+  )
+);
+
+MemoizedSortPanel.displayName = "SortPanel";
 
 export default MemoizedSortPanel;

@@ -2,13 +2,8 @@ import Categories from "@/shared/categories/gameCategories";
 import { ChangeEventHandler, memo } from "react";
 import "./platformSelect.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedPlatformSelect = memo(function PlatformSelect(props: {
-  onChange: ChangeEventHandler<HTMLSelectElement>;
-  value: string;
-  platforms: number[];
-}): JSX.Element {
-  return (
+const MemoizedPlatformSelect = memo(
+  (props: { onChange: ChangeEventHandler<HTMLSelectElement>; value: string; platforms: number[] }): JSX.Element => (
     <select id="type-select" className="platform-select" onChange={props.onChange} value={props.value}>
       {props.platforms.map((item: number) => (
         <option
@@ -19,7 +14,9 @@ const MemoizedPlatformSelect = memo(function PlatformSelect(props: {
         </option>
       ))}
     </select>
-  );
-});
+  )
+);
+
+MemoizedPlatformSelect.displayName = "PlatformSelect";
 
 export default MemoizedPlatformSelect;

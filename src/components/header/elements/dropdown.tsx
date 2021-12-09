@@ -5,9 +5,8 @@ import Categories from "@/shared/categories/gameCategories";
 import CategoryItem from "@/shared/categories/categoryItem";
 import { memo } from "react";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedDropdown = memo(function Dropdown(): JSX.Element {
-  return (
+const MemoizedDropdown = memo(
+  (): JSX.Element => (
     <div className="dropdown__content">
       {Categories.map((item: CategoryItem) => (
         <Link key={item.name} className="dropdown__content__link" to={`${RouteItems.Products.url}/${item.name}`}>
@@ -15,7 +14,9 @@ const MemoizedDropdown = memo(function Dropdown(): JSX.Element {
         </Link>
       ))}
     </div>
-  );
-});
+  )
+);
+
+MemoizedDropdown.displayName = "Dropdown";
 
 export default MemoizedDropdown;

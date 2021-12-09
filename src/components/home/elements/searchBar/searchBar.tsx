@@ -1,12 +1,14 @@
 import { ChangeEventHandler, memo } from "react";
 import "./searchBar.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedSearchBar = memo(function SearchBar(props: { onChange: ChangeEventHandler }): JSX.Element {
-  return (
+const MemoizedSearchBar = memo(
+  (props: { onChange: ChangeEventHandler }): JSX.Element => (
     <>
       <input onChange={props.onChange} type="text" id="home-search" placeholder="Search" className="searchBar" />
     </>
-  );
-});
+  )
+);
+
+MemoizedSearchBar.displayName = "SearchBar";
+
 export default MemoizedSearchBar;

@@ -1,5 +1,5 @@
 import Modal from "@/elements/modal";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, memo, useCallback, useEffect, useState } from "react";
 import * as apiProfile from "@/api/apiProfile";
 import { StatusCodes } from "http-status-codes";
 import "./profile.scss";
@@ -41,7 +41,7 @@ const nullUserProfile: TProfile = {
   role: "",
 };
 
-export default function Profile(): JSX.Element {
+const MemoizedProfile = memo((): JSX.Element => {
   const [isShownPasswordChange, setIsShownPasswordChange] = useState(false);
   const [isShownAddressChange, setIsShownAddressChange] = useState(false);
   const [userName, setUserName] = useState("");
@@ -60,7 +60,6 @@ export default function Profile(): JSX.Element {
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   let fileInputRef: HTMLInputElement | null;
 
-  //
   async function getUserProfile() {
     try {
       const response = await apiProfile.getProfile(signInUser.id);
@@ -104,48 +103,54 @@ export default function Profile(): JSX.Element {
     setFormSuccess("");
   }, [userName, description, email, phoneNumber, balance]);
 
-  //
-  const handleInputFocusChange = (): void => {
+  const memoizedInputFocusChangeHandler = useCallback(() => {
     memoizedValidateForm();
-  };
+  }, [userName, description, email, phoneNumber, balance]);
 
-  //
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(event.target.value);
-  };
+  const memoizedEmailChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setEmail(event.target.value);
+    },
+    [email]
+  );
 
-  //
-  const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPhoneNumber(event.target.value);
-  };
+  const memoizedPhoneNumberChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setPhoneNumber(event.target.value);
+    },
+    [phoneNumber]
+  );
 
-  //
-  const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setDescription(event.target.value);
-  };
+  const memoizedDescriptionChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>): void => {
+      setDescription(event.target.value);
+    },
+    [description]
+  );
 
-  //
-  const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setUserName(event.target.value);
-  };
+  const memoizedUserNameChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setUserName(event.target.value);
+    },
+    [userName]
+  );
 
-  //
-  const handleBalanceChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setBalance(Number(event.target.value));
-  };
+  const memoizedBalanceChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setBalance(Number(event.target.value));
+    },
+    [balance]
+  );
 
-  //
-  const handleChangePasswordButtonClick = () => {
+  const memoizedChangePasswordButtonClickHandler = useCallback((): void => {
     setIsShownPasswordChange(true);
-  };
+  }, []);
 
-  //
   const handlePasswordCloseButtonClick = () => {
     setIsShownPasswordChange(false);
     getUserProfile();
   };
 
-  //
   const handleSaveProfileButtonClick = async () => {
     memoizedValidateForm();
     if (isFormValid) {
@@ -182,18 +187,15 @@ export default function Profile(): JSX.Element {
     }
   };
 
-  //
   const handleSkipChangesButtonClick = () => {
     getUserProfile();
     setSelectedImage("");
   };
 
-  //
-  const handleChangeAddressButtonClick = () => {
+  const memoizedChangeAddressButtonClickHandler = useCallback((): void => {
     setIsShownAddressChange(true);
-  };
+  }, []);
 
-  //
   const handleAddressCloseButtonClick = () => {
     setIsShownAddressChange(false);
     getUserProfile();
@@ -207,13 +209,12 @@ export default function Profile(): JSX.Element {
     setIsClearedImage(false);
   };
 
-  //
-  const handleDeleteProfileImageButtonClick = () => {
+  const memoizedDeleteProfileImageButtonClickHandler = useCallback((): void => {
     memoizedValidateForm();
     setImage64(nullImgFile);
     setSelectedImage("");
     setIsClearedImage(true);
-  };
+  }, [userName, description, email, phoneNumber, balance]);
 
   return (
     <div className="profile">
@@ -233,7 +234,7 @@ export default function Profile(): JSX.Element {
             }}
           />
           <ButtonUniversal buttonText="Change profile image" onClick={() => fileInputRef?.click()} />
-          <ButtonUniversal buttonText="Delete profile image" onClick={handleDeleteProfileImageButtonClick} />
+          <ButtonUniversal buttonText="Delete profile image" onClick={memoizedDeleteProfileImageButtonClickHandler} />
         </div>
 
         <div className="profile__area__inputs">
@@ -244,44 +245,44 @@ export default function Profile(): JSX.Element {
             placeholder="Name"
             label="Name"
             name="userName"
-            onChange={handleUserNameChange}
+            onChange={memoizedUserNameChangeHandler}
             value={userName}
-            onBlur={handleInputFocusChange}
+            onBlur={memoizedInputFocusChangeHandler}
           />
           <InputProfileText
             type="text"
             placeholder="Email"
             label="Email"
             name="email"
-            onChange={handleEmailChange}
+            onChange={memoizedEmailChangeHandler}
             value={email}
-            onBlur={handleInputFocusChange}
+            onBlur={memoizedInputFocusChangeHandler}
           />
           <InputProfileText
             type="text"
             placeholder="Phone number"
             label="Phone number"
             name="phoneNumber"
-            onChange={handlePhoneNumberChange}
+            onChange={memoizedPhoneNumberChangeHandler}
             value={phoneNumber}
-            onBlur={handleInputFocusChange}
+            onBlur={memoizedInputFocusChangeHandler}
           />
           <InputProfileText
             type="number"
             placeholder="Balance"
             label="Balance"
             name="balance"
-            onChange={handleBalanceChange}
+            onChange={memoizedBalanceChangeHandler}
             value={balance}
-            onBlur={handleInputFocusChange}
+            onBlur={memoizedInputFocusChangeHandler}
           />
           <TextareaProfileDescription
             placeholder="Description"
             label="Profile description"
             name="description"
-            onChange={handleDescriptionChange}
+            onChange={memoizedDescriptionChangeHandler}
             value={description}
-            onBlur={handleInputFocusChange}
+            onBlur={memoizedInputFocusChangeHandler}
           />
         </div>
 
@@ -289,8 +290,8 @@ export default function Profile(): JSX.Element {
           <ButtonUniversal buttonText="Save profile" onClick={handleSaveProfileButtonClick} />
           <ButtonUniversal buttonText="Skip changes" onClick={handleSkipChangesButtonClick} />
           <hr className="profile__area__image__line" />
-          <ButtonUniversal buttonText="Change password" onClick={handleChangePasswordButtonClick} />
-          <ButtonUniversal buttonText="Change address" onClick={handleChangeAddressButtonClick} />
+          <ButtonUniversal buttonText="Change password" onClick={memoizedChangePasswordButtonClickHandler} />
+          <ButtonUniversal buttonText="Change address" onClick={memoizedChangeAddressButtonClickHandler} />
         </div>
       </div>
       {isShownPasswordChange ? (
@@ -308,4 +309,8 @@ export default function Profile(): JSX.Element {
       ) : null}
     </div>
   );
-}
+});
+
+MemoizedProfile.displayName = "Profile";
+
+export default MemoizedProfile;

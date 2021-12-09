@@ -2,13 +2,8 @@ import { ChangeEventHandler, memo } from "react";
 import Ages from "@/mockData/ages.json";
 import "./ageSelect.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedAgeSelect = memo(function AgeSelect(props: {
-  onChange: ChangeEventHandler<HTMLSelectElement>;
-  value: string;
-  label: string;
-}): JSX.Element {
-  return (
+const MemoizedAgeSelect = memo(
+  (props: { onChange: ChangeEventHandler<HTMLSelectElement>; value: string; label: string }): JSX.Element => (
     <>
       <label className="labelText" htmlFor="age-select">
         {props.label}
@@ -21,7 +16,9 @@ const MemoizedAgeSelect = memo(function AgeSelect(props: {
         ))}
       </select>
     </>
-  );
-});
+  )
+);
+
+MemoizedAgeSelect.displayName = "AgeSelect";
 
 export default MemoizedAgeSelect;

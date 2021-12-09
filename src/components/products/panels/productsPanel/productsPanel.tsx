@@ -3,9 +3,8 @@ import { memo } from "react";
 import GameCardsContainer from "../../cards/gameCardsContainer";
 import "./productsPanel.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedProductsPanel = memo(function ProductsPanel(props: { productItems: ProductItem[] }): JSX.Element {
-  return (
+const MemoizedProductsPanel = memo(
+  (props: { productItems: ProductItem[] }): JSX.Element => (
     <div className="productsPanel">
       Products
       <hr />
@@ -15,7 +14,9 @@ const MemoizedProductsPanel = memo(function ProductsPanel(props: { productItems:
         <GameCardsContainer productItems={props.productItems} />
       )}
     </div>
-  );
-});
+  )
+);
+
+MemoizedProductsPanel.displayName = "ProductsPanel";
 
 export default MemoizedProductsPanel;

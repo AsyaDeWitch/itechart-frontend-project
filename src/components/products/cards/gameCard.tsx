@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./gameCard.scss";
 import * as apiCart from "@/api/apiCart";
 import SmallButton from "@/components/products/elements/smallButton/smallButton";
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import Modal from "@/elements/modal";
 import { setCartData } from "@/redux/slices/cartSlice";
 import CartItem from "@/shared/types/cartItem";
@@ -15,13 +15,12 @@ import ProductModal from "../modals/productModal";
 const nullItems: CartItem[] = [];
 const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedGameCard = memo(function GameCard(props: { productItem: ProductItem; image: string }): JSX.Element {
+const MemoizedGameCard = memo((props: { productItem: ProductItem; image: string }): JSX.Element => {
   const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const [isShownConfirmation, setIsShownConfirmation] = useState(false);
   const [isShownProductModal, setIsShownProductModal] = useState(false);
   const dispatch = useDispatch();
-  //
+
   const handleAddToCartButtonClick = async () => {
     try {
       await apiCart.addProductToCart(signInUser.id, props.productItem, props.productItem.platform[0]);
@@ -36,22 +35,21 @@ const MemoizedGameCard = memo(function GameCard(props: { productItem: ProductIte
       alert("Something went wrong");
     }
   };
-  //
-  const handleEditButtonClick = () => {
+  const memoizedEditButtonClickHandler = useCallback(() => {
     setIsShownProductModal(true);
-  };
-  //
-  const handleEditButtonCloseClick = () => {
+  }, []);
+
+  const memoizedEditButtonCloseClickHandler = useCallback(() => {
     setIsShownProductModal(false);
-  };
-  //
-  const handleRemoveButtonClick = () => {
+  }, []);
+
+  const memoizedRemoveButtonClickHandler = useCallback(() => {
     setIsShownConfirmation(true);
-  };
-  //
-  const handleRemoveButtonCloseClick = () => {
+  }, []);
+
+  const memoizedRemoveButtonCloseClickHandler = useCallback(() => {
     setIsShownConfirmation(false);
-  };
+  }, []);
 
   return (
     <>
@@ -76,8 +74,8 @@ const MemoizedGameCard = memo(function GameCard(props: { productItem: ProductIte
               <div className="game-card__back__admin-button-holder">
                 <SmallButton onClick={handleAddToCartButtonClick} buttonText="Add to cart" />
                 <div className="game-card__back__admin-button-holder__inline">
-                  <SmallButton onClick={handleEditButtonClick} buttonText="Edit" />
-                  <SmallButton onClick={handleRemoveButtonClick} buttonText="Remove" />
+                  <SmallButton onClick={memoizedEditButtonClickHandler} buttonText="Edit" />
+                  <SmallButton onClick={memoizedRemoveButtonClickHandler} buttonText="Remove" />
                 </div>
               </div>
             ) : (
@@ -93,18 +91,20 @@ const MemoizedGameCard = memo(function GameCard(props: { productItem: ProductIte
           <ConfirmationModal
             productId={props.productItem.id}
             productName={props.productItem.name}
-            onButtonCloseClick={handleRemoveButtonCloseClick}
-            onButtonYesClick={handleRemoveButtonCloseClick}
+            onButtonCloseClick={memoizedRemoveButtonCloseClickHandler}
+            onButtonYesClick={memoizedRemoveButtonCloseClickHandler}
           />
         </Modal>
       ) : null}
       {isShownProductModal ? (
         <Modal>
-          <ProductModal oldProduct={props.productItem} onButtonCloseClick={handleEditButtonCloseClick} />
+          <ProductModal oldProduct={props.productItem} onButtonCloseClick={memoizedEditButtonCloseClickHandler} />
         </Modal>
       ) : null}
     </>
   );
 });
+
+MemoizedGameCard.displayName = "GameCard";
 
 export default MemoizedGameCard;

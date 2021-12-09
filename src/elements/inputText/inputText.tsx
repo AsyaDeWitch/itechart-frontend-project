@@ -1,17 +1,16 @@
 import { ChangeEventHandler, FocusEventHandler, memo } from "react";
 import "./inputText.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedInputText = memo(function InputText(props: {
-  onChange: ChangeEventHandler;
-  type: string;
-  placeholder: string;
-  label: string;
-  name: string;
-  value: string;
-  onBlur: FocusEventHandler;
-}): JSX.Element {
-  return (
+const MemoizedInputText = memo(
+  (props: {
+    onChange: ChangeEventHandler;
+    type: string;
+    placeholder: string;
+    label: string;
+    name: string;
+    value: string;
+    onBlur: FocusEventHandler;
+  }): JSX.Element => (
     <>
       <label htmlFor={`"input-text"${props.label}`} className="labelText">
         {props.label}
@@ -27,7 +26,9 @@ const MemoizedInputText = memo(function InputText(props: {
         onBlur={props.onBlur}
       />
     </>
-  );
-});
+  )
+);
+
+MemoizedInputText.displayName = "InputText";
 
 export default MemoizedInputText;

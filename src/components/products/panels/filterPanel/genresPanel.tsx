@@ -3,12 +3,8 @@ import GenreItem from "@/shared/games/genreItem";
 import { ChangeEventHandler, memo } from "react";
 import "./filterPanel.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedGenresPanel = memo(function GenresPanel(props: {
-  value: string;
-  OnChange: ChangeEventHandler<HTMLInputElement>;
-}): JSX.Element {
-  return (
+const MemoizedGenresPanel = memo(
+  (props: { value: string; OnChange: ChangeEventHandler<HTMLInputElement> }): JSX.Element => (
     <>
       Genres
       <hr />
@@ -35,7 +31,9 @@ const MemoizedGenresPanel = memo(function GenresPanel(props: {
         ))}
       </div>
     </>
-  );
-});
+  )
+);
+
+MemoizedGenresPanel.displayName = "GenresPanel";
 
 export default MemoizedGenresPanel;

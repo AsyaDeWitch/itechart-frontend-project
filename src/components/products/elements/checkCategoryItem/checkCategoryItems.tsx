@@ -3,13 +3,12 @@ import Categories from "@/shared/categories/gameCategories";
 import { memo } from "react";
 import CheckCategoryItem from "./checkCategoryItem";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedCheckCategoryItems = memo(function CheckCategoryItems(props: {
-  onCheckedItemsUpdate: (categoryId: number, checked: boolean) => void;
-  label: string;
-  checkedPlatforms: number[];
-}): JSX.Element {
-  return (
+const MemoizedCheckCategoryItems = memo(
+  (props: {
+    onCheckedItemsUpdate: (categoryId: number, checked: boolean) => void;
+    label: string;
+    checkedPlatforms: number[];
+  }): JSX.Element => (
     <>
       <label htmlFor={`"checkboxes"${props.label}`} className="labelText">
         {props.label}
@@ -26,7 +25,9 @@ const MemoizedCheckCategoryItems = memo(function CheckCategoryItems(props: {
         ))}
       </div>
     </>
-  );
-});
+  )
+);
+
+MemoizedCheckCategoryItems.displayName = "CheckCategoryItems";
 
 export default MemoizedCheckCategoryItems;

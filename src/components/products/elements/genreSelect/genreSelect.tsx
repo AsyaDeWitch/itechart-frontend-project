@@ -2,13 +2,8 @@ import Genres from "@/mockData/genres.json";
 import { ChangeEventHandler, memo } from "react";
 import "./genreSelect.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedGenreSelect = memo(function GenreSelect(props: {
-  onChange: ChangeEventHandler<HTMLSelectElement>;
-  value: string;
-  label: string;
-}): JSX.Element {
-  return (
+const MemoizedGenreSelect = memo(
+  (props: { onChange: ChangeEventHandler<HTMLSelectElement>; value: string; label: string }): JSX.Element => (
     <>
       <label className="labelText" htmlFor="genre-select">
         {props.label}
@@ -21,7 +16,9 @@ const MemoizedGenreSelect = memo(function GenreSelect(props: {
         ))}
       </select>
     </>
-  );
-});
+  )
+);
+
+MemoizedGenreSelect.displayName = "GenreSelect";
 
 export default MemoizedGenreSelect;

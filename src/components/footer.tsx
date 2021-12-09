@@ -11,9 +11,8 @@ import imgSony from "images/companiesIcons/sony.png";
 import imgTencent from "images/companiesIcons/tencent.png";
 import { memo } from "react";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedFooter = memo(function Footer(): JSX.Element {
-  return (
+const MemoizedFooter = memo(
+  (): JSX.Element => (
     <div>
       <footer className="footer">
         <hr />
@@ -72,7 +71,9 @@ const MemoizedFooter = memo(function Footer(): JSX.Element {
         </ul>
       </footer>
     </div>
-  );
-});
+  )
+);
+
+MemoizedFooter.displayName = "Footer";
 
 export default MemoizedFooter;

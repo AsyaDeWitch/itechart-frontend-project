@@ -40,12 +40,10 @@ export default class Home extends PureComponent<Props, State> {
     }
   }
 
-  //
   handleFoundGamesClear = (): void => {
     this.setState({ foundGames: [] });
   };
 
-  //
   handleFoundGamesChange = (data: AxiosResponse["data"]): void => {
     this.setState({ foundGames: data });
   };
@@ -55,7 +53,6 @@ export default class Home extends PureComponent<Props, State> {
     this.setState({ isLoading: false });
   }, 1000);
 
-  //
   handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     this.setState({ isLoading: true });
     this.handleDebouncedSearchChange(event);

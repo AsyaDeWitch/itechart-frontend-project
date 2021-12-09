@@ -3,12 +3,8 @@ import AgeItem from "@/shared/games/ageItem";
 import { ChangeEventHandler, memo } from "react";
 import "./filterPanel.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedAgePanel = memo(function AgePanel(props: {
-  value: string;
-  OnChange: ChangeEventHandler<HTMLInputElement>;
-}): JSX.Element {
-  return (
+const MemoizedAgePanel = memo(
+  (props: { value: string; OnChange: ChangeEventHandler<HTMLInputElement> }): JSX.Element => (
     <>
       Age
       <hr />
@@ -35,7 +31,9 @@ const MemoizedAgePanel = memo(function AgePanel(props: {
         ))}
       </div>
     </>
-  );
-});
+  )
+);
+
+MemoizedAgePanel.displayName = "AgePanel";
 
 export default MemoizedAgePanel;

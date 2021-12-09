@@ -1,16 +1,15 @@
 import { ChangeEventHandler, FocusEventHandler, memo } from "react";
 import "./textareaProfileDescription.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedTextareaProfileDescription = memo(function TextareaProfileDescription(props: {
-  onChange: ChangeEventHandler;
-  placeholder: string;
-  label: string;
-  name: string;
-  value: string;
-  onBlur: FocusEventHandler;
-}): JSX.Element {
-  return (
+const MemoizedTextareaProfileDescription = memo(
+  (props: {
+    onChange: ChangeEventHandler;
+    placeholder: string;
+    label: string;
+    name: string;
+    value: string;
+    onBlur: FocusEventHandler;
+  }): JSX.Element => (
     <>
       <label htmlFor={`"input-text"${props.label}`} className="labelProfileDescription">
         {props.label}
@@ -25,7 +24,9 @@ const MemoizedTextareaProfileDescription = memo(function TextareaProfileDescript
         onBlur={props.onBlur}
       />
     </>
-  );
-});
+  )
+);
+
+MemoizedTextareaProfileDescription.displayName = "TextareaProfileDescription";
 
 export default MemoizedTextareaProfileDescription;

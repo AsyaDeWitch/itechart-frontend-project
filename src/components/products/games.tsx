@@ -2,7 +2,7 @@ import RouteItems from "@/shared/routes/items/routeItems";
 import { Redirect, useParams } from "react-router-dom";
 import Categories from "@/shared/categories/gameCategories";
 import "./games.scss";
-import { ChangeEvent, useState, MouseEvent } from "react";
+import { ChangeEvent, useState, useCallback } from "react";
 import SearchBar from "@/components/home/elements/searchBar/searchBar";
 import useSearchSuspense from "@/hooks/useSearchSuspense";
 import debounce from "lodash/debounce";
@@ -43,33 +43,44 @@ export default function Games(): JSX.Element {
     setSearchName(event.target.value);
   }, 500);
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const memoizedSearchChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
     handleDebouncedSearchChange(event);
-  };
+  }, []);
 
-  const handleSortCriteriaChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSortCriteriaValue(event.target.value);
-  };
+  const memoizedSortCriteriaChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      setSortCriteriaValue(event.target.value);
+    },
+    [sortCriteriaValue]
+  );
 
-  const handleSortTypeChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSortTypeValue(event.target.value);
-  };
+  const memoizedSortTypeChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      setSortTypeValue(event.target.value);
+    },
+    [sortTypeValue]
+  );
 
-  const handleFilterGenreChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFilterGenreValue(event.target.value);
-  };
-  const handleFilterAgeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFilterAgeValue(event.target.value);
-  };
+  const memoizedFilterGenreChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setFilterGenreValue(event.target.value);
+    },
+    [filterGenreValue]
+  );
+  const memoizedFilterAgeChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setFilterAgeValue(event.target.value);
+    },
+    [filterAgeValue]
+  );
 
-  const handleCreateCarduttonClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const memoizedCreateCardButtonClickHandler = useCallback(() => {
     setIsShownAddCard(true);
-    console.log(event);
-  };
+  }, []);
 
-  const handleAddButtonCloseClick = () => {
+  const memoizedAddButtonCloseClickHandler = useCallback(() => {
     setIsShownAddCard(false);
-  };
+  }, []);
 
   return (
     <>
@@ -90,23 +101,23 @@ export default function Games(): JSX.Element {
             <SortPanel
               criteriaValue={sortCriteriaValue}
               typeValue={sortTypeValue}
-              OnCriteriaChange={handleSortCriteriaChange}
-              OnTypeChange={handleSortTypeChange}
+              OnCriteriaChange={memoizedSortCriteriaChangeHandler}
+              OnTypeChange={memoizedSortTypeChangeHandler}
             />
           </div>
           <div className="games__genresPanel">
-            <GenresPanel value={filterGenreValue} OnChange={handleFilterGenreChange} />
+            <GenresPanel value={filterGenreValue} OnChange={memoizedFilterGenreChangeHandler} />
           </div>
           <div className="games__agePanel">
-            <AgePanel value={filterAgeValue} OnChange={handleFilterAgeChange} />
+            <AgePanel value={filterAgeValue} OnChange={memoizedFilterAgeChangeHandler} />
           </div>
         </div>
 
         <div className="games__table">
           <div className="games__table__searchBar">
-            <SearchBar onChange={handleSearchChange} />
+            <SearchBar onChange={memoizedSearchChangeHandler} />
             {signInUser.role === "admin" ? (
-              <CreateCardButton onClick={handleCreateCarduttonClick} buttonText="Create card" />
+              <CreateCardButton onClick={memoizedCreateCardButtonClickHandler} buttonText="Create card" />
             ) : null}
           </div>
           {productItems}
@@ -114,7 +125,7 @@ export default function Games(): JSX.Element {
       </div>
       {isShownAddCard ? (
         <Modal>
-          <ProductModal oldProduct={null} onButtonCloseClick={handleAddButtonCloseClick} />
+          <ProductModal oldProduct={null} onButtonCloseClick={memoizedAddButtonCloseClickHandler} />
         </Modal>
       ) : null}
     </>

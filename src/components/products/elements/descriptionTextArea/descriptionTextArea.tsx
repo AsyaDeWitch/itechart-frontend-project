@@ -1,16 +1,15 @@
 import { ChangeEventHandler, FocusEventHandler, memo } from "react";
 import "./descriptionTextArea.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedDescriptionTextArea = memo(function DescriptionTextArea(props: {
-  onChange: ChangeEventHandler;
-  placeholder: string;
-  label: string;
-  name: string;
-  value: string;
-  onBlur: FocusEventHandler;
-}): JSX.Element {
-  return (
+const MemoizedDescriptionTextArea = memo(
+  (props: {
+    onChange: ChangeEventHandler;
+    placeholder: string;
+    label: string;
+    name: string;
+    value: string;
+    onBlur: FocusEventHandler;
+  }): JSX.Element => (
     <>
       <label htmlFor={`"input-text"${props.label}`} className="labelDescription">
         {props.label}
@@ -25,7 +24,9 @@ const MemoizedDescriptionTextArea = memo(function DescriptionTextArea(props: {
         onBlur={props.onBlur}
       />
     </>
-  );
-});
+  )
+);
+
+MemoizedDescriptionTextArea.displayName = "DescriptionTextArea";
 
 export default MemoizedDescriptionTextArea;

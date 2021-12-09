@@ -3,11 +3,8 @@ import { memo } from "react";
 import GameCard from "./gameCard";
 import "./gameCardContainer.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedGameCardsContainer = memo(function GameCardsContainer(props: {
-  productItems: ProductItem[];
-}): JSX.Element {
-  return (
+const MemoizedGameCardsContainer = memo(
+  (props: { productItems: ProductItem[] }): JSX.Element => (
     <>
       <ul className="game__cards-container">
         {props.productItems.map((item: ProductItem) => (
@@ -19,7 +16,9 @@ const MemoizedGameCardsContainer = memo(function GameCardsContainer(props: {
         ))}
       </ul>
     </>
-  );
-});
+  )
+);
+
+MemoizedGameCardsContainer.displayName = "GameCardsContainer";
 
 export default MemoizedGameCardsContainer;

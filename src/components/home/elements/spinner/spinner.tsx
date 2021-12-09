@@ -1,13 +1,14 @@
 import { memo } from "react";
 import "./spinner.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedSpinner = memo(function Spinner(): JSX.Element {
-  return (
+const MemoizedSpinner = memo(
+  (): JSX.Element => (
     <>
       <div className="spinner" />
     </>
-  );
-});
+  )
+);
+
+MemoizedSpinner.displayName = "Spinner";
 
 export default MemoizedSpinner;

@@ -22,7 +22,6 @@ function useSearchSuspense(
   const { products } = useSelector((state: TStore) => state.reducer.productsReducer);
   const dispatch = useDispatch();
 
-  //
   async function getSearchGames() {
     try {
       setIsLoading(true);

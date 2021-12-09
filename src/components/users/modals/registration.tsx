@@ -1,7 +1,7 @@
 import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
 import InputText from "@/elements/inputText/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useCallback } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useCallback, memo } from "react";
 import RouteItems from "@/shared/routes/items/routeItems";
 import { useHistory } from "react-router-dom";
 import "../../../elements/modal.scss";
@@ -11,7 +11,7 @@ import { StatusCodes } from "http-status-codes";
 import { useDispatch } from "react-redux";
 import { setSignInData } from "@/redux/slices/loggingSlice";
 
-export default function Registration(props: { onSignUpButtonCloseClick: MouseEventHandler }): JSX.Element {
+const MemoizedRegistration = memo((props: { onSignUpButtonCloseClick: MouseEventHandler }): JSX.Element => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -34,27 +34,31 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
     }
   }, [userName, password, repeatPassword]);
 
-  //
-  const handleInputFocusChange = (): void => {
+  const memoizedInputFocusChangeHandler = useCallback(() => {
     memoizedValidateForm();
-  };
+  }, [userName, password, repeatPassword]);
 
-  //
-  const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setUserName(event.target.value);
-  };
+  const memoizedUserNameChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setUserName(event.target.value);
+    },
+    [userName]
+  );
 
-  //
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(event.target.value);
-  };
+  const memoizedPasswordChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setPassword(event.target.value);
+    },
+    [password]
+  );
 
-  //
-  const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setRepeatPassword(event.target.value);
-  };
+  const memoizedRepeatPasswordChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setRepeatPassword(event.target.value);
+    },
+    [repeatPassword]
+  );
 
-  //
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     if (isFormValid) {
       try {
@@ -82,35 +86,35 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
         <div className="modal__error">{formErrors}</div>
         <div className="modal__input">
           <InputText
-            onChange={handleUserNameChange}
+            onChange={memoizedUserNameChangeHandler}
             type="text"
             placeholder="Name"
             label="Name"
             name="userName"
             value={userName}
-            onBlur={handleInputFocusChange}
+            onBlur={memoizedInputFocusChangeHandler}
           />
         </div>
         <div className="modal__input">
           <InputText
-            onChange={handlePasswordChange}
+            onChange={memoizedPasswordChangeHandler}
             type="password"
             placeholder="Password"
             label="Password"
             name="password"
             value={password}
-            onBlur={handleInputFocusChange}
+            onBlur={memoizedInputFocusChangeHandler}
           />
         </div>
         <div className="modal__input">
           <InputText
-            onChange={handleRepeatPasswordChange}
+            onChange={memoizedRepeatPasswordChangeHandler}
             type="password"
             placeholder="Password"
             label="Repeat password"
             name="repeatPassword"
             value={repeatPassword}
-            onBlur={handleInputFocusChange}
+            onBlur={memoizedInputFocusChangeHandler}
           />
         </div>
         <div className="modal__buttonSubmit">
@@ -119,4 +123,8 @@ export default function Registration(props: { onSignUpButtonCloseClick: MouseEve
       </div>
     </div>
   );
-}
+});
+
+MemoizedRegistration.displayName = "Registration";
+
+export default MemoizedRegistration;

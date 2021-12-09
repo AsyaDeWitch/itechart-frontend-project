@@ -1,15 +1,14 @@
 import { ChangeEventHandler, FocusEventHandler, memo } from "react";
 import "./inputDate.scss";
 
-// eslint-disable-next-line prefer-arrow-callback
-const MemoizedInputDate = memo(function InputDate(props: {
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  value: string;
-  label: string;
-  name: string;
-  onBlur: FocusEventHandler;
-}): JSX.Element {
-  return (
+const MemoizedInputDate = memo(
+  (props: {
+    onChange: ChangeEventHandler<HTMLInputElement>;
+    value: string;
+    label: string;
+    name: string;
+    onBlur: FocusEventHandler;
+  }): JSX.Element => (
     <>
       <label htmlFor={`"input-number"${props.label}`} className="labelText">
         {props.label}
@@ -24,7 +23,9 @@ const MemoizedInputDate = memo(function InputDate(props: {
         onBlur={props.onBlur}
       />
     </>
-  );
-});
+  )
+);
+
+MemoizedInputDate.displayName = "InputDate";
 
 export default MemoizedInputDate;
