@@ -1,4 +1,3 @@
-import "./footer.scss";
 import imgBlizzard from "images/companiesIcons/activision-blizzard.png";
 import imgBandai from "images/companiesIcons/bandai.png";
 import imgEA from "images/companiesIcons/electronics-arts.png";
@@ -10,6 +9,7 @@ import imgSega from "images/companiesIcons/sega.png";
 import imgSony from "images/companiesIcons/sony.png";
 import imgTencent from "images/companiesIcons/tencent.png";
 import { memo } from "react";
+import "./footer.scss";
 
 const MemoizedFooter = memo(
   (): JSX.Element => (

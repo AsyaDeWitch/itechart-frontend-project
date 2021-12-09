@@ -32,23 +32,23 @@
       padding: 0.3vw 1.2vw;
       justify-self: center;
       border-radius: 4px;
-    }
 
-    &__link:hover {
-      background-color: $basicThemeColor;
-      transition: all 0.2s ease-out;
-      border-radius: 4px;
-      visibility: visible;
-      display: block;
-    }
+      &:hover {
+        background-color: $basicThemeColor;
+        transition: all 0.2s ease-out;
+        border-radius: 4px;
+        visibility: visible;
+        display: block;
+      }
 
-    &__link:focus {
-      background-color: $basicThemeColor;
-      transition: all 0.2s ease-out;
-      outline: none;
-      border-radius: 4px;
-      visibility: visible;
-      display: block;
+      &:focus {
+        background-color: $basicThemeColor;
+        transition: all 0.2s ease-out;
+        outline: none;
+        border-radius: 4px;
+        visibility: visible;
+        display: block;
+      }
     }
   }
 
