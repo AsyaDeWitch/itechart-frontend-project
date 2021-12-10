@@ -49,10 +49,10 @@ const MemoizedCart = memo((): JSX.Element => {
     }
   };
 
-  const UpdateCart = () => {
+  const memoizedUpdateCart = useCallback(() => {
     GetUserCart();
     GetUserBalance();
-  };
+  }, [GetUserCart, GetUserBalance]);
 
   const memoizedClearMessages = useCallback(() => {
     setErrorMessage("");
@@ -60,7 +60,7 @@ const MemoizedCart = memo((): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    UpdateCart();
+    memoizedUpdateCart();
     setCheckedItems([]);
     memoizedClearMessages();
   }, []);
@@ -70,7 +70,7 @@ const MemoizedCart = memo((): JSX.Element => {
     if (checkedItems.length !== 0) {
       try {
         await apiCart.removeProductsFromCart(signInUser.id, checkedItems);
-        UpdateCart();
+        memoizedUpdateCart();
         setCheckedItems([]);
       } catch {
         setErrorMessage("Something went wrong while removing products from cart");
@@ -86,7 +86,7 @@ const MemoizedCart = memo((): JSX.Element => {
       if (userBalance >= totalPrice) {
         try {
           await apiCart.buyProductsFromCart(signInUser.id, checkedItems, totalPrice);
-          UpdateCart();
+          memoizedUpdateCart();
           setCheckedItems([]);
           setSuccessMessage("Successfully bought products from cart");
         } catch {
@@ -104,7 +104,7 @@ const MemoizedCart = memo((): JSX.Element => {
     memoizedClearMessages();
     try {
       await apiCart.changeProductChoosedPlatformInCart(signInUser.id, cartItem.product, cartItem.choosedPlatform);
-      UpdateCart();
+      memoizedUpdateCart();
     } catch {
       setErrorMessage("Something went wrong while changing product amount");
     }
@@ -120,7 +120,7 @@ const MemoizedCart = memo((): JSX.Element => {
         newCheckedItems[index] = cartItem;
         setCheckedItems(newCheckedItems);
       }
-      UpdateCart();
+      memoizedUpdateCart();
     } catch {
       setErrorMessage("Something went wrong while changing product amount");
     }
