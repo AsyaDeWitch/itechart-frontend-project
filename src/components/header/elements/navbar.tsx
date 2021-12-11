@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../header.scss";
 import RouteItems from "@/shared/routes/items/routeItems";
@@ -13,7 +13,7 @@ import Login from "@/components/users/modals/login";
 import Registration from "@/components/users/modals/registration";
 import Dropdown from "./dropdown";
 
-export default function Navbar(props: { title: string }): JSX.Element {
+const MemoizedNavbar = memo((props: { title: string }): JSX.Element => {
   const [isShownSingIn, setIsShownSingIn] = useState(false);
   const [isShownSignUp, setIsShownSignUp] = useState(false);
   const history = useHistory();
@@ -21,26 +21,26 @@ export default function Navbar(props: { title: string }): JSX.Element {
   const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const { cartItemsQuantity } = useSelector((state: TStore) => state.reducer.cartReducer);
 
-  const handleLogoutButtonClick = () => {
+  const memoizedLogoutButtonClickHandler = useCallback(() => {
     dispatch(setSignOutData());
     history.push(RouteItems.Home.url);
-  };
+  }, []);
 
-  const handleSignInButtonClick = () => {
+  const memoizedSignInButtonClickHandler = useCallback(() => {
     setIsShownSingIn(true);
-  };
+  }, []);
 
-  const handleSignUpButtonClick = () => {
+  const memoizedSignUpButtonClickHandler = useCallback(() => {
     setIsShownSignUp(true);
-  };
+  }, []);
 
-  const handleSignInButtonCloseClick = () => {
+  const memoizedSignInButtonCloseClickHandler = useCallback(() => {
     setIsShownSingIn(false);
-  };
+  }, []);
 
-  const handleSignUpButtonCloseClick = () => {
+  const memoizedSignUpButtonCloseClickHandler = useCallback(() => {
     setIsShownSignUp(false);
-  };
+  }, []);
 
   return (
     <nav className="navbar">
@@ -77,7 +77,7 @@ export default function Navbar(props: { title: string }): JSX.Element {
               </Link>
             </li>
             <li className="navbar__menu__li">
-              <button className="navbar__menu__button" type="button" onClick={handleLogoutButtonClick}>
+              <button className="navbar__menu__button" type="button" onClick={memoizedLogoutButtonClickHandler}>
                 <img className="navbar__menu__icon" src={imgLogout} alt="Logout" />
               </button>
             </li>
@@ -85,12 +85,12 @@ export default function Navbar(props: { title: string }): JSX.Element {
         ) : (
           <>
             <li className="navbar__menu__li">
-              <button className="navbar__menu__button" type="button" onClick={handleSignInButtonClick}>
+              <button className="navbar__menu__button" type="button" onClick={memoizedSignInButtonClickHandler}>
                 Sign In
               </button>
             </li>
             <li className="navbar__menu__li">
-              <button className="navbar__menu__button" type="button" onClick={handleSignUpButtonClick}>
+              <button className="navbar__menu__button" type="button" onClick={memoizedSignUpButtonClickHandler}>
                 Sign Up
               </button>
             </li>
@@ -99,14 +99,18 @@ export default function Navbar(props: { title: string }): JSX.Element {
       </ul>
       {isShownSingIn ? (
         <Modal>
-          <Login onSignInButtonCloseClick={handleSignInButtonCloseClick} />
+          <Login onSignInButtonCloseClick={memoizedSignInButtonCloseClickHandler} />
         </Modal>
       ) : null}
       {isShownSignUp ? (
         <Modal>
-          <Registration onSignUpButtonCloseClick={handleSignUpButtonCloseClick} />
+          <Registration onSignUpButtonCloseClick={memoizedSignUpButtonCloseClickHandler} />
         </Modal>
       ) : null}
     </nav>
   );
-}
+});
+
+MemoizedNavbar.displayName = "Navbar";
+
+export default MemoizedNavbar;

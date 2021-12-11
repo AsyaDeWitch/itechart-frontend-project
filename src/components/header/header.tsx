@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import Navbar from "./elements/navbar";
 
-export default function Header(props: { title: string }): JSX.Element {
+const MemoizedHeader = memo((props: { title: string }): JSX.Element => {
   useEffect(() => {
     document.title = props.title;
   }, []);
@@ -13,4 +13,8 @@ export default function Header(props: { title: string }): JSX.Element {
       </header>
     </div>
   );
-}
+});
+
+MemoizedHeader.displayName = "Header";
+
+export default MemoizedHeader;

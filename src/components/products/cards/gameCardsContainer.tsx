@@ -1,9 +1,10 @@
 import ProductItem from "@/shared/types/productItem";
+import { memo } from "react";
 import GameCard from "./gameCard";
 import "./gameCardContainer.scss";
 
-export default function GameCardsContainer(props: { productItems: ProductItem[] }): JSX.Element {
-  return (
+const MemoizedGameCardsContainer = memo(
+  (props: { productItems: ProductItem[] }): JSX.Element => (
     <>
       <ul className="game__cards-container">
         {props.productItems.map((item: ProductItem) => (
@@ -15,5 +16,9 @@ export default function GameCardsContainer(props: { productItems: ProductItem[] 
         ))}
       </ul>
     </>
-  );
-}
+  )
+);
+
+MemoizedGameCardsContainer.displayName = "GameCardsContainer";
+
+export default MemoizedGameCardsContainer;

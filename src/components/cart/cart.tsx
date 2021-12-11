@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import "./cart.scss";
 import * as apiCart from "@/api/apiCart";
 import * as apiProfile from "@/api/apiProfile";
@@ -7,13 +7,13 @@ import { TStore } from "@/redux/store";
 import Cart from "@/shared/types/cart";
 import CartItem from "@/shared/types/cartItem";
 import { setCartData } from "@/redux/slices/cartSlice";
-import SmallButton from "../products/elements/smallButton";
-import CartTableItem from "./elements/cartTableItem";
+import SmallButton from "../products/elements/smallButton/smallButton";
+import CartTableItem from "./elements/cartTableItem/cartTableItem";
 
 const nullItems: CartItem[] = [];
 const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };
 
-export default function Cart(): JSX.Element {
+const MemoizedCart = memo((): JSX.Element => {
   const { signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const [userBalance, setUserBalance] = useState(0);
   const [checkedItems, setCheckedItems] = useState(nullItems);
@@ -31,7 +31,7 @@ export default function Cart(): JSX.Element {
     [checkedItems, cart]
   );
 
-  const getUserCart = async () => {
+  const GetUserCart = async () => {
     try {
       const response = await apiCart.getProductsInCart(signInUser.id);
       dispatch(setCartData(response.data));
@@ -40,7 +40,7 @@ export default function Cart(): JSX.Element {
     }
   };
 
-  const getUserBalance = async () => {
+  const GetUserBalance = async () => {
     try {
       const response = await apiProfile.getBalance(signInUser.id);
       setUserBalance(response.data);
@@ -49,28 +49,28 @@ export default function Cart(): JSX.Element {
     }
   };
 
-  const updateCart = () => {
-    getUserCart();
-    getUserBalance();
-  };
+  const memoizedUpdateCart = useCallback(() => {
+    GetUserCart();
+    GetUserBalance();
+  }, [GetUserCart, GetUserBalance]);
 
-  const clearMessages = () => {
+  const memoizedClearMessages = useCallback(() => {
     setErrorMessage("");
     setSuccessMessage("");
-  };
-
-  useEffect(() => {
-    updateCart();
-    setCheckedItems([]);
-    clearMessages();
   }, []);
 
-  const handleRemoveButtonClick = async () => {
-    clearMessages();
+  useEffect(() => {
+    memoizedUpdateCart();
+    setCheckedItems([]);
+    memoizedClearMessages();
+  }, []);
+
+  const RemoveButtonClickHandler = async () => {
+    memoizedClearMessages();
     if (checkedItems.length !== 0) {
       try {
         await apiCart.removeProductsFromCart(signInUser.id, checkedItems);
-        updateCart();
+        memoizedUpdateCart();
         setCheckedItems([]);
       } catch {
         setErrorMessage("Something went wrong while removing products from cart");
@@ -80,13 +80,13 @@ export default function Cart(): JSX.Element {
     }
   };
 
-  const handleBuyButtonClick = async () => {
-    clearMessages();
+  const BuyButtonClickHandler = async () => {
+    memoizedClearMessages();
     if (checkedItems.length !== 0) {
       if (userBalance >= totalPrice) {
         try {
           await apiCart.buyProductsFromCart(signInUser.id, checkedItems, totalPrice);
-          updateCart();
+          memoizedUpdateCart();
           setCheckedItems([]);
           setSuccessMessage("Successfully bought products from cart");
         } catch {
@@ -100,17 +100,18 @@ export default function Cart(): JSX.Element {
     }
   };
 
-  const handleProductCategoryChange = async (cartItem: CartItem) => {
-    clearMessages();
+  const ProductCategoryChangeHandler = async (cartItem: CartItem) => {
+    memoizedClearMessages();
     try {
       await apiCart.changeProductChoosedPlatformInCart(signInUser.id, cartItem.product, cartItem.choosedPlatform);
+      memoizedUpdateCart();
     } catch {
       setErrorMessage("Something went wrong while changing product amount");
     }
   };
 
-  const handleProductAmountChange = async (cartItem: CartItem) => {
-    clearMessages();
+  const ProductAmountChange = async (cartItem: CartItem) => {
+    memoizedClearMessages();
     try {
       await apiCart.changeProductQuantityInCart(signInUser.id, cartItem.product, cartItem.amount);
       const index = checkedItems.findIndex((item) => item.id === cartItem.id);
@@ -119,21 +120,24 @@ export default function Cart(): JSX.Element {
         newCheckedItems[index] = cartItem;
         setCheckedItems(newCheckedItems);
       }
-      updateCart();
+      memoizedUpdateCart();
     } catch {
       setErrorMessage("Something went wrong while changing product amount");
     }
   };
 
-  const handleCheckedItemsUpdate = (cartItem: CartItem, checked: boolean) => {
-    clearMessages();
-    if (checked) {
-      const newCheckedItems = [...checkedItems, cartItem];
-      setCheckedItems(newCheckedItems);
-    } else {
-      setCheckedItems(checkedItems.filter((item) => item.id !== cartItem.id));
-    }
-  };
+  const memoizedCheckedItemsUpdateHandler = useCallback(
+    (cartItem: CartItem, checked: boolean) => {
+      memoizedClearMessages();
+      if (checked) {
+        const newCheckedItems = [...checkedItems, cartItem];
+        setCheckedItems(newCheckedItems);
+      } else {
+        setCheckedItems(checkedItems.filter((item) => item.id !== cartItem.id));
+      }
+    },
+    [checkedItems]
+  );
 
   return (
     <div className="cart">
@@ -168,16 +172,16 @@ export default function Cart(): JSX.Element {
                 {cart.items.map((item) => (
                   <CartTableItem
                     key={item.id}
-                    onProductCategoryChange={handleProductCategoryChange}
-                    onProductAmountChange={handleProductAmountChange}
-                    onCheckedItemsUpdate={handleCheckedItemsUpdate}
+                    onProductCategoryChange={ProductCategoryChangeHandler}
+                    onProductAmountChange={ProductAmountChange}
+                    onCheckedItemsUpdate={memoizedCheckedItemsUpdateHandler}
                     cartItem={item}
                   />
                 ))}
               </tbody>
             </table>
             <div className="cart__remove-button">
-              <SmallButton onClick={handleRemoveButtonClick} buttonText="Remove" />
+              <SmallButton onClick={RemoveButtonClickHandler} buttonText="Remove" />
             </div>
           </div>
           <hr />
@@ -185,11 +189,15 @@ export default function Cart(): JSX.Element {
             <p className="cart__balance-part__cost">{`Games cost:  ${totalPrice}$`}</p>
             <p className="cart__balance-part__balance">{`Your balance:  ${userBalance}$`}</p>
             <div className="cart__balance-part__buy-button">
-              <SmallButton onClick={handleBuyButtonClick} buttonText="Buy" />
+              <SmallButton onClick={BuyButtonClickHandler} buttonText="Buy" />
             </div>
           </div>
         </>
       )}
     </div>
   );
-}
+});
+
+MemoizedCart.displayName = "Cart";
+
+export default MemoizedCart;

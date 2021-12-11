@@ -3,8 +3,8 @@ import * as apiProducts from "@/api/apiProducts";
 import debounce from "lodash/debounce";
 import { AxiosResponse } from "axios";
 import GameCardsContainer from "@/components/products/cards/gameCardsContainer";
-import SearchBar from "./elements/searchBar";
-import Spinner from "./elements/spinner";
+import SearchBar from "./elements/searchBar/searchBar";
+import Spinner from "./elements/spinner/spinner";
 import "./home.scss";
 import CategoryCardsContainer from "./categoryCards/categoryCardsContainer";
 

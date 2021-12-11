@@ -9,9 +9,10 @@ import imgRockstar from "images/companiesIcons/rockstar.png";
 import imgSega from "images/companiesIcons/sega.png";
 import imgSony from "images/companiesIcons/sony.png";
 import imgTencent from "images/companiesIcons/tencent.png";
+import { memo } from "react";
 
-export default function Footer(): JSX.Element {
-  return (
+const MemoizedFooter = memo(
+  (): JSX.Element => (
     <div>
       <footer className="footer">
         <hr />
@@ -70,5 +71,9 @@ export default function Footer(): JSX.Element {
         </ul>
       </footer>
     </div>
-  );
-}
+  )
+);
+
+MemoizedFooter.displayName = "Footer";
+
+export default MemoizedFooter;

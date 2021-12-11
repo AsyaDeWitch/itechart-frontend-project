@@ -1,9 +1,9 @@
-import ButtonSubmit from "@/elements/buttonSubmit";
-import InputText from "@/elements/inputText";
+import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
+import InputText from "@/elements/inputText/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler } from "react";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useCallback, memo } from "react";
 import "../../../elements/modal.scss";
-import ButtonClose from "@/elements/buttonClose";
+import ButtonClose from "@/elements/buttonClose/buttonClose";
 import { joiLoggingSchema } from "@/helpers/formJoiSchema";
 import { StatusCodes } from "http-status-codes";
 import { useDispatch } from "react-redux";
@@ -16,34 +16,43 @@ import Cart from "@/shared/types/cart";
 const nullItems: CartItem[] = [];
 const nullCart: Cart = { id: 0, idUser: 0, items: nullItems };
 
-export default function Login(props: { onSignInButtonCloseClick: MouseEventHandler }): JSX.Element {
+const MemoizedLogin = memo((props: { onSignInButtonCloseClick: MouseEventHandler }): JSX.Element => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const dispatch = useDispatch();
 
-  const validateForm = (): void => {
-    const { error } = joiLoggingSchema.validate({ userName, password });
+  const memoizedValidateForm = useCallback((): void => {
+    const { error } = joiLoggingSchema.validate({
+      userName,
+      password,
+    });
     if (error !== undefined && error.message !== undefined) {
       setFormErrors(error.message as string);
     } else {
       setIsFormValid(true);
       setFormErrors("");
     }
-  };
+  }, [userName, password]);
 
-  const handleInputFocusChange = (): void => {
-    validateForm();
-  };
+  const memoizedInputFocusChangeHandler = useCallback(() => {
+    memoizedValidateForm();
+  }, [userName, password]);
 
-  const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setUserName(event.target.value);
-  };
+  const memoizedUserNameChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setUserName(event.target.value);
+    },
+    [userName]
+  );
 
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(event.target.value);
-  };
+  const memoizedPasswordChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setPassword(event.target.value);
+    },
+    [password]
+  );
 
   const handleButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     if (isFormValid) {
@@ -77,24 +86,24 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
         <div className="modal__error">{formErrors}</div>
         <div className="modal__input">
           <InputText
-            onChange={handleUserNameChange}
+            onChange={memoizedUserNameChangeHandler}
             type="text"
             placeholder="Name"
             label="Name"
             name="userName"
             value={userName}
-            onBlur={handleInputFocusChange}
+            onBlur={memoizedInputFocusChangeHandler}
           />
         </div>
         <div className="modal__input">
           <InputText
-            onChange={handlePasswordChange}
+            onChange={memoizedPasswordChangeHandler}
             type="password"
             placeholder="Password"
             label="Password"
             name="password"
             value={password}
-            onBlur={handleInputFocusChange}
+            onBlur={memoizedInputFocusChangeHandler}
           />
         </div>
         <div className="modal__buttonSubmit">
@@ -103,4 +112,8 @@ export default function Login(props: { onSignInButtonCloseClick: MouseEventHandl
       </div>
     </div>
   );
-}
+});
+
+MemoizedLogin.displayName = "Login";
+
+export default MemoizedLogin;
