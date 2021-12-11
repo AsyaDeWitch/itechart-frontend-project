@@ -19,10 +19,10 @@ import Cart from "@/shared/types/cart";
 export default webpackMockServer.add((app) => {
   // Product part
   app.get("/api/search", (req, res) => {
-    const responce = JsonGames.filter((game) =>
+    const response = JsonGames.filter((game) =>
       game.name.toLowerCase().includes((req.query.text as string).toLowerCase())
     );
-    res.json(responce);
+    res.json(response);
   });
 
   app.get("/api/getTopProducts", (_req, res) => {

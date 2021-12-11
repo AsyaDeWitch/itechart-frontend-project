@@ -55,19 +55,19 @@
     &__li {
       text-decoration: none;
       text-align: center;
-    }
 
-    &__li:hover {
-      background-color: $basicThemeColor;
-      border-radius: 4px;
-      transition: all 0.2s ease-out;
-    }
+      &:hover {
+        background-color: $basicThemeColor;
+        border-radius: 4px;
+        transition: all 0.2s ease-out;
+      }
 
-    &__li:focus {
-      background-color: $basicThemeColor;
-      border-radius: 4px;
-      transition: all 0.2s ease-out;
-      outline: none;
+      &:focus {
+        background-color: $basicThemeColor;
+        border-radius: 4px;
+        transition: all 0.2s ease-out;
+        outline: none;
+      }
     }
 
     &__icon {
