@@ -1,7 +1,7 @@
-import CategoryItem from "@/shared/categories/categoryItem";
-import RouteItems from "@/shared/routes/items/routeItems";
 import { memo } from "react";
 import { Link } from "react-router-dom";
+import CategoryItem from "@/shared/categories/categoryItem";
+import RouteItems from "@/shared/routes/items/routeItems";
 import "./categoryCard.scss";
 
 const MemoizedCategoryCard = memo(

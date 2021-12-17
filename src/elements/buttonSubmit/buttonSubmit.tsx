@@ -1,5 +1,6 @@
+// identity-obj-proxy
 import { memo, MouseEventHandler } from "react";
-import "./buttonSubmit.scss";
+// import "./buttonSubmit.scss";
 
 const MemoizedButtonSubmit = memo(
   (props: { onClick: MouseEventHandler<HTMLButtonElement> }): JSX.Element => (

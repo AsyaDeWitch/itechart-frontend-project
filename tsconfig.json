@@ -25,5 +25,5 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "exclude": ["node_modules", "dist", "build", ".vscode"]
+  "exclude": ["node_modules", "dist", "build", ".vscode", "src/tests"]
 }
