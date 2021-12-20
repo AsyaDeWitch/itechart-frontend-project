@@ -1,5 +1,5 @@
-import Categories from "@/shared/categories/gameCategories";
 import { ChangeEventHandler, memo } from "react";
+import Categories from "@/shared/categories/gameCategories";
 import "./platformSelect.scss";
 
 const MemoizedPlatformSelect = memo(

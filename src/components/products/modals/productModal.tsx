@@ -1,6 +1,8 @@
+import { useState, MouseEvent, MouseEventHandler, useEffect, useMemo, ChangeEvent, useCallback, memo } from "react";
+import { StatusCodes } from "http-status-codes";
+import { useDispatch } from "react-redux";
 import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
 import InputText from "@/elements/inputText/inputText";
-import { useState, MouseEvent, MouseEventHandler, useEffect, useMemo, ChangeEvent, useCallback, memo } from "react";
 import "../../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose/buttonClose";
 import ProductItem from "@/shared/types/productItem";
@@ -10,8 +12,6 @@ import Ages from "@/mockData/ages.json";
 import Genres from "@/mockData/genres.json";
 import Modal from "@/elements/modal";
 import * as apiProducts from "@/api/apiProducts";
-import { StatusCodes } from "http-status-codes";
-import { useDispatch } from "react-redux";
 import { setIsNeedToUpdate } from "@/redux/slices/productsSlice";
 import InputNumberText from "../elements/inputNumberText/inputNumberText";
 import InputDate from "../elements/inputDate/inputDate";

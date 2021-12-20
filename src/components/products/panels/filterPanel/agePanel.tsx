@@ -1,6 +1,6 @@
+import { ChangeEventHandler, memo } from "react";
 import Ages from "@/mockData/ages.json";
 import AgeItem from "@/shared/games/ageItem";
-import { ChangeEventHandler, memo } from "react";
 import "./filterPanel.scss";
 
 const MemoizedAgePanel = memo(

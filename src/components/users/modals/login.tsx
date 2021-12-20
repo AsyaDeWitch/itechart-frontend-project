@@ -1,12 +1,12 @@
+import { StatusCodes } from "http-status-codes";
+import { useDispatch } from "react-redux";
+import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useCallback, memo } from "react";
 import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
 import InputText from "@/elements/inputText/inputText";
 import * as apiAuth from "@/api/apiAuth";
-import { ChangeEvent, useState, MouseEvent, MouseEventHandler, useCallback, memo } from "react";
 import "../../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose/buttonClose";
 import { joiLoggingSchema } from "@/helpers/formJoiSchema";
-import { StatusCodes } from "http-status-codes";
-import { useDispatch } from "react-redux";
 import { setSignInData } from "@/redux/slices/loggingSlice";
 import * as apiCart from "@/api/apiCart";
 import { setCartData } from "@/redux/slices/cartSlice";

@@ -1,6 +1,6 @@
+import { memo } from "react";
 import CategoryItem from "@/shared/categories/categoryItem";
 import Categories from "@/shared/categories/gameCategories";
-import { memo } from "react";
 import CheckCategoryItem from "./checkCategoryItem";
 
 const MemoizedCheckCategoryItems = memo(

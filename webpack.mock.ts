@@ -1,8 +1,8 @@
-import User from "@/shared/types/user";
 import fs from "fs";
 import { StatusCodes } from "http-status-codes";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
+import User from "@/shared/types/user";
 import Profile from "@/shared/types/profile";
 import ProductItem from "@/shared/types/productItem";
 import Genres from "@/mockData/genres.json";
@@ -125,7 +125,6 @@ export default webpackMockServer.add((app) => {
   });
 
   app.delete("/api/product", (req, res) => {
-    console.log(req.query.id);
     JsonGames.splice(
       JsonGames.findIndex((game) => game.id === Number(req.query.id)),
       1

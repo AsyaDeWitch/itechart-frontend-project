@@ -1,11 +1,12 @@
 import { PureComponent, ChangeEvent } from "react";
-import * as apiProducts from "@/api/apiProducts";
 import debounce from "lodash/debounce";
 import { AxiosResponse } from "axios";
+import * as apiProducts from "@/api/apiProducts";
 import GameCardsContainer from "@/components/products/cards/gameCardsContainer";
 import SearchBar from "./elements/searchBar/searchBar";
 import Spinner from "./elements/spinner/spinner";
 import "./home.scss";
+// eslint-disable-next-line import/no-named-as-default
 import CategoryCardsContainer from "./categoryCards/categoryCardsContainer";
 
 interface State {

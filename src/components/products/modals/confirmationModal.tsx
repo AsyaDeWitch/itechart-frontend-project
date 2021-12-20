@@ -1,8 +1,8 @@
-import ButtonClose from "@/elements/buttonClose/buttonClose";
 import { StatusCodes } from "http-status-codes";
 import { MouseEventHandler, MouseEvent, useState, memo } from "react";
-import * as apiProducts from "@/api/apiProducts";
 import { useDispatch, useSelector } from "react-redux";
+import ButtonClose from "@/elements/buttonClose/buttonClose";
+import * as apiProducts from "@/api/apiProducts";
 import { setIsNeedToUpdate } from "@/redux/slices/productsSlice";
 import CartItem from "@/shared/types/cartItem";
 import Cart from "@/shared/types/cart";

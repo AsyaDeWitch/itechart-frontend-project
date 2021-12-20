@@ -1,5 +1,5 @@
-import CartItem from "@/shared/types/cartItem";
 import { ChangeEvent, memo, useCallback, useState } from "react";
+import CartItem from "@/shared/types/cartItem";
 import Categories from "@/shared/categories/gameCategories";
 import PlatformSelect from "../platformSelect/platformSelect";
 import AmountInput from "../amountInput/amountInput";

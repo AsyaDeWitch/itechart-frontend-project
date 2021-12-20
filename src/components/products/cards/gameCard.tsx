@@ -1,10 +1,10 @@
+import { useDispatch, useSelector } from "react-redux";
+import { memo, useCallback, useState } from "react";
 import { TStore } from "@/redux/store";
 import ProductItem from "@/shared/types/productItem";
-import { useDispatch, useSelector } from "react-redux";
 import "./gameCard.scss";
 import * as apiCart from "@/api/apiCart";
 import SmallButton from "@/components/products/elements/smallButton/smallButton";
-import { memo, useCallback, useState } from "react";
 import Modal from "@/elements/modal";
 import { setCartData } from "@/redux/slices/cartSlice";
 import CartItem from "@/shared/types/cartItem";

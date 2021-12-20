@@ -1,12 +1,12 @@
 import { memo, useCallback, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../header.scss";
-import RouteItems from "@/shared/routes/items/routeItems";
 import imgLogout from "images/header/logout.png";
 import imgCart from "images/header/cart.png";
 import imgUser from "images/header/user.png";
-import Modal from "@/elements/modal";
 import { useDispatch, useSelector } from "react-redux";
+import RouteItems from "@/shared/routes/items/routeItems";
+import Modal from "@/elements/modal";
 import { setSignOutData } from "@/redux/slices/loggingSlice";
 import { TStore } from "@/redux/store";
 import Login from "@/components/users/modals/login";

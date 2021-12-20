@@ -1,5 +1,5 @@
-import ProductItem from "@/shared/types/productItem";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import ProductItem from "@/shared/types/productItem";
 
 const nullProductItems: ProductItem[] = [];
 

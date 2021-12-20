@@ -1,12 +1,12 @@
-import RouteItems from "@/shared/routes/items/routeItems";
+import { useSelector } from "react-redux";
+import debounce from "lodash/debounce";
+import { ChangeEvent, useState, useCallback } from "react";
 import { Redirect, useParams } from "react-router-dom";
+import RouteItems from "@/shared/routes/items/routeItems";
 import Categories from "@/shared/categories/gameCategories";
 import "./games.scss";
-import { ChangeEvent, useState, useCallback } from "react";
 import SearchBar from "@/components/home/elements/searchBar/searchBar";
 import useSearchSuspense from "@/hooks/useSearchSuspense";
-import debounce from "lodash/debounce";
-import { useSelector } from "react-redux";
 import { TStore } from "@/redux/store";
 import Modal from "@/elements/modal";
 import SortPanel from "./panels/sortPanel/sortPanel";
