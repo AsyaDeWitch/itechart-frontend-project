@@ -1,5 +1,5 @@
 import { unmountComponentAtNode } from "react-dom";
-import { create } from "react-test-renderer";
+import { act, create } from "react-test-renderer";
 import CheckCategoryItem from "../components/products/elements/checkCategoryItem/checkCategoryItem";
 import CategoryItem from "../shared/categories/categoryItem";
 import Categories from "../shared/categories/gameCategories";
@@ -39,7 +39,9 @@ describe("Check category item", () => {
     expect(element.props.type.includes("checkbox")).toBeTruthy();
     expect(element.props.checked === mockIsChecked).toBeTruthy();
 
-    element.props.onChange();
+    act(() => {
+      element.props.onChange();
+    });
     expect(mockOnCheckedItemsUpdateFunction.mock.calls.length).toBe(1);
   });
 });

@@ -1,5 +1,5 @@
 import { unmountComponentAtNode } from "react-dom";
-import { create } from "react-test-renderer";
+import { act, create } from "react-test-renderer";
 import ButtonSubmit from "../elements/buttonSubmit/buttonSubmit";
 
 let container: Element;
@@ -19,9 +19,14 @@ describe("Submit button", () => {
     const mockOnClickFunction = jest.fn();
     const component = create(<ButtonSubmit onClick={mockOnClickFunction} />);
     const instance = component.root;
+
     const element = instance.findByType("button");
+
     expect(element.props.className.includes("buttonSubmit")).toBeTruthy();
-    element.props.onClick();
+
+    act(() => {
+      element.props.onClick();
+    });
     expect(mockOnClickFunction.mock.calls.length).toBe(1);
   });
 });

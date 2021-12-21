@@ -1,5 +1,5 @@
 import { unmountComponentAtNode } from "react-dom";
-import { create } from "react-test-renderer";
+import { act, create } from "react-test-renderer";
 import InputDate from "../components/products/elements/inputDate/inputDate";
 
 let container: Element;
@@ -42,10 +42,14 @@ describe("Input text", () => {
     expect(element.props.value.includes(mockValue)).toBeTruthy();
     expect(element.props.name.includes(mockName)).toBeTruthy();
 
-    element.props.onBlur();
+    act(() => {
+      element.props.onBlur();
+    });
     expect(mockOnBlurFunction.mock.calls.length).toBe(1);
 
-    element.props.onChange();
+    act(() => {
+      element.props.onChange();
+    });
     expect(mockOnChangeFunction.mock.calls.length).toBe(1);
   });
 });

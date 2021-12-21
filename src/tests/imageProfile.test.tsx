@@ -1,4 +1,4 @@
-import { /* render, */ unmountComponentAtNode } from "react-dom";
+import { unmountComponentAtNode } from "react-dom";
 import renderer from "react-test-renderer";
 import ImageProfile from "../components/users/elements/imageProfile/imageProfile";
 

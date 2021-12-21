@@ -1,5 +1,5 @@
 import { unmountComponentAtNode } from "react-dom";
-import { create, ReactTestInstance } from "react-test-renderer";
+import { act, create, ReactTestInstance } from "react-test-renderer";
 import PlatformSelect from "../components/cart/elements/platformSelect/platformSelect";
 
 let container: Element;
@@ -34,7 +34,9 @@ describe("Platfrom select", () => {
       element.children.map((child) => (child as ReactTestInstance).props.className.includes("platform-select__option"))
     ).toBeTruthy();
 
-    element.props.onChange();
+    act(() => {
+      element.props.onChange();
+    });
     expect(mockOnChangeFunction.mock.calls.length).toBe(1);
   });
 });

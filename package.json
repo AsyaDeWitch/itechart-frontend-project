@@ -57,7 +57,8 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransformer.js"
     },
     "moduleNameMapper": {
-      ".+\\.(scss)$": "identity-obj-proxy"
+      ".+\\.(scss)$": "identity-obj-proxy",
+      "\\.(jpg|jpeg|png|gif)$": "<rootDir>/src/tests/__mocks__/fileMock.ts"
     },
     "moduleDirectories": [
       "node_modules",
@@ -73,6 +74,20 @@
       "css",
       "scss"
     ]
+  },
+  "jest-puppeteer": {
+    "launch": {
+      "dumpio": true,
+      "headless": false,
+      "args": [
+        "--disable-infobars"
+      ],
+      "slowMo": 30
+    },
+    "globals": {
+      "URL": "http://localhost:3000"
+    },
+    "browserContext": "default"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
@@ -123,7 +138,7 @@
     "imagemin-jpegtran": "^7.0.0",
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^10.0.0",
-    "jest": "^27.4.4",
+    "jest": "^27.4.5",
     "lint-staged": "^11.1.1",
     "markdownlint": "^0.23.1",
     "markdownlint-cli": "^0.27.1",
@@ -152,7 +167,7 @@
     "stylelint-scss": "^3.20.1",
     "svg-url-loader": "^7.1.1",
     "terser-webpack-plugin": "^5.1.4",
-    "ts-jest": "^27.1.1",
+    "ts-jest": "^27.1.2",
     "ts-loader": "^9.2.4",
     "tsconfig-paths-webpack-plugin": "^3.5.1",
     "typescript": "^4.4.4",
@@ -172,10 +187,11 @@
     "axios": "^0.24.0",
     "history": "^5.0.1",
     "http-status-codes": "^2.1.4",
-    "jest-puppeteer": "^6.0.2",
+    "jest-puppeteer": "^6.0.3",
     "joi": "^17.4.2",
     "lodash": "^4.17.21",
     "puppeteer": "^13.0.0",
+    "puppeteer-core": "^13.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",

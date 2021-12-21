@@ -10,6 +10,12 @@
       "images/*": ["src/assets/images/*"],
       "fonts/*": ["src/assets/fonts/*"]
     },
+    "types": [
+      "puppeteer",
+      "jest-environment-puppeteer",
+      "jest"
+      // "expect-puppeteer"
+    ],
     "jsx": "react-jsx",
     "allowJs": true,
     "outDir": "",
