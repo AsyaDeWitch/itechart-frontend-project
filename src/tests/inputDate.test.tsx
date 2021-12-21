@@ -38,6 +38,7 @@ describe("Input text", () => {
     expect(label.props.className.includes("labelText")).toBeTruthy();
 
     expect(element.props.className.includes("inputDate")).toBeTruthy();
+    expect(element.props.type.includes("date")).toBeTruthy();
     expect(element.props.value.includes(mockValue)).toBeTruthy();
     expect(element.props.name.includes(mockName)).toBeTruthy();
 

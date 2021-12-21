@@ -1,6 +1,6 @@
 import { unmountComponentAtNode } from "react-dom";
 import { create, ReactTestInstance } from "react-test-renderer";
-import PlatformSelct from "../components/cart/elements/platformSelect/platformSelect";
+import PlatformSelect from "../components/cart/elements/platformSelect/platformSelect";
 
 let container: Element;
 
@@ -14,14 +14,14 @@ afterEach(() => {
   container?.remove();
 });
 
-describe("Input text", () => {
-  test("onChange and onBlur props should be called", () => {
+describe("Platfrom select", () => {
+  test("onChange prop should be called", () => {
     const mockValue = "";
     const mockPlatforms = [1, 2, 3];
     const mockOnChangeFunction = jest.fn();
 
     const component = create(
-      <PlatformSelct onChange={mockOnChangeFunction} value={mockValue} platforms={mockPlatforms} />
+      <PlatformSelect onChange={mockOnChangeFunction} value={mockValue} platforms={mockPlatforms} />
     );
     const instance = component.root;
     const element = instance.findByType("select");
