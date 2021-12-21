@@ -14,7 +14,7 @@ afterEach(() => {
   container?.remove();
 });
 
-describe("Iput text", () => {
+describe("Input text", () => {
   test("onChange and onBlur props should be called", () => {
     const mockType = "text";
     const mockPlaceholder = "Test placeholder";
