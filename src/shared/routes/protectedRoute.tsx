@@ -12,8 +12,6 @@ export default function ProtectedRoute({ ...routeProps }: RouteProps): JSX.Eleme
   const history = useHistory();
   const { isLoggedIn } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
-  console.log(isLoggedIn);
-
   const handleSignInButtonCloseClick = () => {
     setIsShownSingIn(false);
   };

@@ -129,6 +129,7 @@ export default webpackMockServer.add((app) => {
       JsonGames.findIndex((game) => game.id === Number(req.query.id)),
       1
     );
+    JsonGames.sort((a, b) => a.id - b.id);
     fs.writeFile("./src/mockData/games.json", JSON.stringify(JsonGames, null, "\t"), (err) => {
       if (err) throw err;
       console.log("Game was deleted.");
