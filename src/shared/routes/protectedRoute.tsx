@@ -5,26 +5,21 @@ import Login from "@/components/users/modals/login";
 import Modal from "@/elements/modal";
 import Home from "@/components/home/home";
 import { TStore } from "@/redux/store";
+import RouteItems from "./items/routeItems";
 
 export default function ProtectedRoute({ ...routeProps }: RouteProps): JSX.Element {
   const [isShownSingIn, setIsShownSingIn] = useState(true);
   const history = useHistory();
   const { isLoggedIn } = useSelector((state: TStore) => state.reducer.loggingReducer);
 
+  console.log(isLoggedIn);
+
   const handleSignInButtonCloseClick = () => {
     setIsShownSingIn(false);
-    if (!isLoggedIn) {
-      alert("here");
-      // history.push(RouteItems.Home.url);
-    }
   };
 
   if (isLoggedIn) {
     return <Route {...routeProps} />;
-  }
-
-  if (!isLoggedIn) {
-    // history.push(RouteItems.Home.url);
   }
 
   if (isShownSingIn)
@@ -37,5 +32,8 @@ export default function ProtectedRoute({ ...routeProps }: RouteProps): JSX.Eleme
       </>
     );
 
+  if (!isLoggedIn) {
+    history.push(RouteItems.Home.url);
+  }
   return <></>;
 }
