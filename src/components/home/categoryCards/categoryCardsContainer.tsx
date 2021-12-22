@@ -1,12 +1,12 @@
-import Categories from "@/shared/categories/gameCategories";
-import categoryImages from "@/shared/categories/categoryImages";
-import CategoryItem from "@/shared/categories/categoryItem";
 import { memo } from "react";
+import Categories from "../../../shared/categories/gameCategories";
+import categoryImages from "../../../shared/categories/categoryImages";
+import CategoryItem from "../../../shared/categories/categoryItem";
 import CategoryCard from "./categoryCard";
 import "./categoryCardsContainer.scss";
 
-const MemoizedCategoryCardsContainer = memo(
-  (): JSX.Element => (
+export function CategoryCardsContainer(): JSX.Element {
+  return (
     <>
       <ul className="category__cards-container">
         {Categories.map((item: CategoryItem, index) => (
@@ -16,9 +16,7 @@ const MemoizedCategoryCardsContainer = memo(
         ))}
       </ul>
     </>
-  )
-);
+  );
+}
 
-MemoizedCategoryCardsContainer.displayName = "CategoryCardsContainer";
-
-export default MemoizedCategoryCardsContainer;
+export default memo(CategoryCardsContainer);

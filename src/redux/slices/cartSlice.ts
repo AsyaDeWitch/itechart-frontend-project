@@ -1,6 +1,6 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cart from "@/shared/types/cart";
 import CartItem from "@/shared/types/cartItem";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const nullCartItemsQuantity = 0;
 const nullItems: CartItem[] = [];

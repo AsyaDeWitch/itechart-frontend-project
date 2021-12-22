@@ -1,7 +1,35 @@
 @import "normalize.css";
 @import "sanitize.css";
 
-.category {
+.category__cards-container {
+  position: relative;
+  height: 7vw;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  list-style: none;
+  padding: 0;
+  grid-template: auto / repeat(3, 30vw);
+}
+
+.category__card-container {
+  background: $basicDarkThemeColor;
+  align-items: center;
+  justify-items: center;
+  display: inline-grid;
+  height: 7vw;
+  width: 20vw;
+  padding: 0.5vw 1vw 0.5vw 1vw;
+  margin: 0 1vw 0 1vw;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: $basicThemeColor;
+  }
+}
+
+/*.category {
   &__cards-container {
     position: relative;
     height: 7vw;
@@ -29,4 +57,4 @@
       background-color: $basicThemeColor;
     }
   }
-}
+} */

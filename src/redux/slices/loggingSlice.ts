@@ -1,5 +1,5 @@
-import User from "@/shared/types/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import User from "@/shared/types/user";
 
 const nullUserId = 0;
 const nullUser: User = { id: nullUserId, name: "", role: "" };

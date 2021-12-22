@@ -1,5 +1,5 @@
-import ProductItem from "@/shared/types/productItem";
 import { memo } from "react";
+import ProductItem from "@/shared/types/productItem";
 import GameCardsContainer from "../../cards/gameCardsContainer";
 import "./productsPanel.scss";
 

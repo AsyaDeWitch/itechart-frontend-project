@@ -1,6 +1,6 @@
+import { ChangeEventHandler, memo } from "react";
 import Genres from "@/mockData/genres.json";
 import GenreItem from "@/shared/games/genreItem";
-import { ChangeEventHandler, memo } from "react";
 import "./filterPanel.scss";
 
 const MemoizedGenresPanel = memo(

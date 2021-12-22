@@ -1,5 +1,5 @@
-import CategoryItem from "@/shared/categories/categoryItem";
 import { memo, useCallback, useEffect, useState } from "react";
+import CategoryItem from "@/shared/categories/categoryItem";
 import "./checkCategoryItem.scss";
 
 const MemoizedCheckCategoryItem = memo(

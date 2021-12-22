@@ -6,7 +6,6 @@ export async function signIn(userName: string, password: string): Promise<AxiosR
     userName,
     password,
   });
-  console.log(response);
   return response;
 }
 

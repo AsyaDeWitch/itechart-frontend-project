@@ -10,6 +10,11 @@
       "images/*": ["src/assets/images/*"],
       "fonts/*": ["src/assets/fonts/*"]
     },
+    "types": [
+      "puppeteer",
+      "jest-environment-puppeteer",
+      "jest"
+    ],
     "jsx": "react-jsx",
     "allowJs": true,
     "outDir": "",
@@ -25,5 +30,5 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "exclude": ["node_modules", "dist", "build", ".vscode"]
+  "exclude": ["node_modules", "dist", "build", ".vscode", "src/tests"]
 }

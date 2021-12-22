@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image profile Snapshot test should be the same with previous version 1`] = `
+<div
+  className="image-profile__container"
+>
+  <div
+    className="image-profile"
+  >
+    <img
+      alt="Profile"
+      className="image-profile__image"
+      src=""
+    />
+  </div>
+</div>
+`;

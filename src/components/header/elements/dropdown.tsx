@@ -1,9 +1,9 @@
-import RouteItems from "@/shared/routes/items/routeItems";
 import { Link } from "react-router-dom";
+import { memo } from "react";
+import RouteItems from "@/shared/routes/items/routeItems";
 import "./dropdown.scss";
 import Categories from "@/shared/categories/gameCategories";
 import CategoryItem from "@/shared/categories/categoryItem";
-import { memo } from "react";
 
 const MemoizedDropdown = memo(
   (): JSX.Element => (

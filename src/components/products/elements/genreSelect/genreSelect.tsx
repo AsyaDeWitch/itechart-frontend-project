@@ -1,5 +1,5 @@
-import Genres from "@/mockData/genres.json";
 import { ChangeEventHandler, memo } from "react";
+import Genres from "@/mockData/genres.json";
 import "./genreSelect.scss";
 
 const MemoizedGenreSelect = memo(

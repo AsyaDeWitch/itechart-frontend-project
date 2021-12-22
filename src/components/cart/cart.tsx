@@ -1,8 +1,8 @@
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import "./cart.scss";
+import { useDispatch, useSelector } from "react-redux";
 import * as apiCart from "@/api/apiCart";
 import * as apiProfile from "@/api/apiProfile";
-import { useDispatch, useSelector } from "react-redux";
 import { TStore } from "@/redux/store";
 import Cart from "@/shared/types/cart";
 import CartItem from "@/shared/types/cartItem";

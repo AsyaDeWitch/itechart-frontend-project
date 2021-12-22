@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search bar Snapshot test should be the same with previous version 1`] = `
+<input
+  className="searchBar"
+  id="home-search"
+  onChange={[MockFunction]}
+  placeholder="Search"
+  type="text"
+/>
+`;
