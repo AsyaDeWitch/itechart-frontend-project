@@ -42,9 +42,6 @@
     "roots": [
       "<rootDir>/src"
     ],
-    "globals": {
-      "URL": "http://localhost:3000"
-    },
     "testMatch": [
       "**/?(*.)+(spec|test).[t]s[x]"
     ],
@@ -74,20 +71,6 @@
       "css",
       "scss"
     ]
-  },
-  "jest-puppeteer": {
-    "launch": {
-      "dumpio": true,
-      "headless": false,
-      "args": [
-        "--disable-infobars"
-      ],
-      "slowMo": 30
-    },
-    "globals": {
-      "URL": "http://localhost:3000"
-    },
-    "browserContext": "default"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
