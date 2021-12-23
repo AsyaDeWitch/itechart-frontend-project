@@ -48,18 +48,18 @@ const MemoizedNavbar = memo((props: { title: string }): JSX.Element => {
       <ul className="navbar__menu">
         <li className="navbar__menu__li">
           <Link className="navbar__menu__link" to={RouteItems.Home.url}>
-            {RouteItems.Home.id}
+            {RouteItems.Home.name}
           </Link>
         </li>
         <li className="dropdown">
           <Link className="dropdown__link" to={RouteItems.Products.url}>
-            {RouteItems.Products.id}
+            {RouteItems.Products.name}
           </Link>
           <Dropdown />
         </li>
         <li className="navbar__menu__li">
           <Link className="navbar__menu__link" to={RouteItems.About.url}>
-            {RouteItems.About.id}
+            {RouteItems.About.name}
           </Link>
         </li>
         {isLoggedIn ? (
