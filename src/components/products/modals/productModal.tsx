@@ -7,7 +7,6 @@ import "../../../elements/modal.scss";
 import ButtonClose from "@/elements/buttonClose/buttonClose";
 import ProductItem from "@/shared/types/productItem";
 import { joiProductShema } from "@/helpers/formJoiSchema";
-import Categories from "@/shared/categories/gameCategories";
 import Ages from "@/mockData/ages.json";
 import Genres from "@/mockData/genres.json";
 import Modal from "@/elements/modal";
@@ -16,17 +15,23 @@ import { setIsNeedToUpdate } from "@/redux/slices/productsSlice";
 import InputNumberText from "../elements/inputNumberText/inputNumberText";
 import InputDate from "../elements/inputDate/inputDate";
 import DescriptionTextArea from "../elements/descriptionTextArea/descriptionTextArea";
-import GenreSelect from "../elements/genreSelect/genreSelect";
-import AgeSelect from "../elements/ageSelect/ageSelect";
+import UniversalSelect from "../elements/universalSelect/universalSelect";
 import ProductModalButton from "../elements/productModalButton";
 import ConfirmationModal from "./confirmationModal";
 import CheckCategoryItems from "../elements/checkCategoryItem/checkCategoryItems";
+import GenreItem from "@/shared/games/genreItem";
 
 const nullPlatforms: number[] = [];
 const nullImage = "https://www.freeiconspng.com/uploads/no-image-icon-6.png";
+const defaultNewProductId = 0;
 
 const MemoizedProductModal = memo(
   (props: { onButtonCloseClick: MouseEventHandler; oldProduct: ProductItem | null }): JSX.Element => {
+    const getGenreId = (genreName: string): number =>
+      (Genres.find((item: GenreItem) => item.name === genreName) || Genres[0]).id;
+
+    const getAgeId = (ageName: string): number => (Ages.find((item) => item.name === ageName) || Ages[0]).id;
+
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [logo, setLogo] = useState("");
@@ -35,12 +40,9 @@ const MemoizedProductModal = memo(
     const [description, setDescription] = useState("");
     const [platforms, setPlatforms] = useState(nullPlatforms);
     const [genre, setGenre] = useState("");
-    const genreId = useMemo(
-      () => (Categories.find((category) => category.name === genre) || Categories[0]).id,
-      [genre]
-    );
+    const genreId = useMemo(() => getGenreId(genre), [genre]);
     const [age, setAge] = useState("");
-    const ageId = useMemo(() => (Ages.find((item) => item.name === age) || Ages[0]).id, [age]);
+    const ageId = useMemo(() => getAgeId(age), [age]);
     const [isFormValid, setIsFormValid] = useState(false);
     const [formErrors, setFormErrors] = useState("");
     const [isAddModal, setIsAddModal] = useState(false);
@@ -64,6 +66,16 @@ const MemoizedProductModal = memo(
       }
     }, [name, price, dateCreated, totalRating, description, logo]);
 
+    const memoizedGetGenreId = useCallback(
+      (): string => (Genres.find((item: GenreItem) => item.id === props.oldProduct?.genre) || Genres[0]).description,
+      [Genres, props.oldProduct]
+    );
+
+    const memoizedGetAgeId = useCallback(
+      (): string => (Ages.find((item) => item.id === props.oldProduct?.age) || Ages[0]).name,
+      [Genres, props.oldProduct]
+    );
+
     useEffect(() => {
       if (props.oldProduct !== null) {
         setName(props.oldProduct.name);
@@ -73,12 +85,15 @@ const MemoizedProductModal = memo(
         setTotalRating(props.oldProduct.totalRating);
         setDescription(props.oldProduct.description);
         setPlatforms(props.oldProduct.platform);
-        setGenre((Genres.find((item) => item.id === props.oldProduct?.genre) || Genres[0]).description);
-        setAge((Ages.find((item) => item.id === props.oldProduct?.age) || Ages[0]).name);
+        setGenre(memoizedGetGenreId());
+        setAge(memoizedGetAgeId());
       } else {
         setIsAddModal(true);
       }
     }, []);
+
+    const memoizedGetGenreSelectOptions = useCallback((): string[] => Genres.map((item) => item.description), [Genres]);
+    const memoizedGetAgeSelectOptions = useCallback((): string[] => Ages.map((item) => item.name), [Ages]);
 
     const memoizedInputFocusChangeHandler = useCallback(() => {
       memoizedValidateForm();
@@ -86,22 +101,22 @@ const MemoizedProductModal = memo(
 
     const handleSubmitButtonClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
       if (isFormValid) {
+        const product: ProductItem = {
+          id: props.oldProduct?.id || defaultNewProductId,
+          name,
+          platform: platforms,
+          dateCreated: new Date(dateCreated).toISOString(),
+          totalRating,
+          genre: genreId,
+          age: ageId,
+          logo,
+          price,
+          description,
+        };
         if (isAddModal) {
           // create card
           try {
-            const newProduct: ProductItem = {
-              id: 0,
-              name,
-              platform: platforms,
-              dateCreated: new Date(dateCreated).toISOString(),
-              totalRating,
-              genre: genreId,
-              age: ageId,
-              logo,
-              price,
-              description,
-            };
-            const response = await apiProducts.AddNewProduct(newProduct);
+            const response = await apiProducts.AddNewProduct(product);
             if (response.status === StatusCodes.CREATED) {
               dispatch(setIsNeedToUpdate());
               props.onButtonCloseClick(event);
@@ -112,18 +127,6 @@ const MemoizedProductModal = memo(
         } else {
           // edit card
           try {
-            const product: ProductItem = {
-              id: props.oldProduct?.id || 0,
-              name,
-              platform: platforms,
-              dateCreated: new Date(dateCreated).toISOString(),
-              totalRating,
-              genre: genreId,
-              age: ageId,
-              logo,
-              price,
-              description,
-            };
             const response = await apiProducts.EditProduct(product);
             if (response.status === StatusCodes.OK) {
               dispatch(setIsNeedToUpdate());
@@ -297,10 +300,20 @@ const MemoizedProductModal = memo(
                   />
                 </div>
                 <div className="modal__small-select">
-                  <GenreSelect onChange={memoizedGenreChangeHandler} label="Genre" value={genre} />
+                  <UniversalSelect
+                    onChange={memoizedGenreChangeHandler}
+                    label="Genre"
+                    value={genre}
+                    selectOptions={memoizedGetGenreSelectOptions()}
+                  />
                 </div>
                 <div className="modal__small-select">
-                  <AgeSelect onChange={memoizedAgeChangeHandler} label="Age" value={age} />
+                  <UniversalSelect
+                    onChange={memoizedAgeChangeHandler}
+                    label="Age"
+                    value={age}
+                    selectOptions={memoizedGetAgeSelectOptions()}
+                  />
                 </div>
                 <div className="modal__checkboxes-holder">
                   <CheckCategoryItems

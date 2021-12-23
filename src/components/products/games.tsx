@@ -4,25 +4,30 @@ import { ChangeEvent, useState, useCallback } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import RouteItems from "@/shared/routes/items/routeItems";
 import Categories from "@/shared/categories/gameCategories";
+import Ages from "@/mockData/ages.json";
+import Genres from "@/mockData/genres.json";
 import "./games.scss";
 import SearchBar from "@/components/home/elements/searchBar/searchBar";
 import useSearchSuspense from "@/hooks/useSearchSuspense";
 import { TStore } from "@/redux/store";
 import Modal from "@/elements/modal";
 import SortPanel from "./panels/sortPanel/sortPanel";
-import GenresPanel from "./panels/filterPanel/genresPanel";
-import AgePanel from "./panels/filterPanel/agePanel";
+import FilterPanel from "./panels/filterPanel/filterPanel";
 import CreateCardButton from "./elements/createCardButton/createCardButton";
 import ProductModal from "./modals/productModal";
+import PanelItem from "@/shared/games/panelItem";
 
 type Params = {
   category: string;
 };
 
+const initialSortCriteriaValue = "Rating";
+const initialSortTypeValue = "Ascending";
+
 export default function Games(): JSX.Element {
   const { category } = useParams<Params>();
-  const [sortCriteriaValue, setSortCriteriaValue] = useState("Rating");
-  const [sortTypeValue, setSortTypeValue] = useState("Ascending");
+  const [sortCriteriaValue, setSortCriteriaValue] = useState(initialSortCriteriaValue);
+  const [sortTypeValue, setSortTypeValue] = useState(initialSortTypeValue);
   const [filterGenreValue, setFilterGenreValue] = useState("");
   const [filterAgeValue, setFilterAgeValue] = useState("");
   const [searchName, setSearchName] = useState("");
@@ -46,6 +51,9 @@ export default function Games(): JSX.Element {
   const memoizedSearchChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
     handleDebouncedSearchChange(event);
   }, []);
+
+  const memoizedGetGenrePanelItems = useCallback((): PanelItem[] => Genres.map((item) => item as PanelItem), [Genres]);
+  const memoizedGetAgePanelItems = useCallback((): PanelItem[] => Ages.map((item) => item as PanelItem), [Ages]);
 
   const memoizedSortCriteriaChangeHandler = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
@@ -106,10 +114,22 @@ export default function Games(): JSX.Element {
             />
           </div>
           <div className="games__genresPanel">
-            <GenresPanel value={filterGenreValue} OnChange={memoizedFilterGenreChangeHandler} />
+            <FilterPanel
+              value={filterGenreValue}
+              OnChange={memoizedFilterGenreChangeHandler}
+              title="Genre"
+              defaultValueName="All genres"
+              panelItems={memoizedGetGenrePanelItems()}
+            />
           </div>
           <div className="games__agePanel">
-            <AgePanel value={filterAgeValue} OnChange={memoizedFilterAgeChangeHandler} />
+            <FilterPanel
+              value={filterAgeValue}
+              OnChange={memoizedFilterAgeChangeHandler}
+              title="Age"
+              defaultValueName="All ages"
+              panelItems={memoizedGetAgePanelItems()}
+            />
           </div>
         </div>
 

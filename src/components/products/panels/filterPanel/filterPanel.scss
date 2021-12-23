@@ -4,4 +4,26 @@
 .filterPanel {
   font-size: 0.9vw;
   font-weight: normal;
+
+  &__item {
+    align-items: center;
+    text-align: left;
+    height: 1.5vw;
+  }
+
+  &__label {
+    display: inline-flex;
+    justify-content: flex-end;
+    margin: 0.3vw 0.5vw 0.3vw 0;
+  }
+
+  &__checkbox {
+    font-size: 0.9vw;
+    float: left;
+    margin-right: 0.5vw;
+    align-self: start;
+    height: 1.3vw;
+    vertical-align: bottom;
+    position: relative;
+  }
 }
