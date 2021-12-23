@@ -1,6 +1,7 @@
 import { useState, MouseEvent, MouseEventHandler, useEffect, useMemo, ChangeEvent, useCallback, memo } from "react";
 import { StatusCodes } from "http-status-codes";
 import { useDispatch } from "react-redux";
+import moment from "moment";
 import ButtonSubmit from "@/elements/buttonSubmit/buttonSubmit";
 import InputText from "@/elements/inputText/inputText";
 import "../../../elements/modal.scss";
@@ -19,7 +20,7 @@ import UniversalSelect from "../elements/universalSelect/universalSelect";
 import ProductModalButton from "../elements/productModalButton";
 import ConfirmationModal from "./confirmationModal";
 import CheckCategoryItems from "../elements/checkCategoryItem/checkCategoryItems";
-import GenreItem from "@/shared/games/genreItem";
+import GenreItem from "@/shared/types/games/genreItem";
 
 const nullPlatforms: number[] = [];
 const nullImage = "https://www.freeiconspng.com/uploads/no-image-icon-6.png";
@@ -81,7 +82,7 @@ const MemoizedProductModal = memo(
         setName(props.oldProduct.name);
         setPrice(props.oldProduct.price);
         setLogo(props.oldProduct.logo);
-        setDateCreated(new Date(props.oldProduct.dateCreated).toISOString().slice(0, 10));
+        setDateCreated(moment().format("YYYY-MM-DD"));
         setTotalRating(props.oldProduct.totalRating);
         setDescription(props.oldProduct.description);
         setPlatforms(props.oldProduct.platform);

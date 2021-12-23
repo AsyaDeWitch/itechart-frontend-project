@@ -15,7 +15,7 @@ import SortPanel from "./panels/sortPanel/sortPanel";
 import FilterPanel from "./panels/filterPanel/filterPanel";
 import CreateCardButton from "./elements/createCardButton/createCardButton";
 import ProductModal from "./modals/productModal";
-import PanelItem from "@/shared/games/panelItem";
+import PanelItem from "@/shared/types/games/panelItem";
 
 type Params = {
   category: string;

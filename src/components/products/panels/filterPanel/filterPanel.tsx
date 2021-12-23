@@ -1,5 +1,5 @@
 import { ChangeEventHandler, memo } from "react";
-import PanelItem from "@/shared/games/panelItem";
+import PanelItem from "@/shared/types/games/panelItem";
 import "./filterPanel.scss";
 
 const MemoizedAgePanel = memo(
