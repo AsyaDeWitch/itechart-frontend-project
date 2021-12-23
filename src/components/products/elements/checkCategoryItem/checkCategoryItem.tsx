@@ -16,9 +16,7 @@ const MemoizedCheckCategoryItem = memo(
     }, [checked, props.categoryItem, props.onCheckedItemsUpdate]);
 
     useEffect(() => {
-      if (props.isChecked) {
-        setChecked(true);
-      }
+      setChecked(props.isChecked);
     }, [props.isChecked]);
 
     return (
