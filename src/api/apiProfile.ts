@@ -4,7 +4,7 @@ import Profile from "@/shared/types/profile";
 import api from "./apiAxios";
 
 export async function getProfile(id: number): Promise<AxiosResponse> {
-  const response = await api.get("/api/getProfile", {
+  const response = await api.get("/getProfile", {
     params: {
       id,
     },
