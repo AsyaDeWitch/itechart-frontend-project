@@ -1,9 +1,9 @@
-import ProductItem from "@/shared/types/productItem";
 import { AxiosResponse } from "axios";
+import ProductItem from "@/shared/types/productItem";
 import api from "./apiAxios";
 
 export async function searchGames(text: string): Promise<AxiosResponse> {
-  const response = await api.get("/api/search", {
+  const response = await api.get("/search", {
     params: {
       text,
     },
@@ -12,7 +12,7 @@ export async function searchGames(text: string): Promise<AxiosResponse> {
 }
 
 export async function getTopProducts(): Promise<AxiosResponse> {
-  const response = await api.get("/api/getTopProducts");
+  const response = await api.get("/getTopProducts");
   return response;
 }
 
@@ -24,7 +24,7 @@ export async function products(
   searchName: string,
   category: string
 ): Promise<AxiosResponse> {
-  const response = await api.get("/api/products", {
+  const response = await api.get("/products", {
     params: {
       sortType,
       sortDir,
@@ -38,21 +38,21 @@ export async function products(
 }
 
 export async function AddNewProduct(newProduct: ProductItem): Promise<AxiosResponse> {
-  const response = await api.post("/api/product", {
+  const response = await api.post("/product", {
     newProduct,
   });
   return response;
 }
 
 export async function EditProduct(product: ProductItem): Promise<AxiosResponse> {
-  const response = await api.put("/api/product", {
+  const response = await api.put("/product", {
     product,
   });
   return response;
 }
 
 export async function RemoveProduct(id: number): Promise<AxiosResponse> {
-  const response = await api.delete("/api/product", {
+  const response = await api.delete("/product", {
     params: {
       id,
     },

@@ -19,11 +19,12 @@ const MemoizedGameCard = memo((props: { productItem: ProductItem; image: string 
   const { isLoggedIn, signInUser } = useSelector((state: TStore) => state.reducer.loggingReducer);
   const [isShownConfirmation, setIsShownConfirmation] = useState(false);
   const [isShownProductModal, setIsShownProductModal] = useState(false);
+  const { id, name, platform, totalRating, price, description } = props.productItem;
   const dispatch = useDispatch();
 
   const handleAddToCartButtonClick = async () => {
     try {
-      await apiCart.addProductToCart(signInUser.id, props.productItem, props.productItem.platform[0]);
+      await apiCart.addProductToCart(signInUser.id, props.productItem, platform[0]);
       alert("Product successfully added to cart");
       try {
         const response = await apiCart.getProductsInCart(signInUser.id);
@@ -54,18 +55,18 @@ const MemoizedGameCard = memo((props: { productItem: ProductItem; image: string 
   return (
     <>
       <div className="game-card">
-        <img className="game-card__image" src={props.image} alt={props.productItem.name} />
-        <p className="game-card__name">{props.productItem.name}</p>
+        <img className="game-card__image" src={props.image} alt={name} />
+        <p className="game-card__name">{name}</p>
 
         <div className="game-card__info">
-          <span className="game-card__info__name">{`$${props.productItem.price}`}</span>
+          <span className="game-card__info__name">{`$${price}`}</span>
           <span className="game-card__info__star">&#10032;</span>
-          <span className="game-card__info__rating">{props.productItem.totalRating}</span>
+          <span className="game-card__info__rating">{totalRating}</span>
         </div>
       </div>
       <div className="game-card__back">
         <div className="game-card__description__container">
-          <p className="game-card__description">{props.productItem.description}</p>
+          <p className="game-card__description">{description}</p>
         </div>
 
         {isLoggedIn ? (
@@ -89,8 +90,8 @@ const MemoizedGameCard = memo((props: { productItem: ProductItem; image: string 
       {isShownConfirmation ? (
         <Modal>
           <ConfirmationModal
-            productId={props.productItem.id}
-            productName={props.productItem.name}
+            productId={id}
+            productName={name}
             onButtonCloseClick={memoizedRemoveButtonCloseClickHandler}
             onButtonYesClick={memoizedRemoveButtonCloseClickHandler}
           />

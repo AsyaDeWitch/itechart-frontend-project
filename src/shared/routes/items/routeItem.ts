@@ -1,6 +1,6 @@
 type Url = {
   url: string;
-  id: string;
+  name: string;
 };
 
 type RouteItem = {

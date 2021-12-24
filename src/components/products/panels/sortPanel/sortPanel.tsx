@@ -1,9 +1,9 @@
 import { ChangeEventHandler, memo } from "react";
 import Criterias from "@/mockData/criterias.json";
 import SortTypes from "@/mockData/sortTypes.json";
-import CriteriaItem from "@/shared/games/criteriaItem";
+import CriteriaItem from "@/shared/types/games/criteriaItem";
 import "./sortPanel.scss";
-import TypeItem from "@/shared/games/typeItem";
+import TypeItem from "@/shared/types/games/typeItem";
 
 const MemoizedSortPanel = memo(
   (props: {

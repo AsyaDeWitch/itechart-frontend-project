@@ -1,10 +1,10 @@
+import { AxiosResponse } from "axios";
 import CartItem from "@/shared/types/cartItem";
 import ProductItem from "@/shared/types/productItem";
-import { AxiosResponse } from "axios";
 import api from "./apiAxios";
 
 export async function getProductsInCart(id: number): Promise<AxiosResponse> {
-  const response = await api.get("/api/getProductsInCart", {
+  const response = await api.get("/getProductsInCart", {
     params: {
       id,
     },
@@ -18,7 +18,7 @@ export async function buyProductsFromCart(
   totalPrice: number
 ): Promise<AxiosResponse> {
   const productIds = cartItems.map((item) => item.product.id);
-  const response = await api.post("/api/buyProductsFromCart", {
+  const response = await api.post("/buyProductsFromCart", {
     id,
     productIds,
     totalPrice,
@@ -29,7 +29,7 @@ export async function buyProductsFromCart(
 export async function removeProductsFromCart(id: number, cartItems: CartItem[]): Promise<AxiosResponse> {
   const productIds = cartItems.map((item) => item.product.id);
 
-  const response = await api.delete("/api/removeProductsFromCart", {
+  const response = await api.delete("/removeProductsFromCart", {
     params: {
       id,
     },
@@ -41,7 +41,7 @@ export async function removeProductsFromCart(id: number, cartItems: CartItem[]):
 }
 
 export async function addProductToCart(id: number, productItem: ProductItem, platform: number): Promise<AxiosResponse> {
-  const response = await api.post("/api/addProductToCart", {
+  const response = await api.post("/addProductToCart", {
     id,
     productId: productItem.id,
     platform,
@@ -54,7 +54,7 @@ export async function changeProductQuantityInCart(
   productItem: ProductItem,
   amount: number
 ): Promise<AxiosResponse> {
-  const response = await api.post("/api/changeProductQuantityInCart", {
+  const response = await api.post("/changeProductQuantityInCart", {
     id,
     productId: productItem.id,
     amount,
@@ -67,7 +67,7 @@ export async function changeProductChoosedPlatformInCart(
   productItem: ProductItem,
   platformId: number
 ): Promise<AxiosResponse> {
-  const response = await api.post("/api/changeProductChoosedPlatformInCart", {
+  const response = await api.post("/changeProductChoosedPlatformInCart", {
     id,
     productId: productItem.id,
     platformId,
