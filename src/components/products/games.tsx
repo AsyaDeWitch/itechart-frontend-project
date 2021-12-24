@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import debounce from "lodash/debounce";
-import { ChangeEvent, useState, useCallback } from "react";
+import { ChangeEvent, useState, useCallback, useMemo } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import RouteItems from "@/shared/routes/items/routeItems";
 import Categories from "@/shared/categories/gameCategories";
@@ -32,6 +32,8 @@ export default function Games(): JSX.Element {
   const [filterAgeValue, setFilterAgeValue] = useState("");
   const [searchName, setSearchName] = useState("");
   const [isShownAddCard, setIsShownAddCard] = useState(false);
+  const genrePanelItems = useMemo(() => Genres.map((item) => item as PanelItem), [Genres]);
+  const agePanelItems = useMemo(() => Ages.map((item) => item as PanelItem), [Ages]);
   const { isNeedToUpdate } = useSelector((state: TStore) => state.reducer.productsReducer);
   const productItems = useSearchSuspense(
     sortCriteriaValue,
@@ -51,9 +53,6 @@ export default function Games(): JSX.Element {
   const memoizedSearchChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
     handleDebouncedSearchChange(event);
   }, []);
-
-  const memoizedGetGenrePanelItems = useCallback((): PanelItem[] => Genres.map((item) => item as PanelItem), [Genres]);
-  const memoizedGetAgePanelItems = useCallback((): PanelItem[] => Ages.map((item) => item as PanelItem), [Ages]);
 
   const memoizedSortCriteriaChangeHandler = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
@@ -119,7 +118,7 @@ export default function Games(): JSX.Element {
               OnChange={memoizedFilterGenreChangeHandler}
               title="Genre"
               defaultValueName="All genres"
-              panelItems={memoizedGetGenrePanelItems()}
+              panelItems={genrePanelItems}
             />
           </div>
           <div className="games__agePanel">
@@ -128,7 +127,7 @@ export default function Games(): JSX.Element {
               OnChange={memoizedFilterAgeChangeHandler}
               title="Age"
               defaultValueName="All ages"
-              panelItems={memoizedGetAgePanelItems()}
+              panelItems={agePanelItems}
             />
           </div>
         </div>

@@ -28,11 +28,6 @@ const defaultNewProductId = 0;
 
 const MemoizedProductModal = memo(
   (props: { onButtonCloseClick: MouseEventHandler; oldProduct: ProductItem | null }): JSX.Element => {
-    const getGenreId = (genreName: string): number =>
-      (Genres.find((item: GenreItem) => item.name === genreName) || Genres[0]).id;
-
-    const getAgeId = (ageName: string): number => (Ages.find((item) => item.name === ageName) || Ages[0]).id;
-
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [logo, setLogo] = useState("");
@@ -41,9 +36,17 @@ const MemoizedProductModal = memo(
     const [description, setDescription] = useState("");
     const [platforms, setPlatforms] = useState(nullPlatforms);
     const [genre, setGenre] = useState("");
-    const genreId = useMemo(() => getGenreId(genre), [genre]);
+
+    const memoizedGetGenreId = useCallback(
+      (): number => (Genres.find((item: GenreItem) => item.name === genre) || Genres[0]).id,
+      [genre]
+    );
+    const genreId = useMemo(() => memoizedGetGenreId(), [genre]);
+
     const [age, setAge] = useState("");
-    const ageId = useMemo(() => getAgeId(age), [age]);
+    const memoizedGetAgeId = useCallback((): number => (Ages.find((item) => item.name === age) || Ages[0]).id, [age]);
+    const ageId = useMemo(() => memoizedGetAgeId(), [age]);
+
     const [isFormValid, setIsFormValid] = useState(false);
     const [formErrors, setFormErrors] = useState("");
     const [isAddModal, setIsAddModal] = useState(false);
@@ -67,12 +70,12 @@ const MemoizedProductModal = memo(
       }
     }, [name, price, dateCreated, totalRating, description, logo]);
 
-    const memoizedGetGenreId = useCallback(
+    const memoizedGetInitialGenreId = useCallback(
       (): string => (Genres.find((item: GenreItem) => item.id === props.oldProduct?.genre) || Genres[0]).description,
       [Genres, props.oldProduct]
     );
 
-    const memoizedGetAgeId = useCallback(
+    const memoizedGetInitialAgeId = useCallback(
       (): string => (Ages.find((item) => item.id === props.oldProduct?.age) || Ages[0]).name,
       [Genres, props.oldProduct]
     );
@@ -86,8 +89,8 @@ const MemoizedProductModal = memo(
         setTotalRating(props.oldProduct.totalRating);
         setDescription(props.oldProduct.description);
         setPlatforms(props.oldProduct.platform);
-        setGenre(memoizedGetGenreId());
-        setAge(memoizedGetAgeId());
+        setGenre(memoizedGetInitialGenreId());
+        setAge(memoizedGetInitialAgeId());
       } else {
         setIsAddModal(true);
       }
